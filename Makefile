@@ -18,7 +18,7 @@ baseline:
 	$(PYTHON) -m src.classification.baseline --config configs/tfidf.yaml
 
 train-smoke:
-	@echo "train-smoke: not implemented yet (T04)"
+	$(PYTHON) -m src.classification.train --config configs/legal_bert.yaml --smoke
 
 retrieval:
 	@echo "retrieval: not implemented yet (T06)"
