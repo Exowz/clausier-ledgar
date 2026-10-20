@@ -12,7 +12,7 @@ lint:
 	$(PYTHON) -m ruff check .
 
 eda:
-	@echo "eda: not implemented yet (T02)"
+	$(PYTHON) -m src.eda
 
 baseline:
 	@echo "baseline: not implemented yet (T03)"
