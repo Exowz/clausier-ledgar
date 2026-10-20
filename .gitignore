@@ -12,4 +12,5 @@ outputs/**/*.npz
 outputs/**/*.joblib
 outputs/**/model/
 outputs/**/cache/
-outputs/*_smoke/
+outputs/**/*_smoke/
+outputs/**/*.zip

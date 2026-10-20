@@ -66,6 +66,8 @@ def train_one_epoch(
             scaler.update()
         scheduler.step()
         optimizer.zero_grad()
+        if device.type == "mps":
+            torch.mps.empty_cache()  # MPS keeps buffers per batch shape; dynamic padding fills memory otherwise
         loss_value = float(loss.detach())
         batch_size = len(batch["labels"])
         total_loss += loss_value * batch_size
@@ -99,6 +101,8 @@ def predict_loader(model, loader, device, fp16: bool = False) -> tuple[np.ndarra
             total_examples += batch_size
             probabilities.append(torch.softmax(output.logits.float(), dim=-1).cpu().numpy())
             labels.append(batch["labels"].cpu().numpy())
+            if device.type == "mps":
+                torch.mps.empty_cache()
     return (np.concatenate(probabilities).astype(np.float32),
             np.concatenate(labels).astype(np.int64), total_loss / total_examples)
 
@@ -250,13 +254,15 @@ def main(argv: list[str] | None = None) -> None:
     parser.add_argument("--device", choices=("cpu", "mps", "cuda"))
     parser.add_argument("--epochs", type=int)
     parser.add_argument("--batch-size", type=int)
+    parser.add_argument("--eval-batch-size", type=int)
     parser.add_argument("--lr", type=float)
     parser.add_argument("--max-length", type=int)
     parser.add_argument("--n-train", type=int)
     args = parser.parse_args(argv)
     overrides = {key: value for key, value in {
         "run_name": args.run_name, "device": args.device, "epochs": args.epochs,
-        "batch_size": args.batch_size, "lr": args.lr, "max_length": args.max_length,
+        "batch_size": args.batch_size, "eval_batch_size": args.eval_batch_size, "lr": args.lr,
+        "max_length": args.max_length,
         "n_train": args.n_train,
     }.items() if value is not None}
     cfg = load_config(args.config, overrides)

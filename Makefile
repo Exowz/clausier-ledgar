@@ -18,7 +18,7 @@ baseline:
 	$(PYTHON) -m src.classification.baseline --config configs/tfidf.yaml
 
 train-smoke:
-	$(PYTHON) -m src.classification.train --config configs/legal_bert.yaml --smoke
+	$(PYTHON) -m src.classification.train --config configs/legal_bert.yaml --smoke --batch-size 8 --eval-batch-size 32  # small batches fit a 16 GB Mac
 
 retrieval:
 	@echo "retrieval: not implemented yet (T06)"
