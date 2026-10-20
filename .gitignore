@@ -1,1 +1,13 @@
 course/
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+.DS_Store
+outputs/**/*.npy
+outputs/**/*.npz
+outputs/**/*.joblib
+outputs/**/model/
+outputs/**/cache/
