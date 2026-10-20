@@ -42,11 +42,15 @@ class TransformerClassifier:
 
 
 def load_classifier(run_dir: str | Path):
-    """Load a TF-IDF or transformer classifier from a standard run directory."""
+    """Load a classifier from a standard run directory."""
     run_dir = resolve_path(run_dir)
     config = load_json(run_dir / "config.json")
     if config["model_type"] == "tfidf":
         return TfidfClassifier.load(run_dir / "model.joblib")
     if config["model_type"] == "transformer":
         return TransformerClassifier(run_dir / "model", max_length=config["max_length"])
+    if config["model_type"] == "lstm":
+        from src.classification.lstm import LSTMTextClassifier
+
+        return LSTMTextClassifier(run_dir / "model")
     raise ValueError(f"Unknown model_type: {config['model_type']}")

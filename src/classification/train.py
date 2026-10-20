@@ -33,7 +33,9 @@ DEFAULTS: dict = {
 
 def load_config(path: str | Path, overrides: dict | None = None) -> dict:
     """Merge defaults, YAML configuration, and explicit overrides."""
-    return {**DEFAULTS, **load_yaml(path), **(overrides or {})}
+    config = load_yaml(path)
+    defaults = {} if config.get("model_type") == "lstm" else DEFAULTS
+    return {**defaults, **config, **(overrides or {})}
 
 
 def train_one_epoch(
@@ -258,6 +260,9 @@ def main(argv: list[str] | None = None) -> None:
         "n_train": args.n_train,
     }.items() if value is not None}
     cfg = load_config(args.config, overrides)
+    if cfg["model_type"] == "lstm" and args.max_length is not None:
+        cfg["max_tokens"] = args.max_length
+        del cfg["max_length"]
     if args.smoke:
         cfg["n_train"] = args.n_train if args.n_train is not None else 2000
         cfg["epochs"] = 1
@@ -267,7 +272,14 @@ def main(argv: list[str] | None = None) -> None:
         "validation": load_split("validation", n=500 if args.smoke else None, seed=cfg["seed"]),
         "test": load_split("test", n=500 if args.smoke else None, seed=cfg["seed"]),
     }
-    metrics = run_training(cfg, data, get_label_names(), args.output_dir)
+    if cfg["model_type"] == "lstm":
+        from src.classification.lstm import run_training as run_lstm_training
+
+        metrics = run_lstm_training(cfg, data, get_label_names(), args.output_dir)
+    elif cfg["model_type"] == "transformer":
+        metrics = run_training(cfg, data, get_label_names(), args.output_dir)
+    else:
+        raise ValueError(f"Unknown model_type: {cfg['model_type']}")
     for split in ("validation", "test"):
         result = metrics[split]
         print(f"{split}: accuracy={result['accuracy']:.4f}, macro-F1={result['macro_f1']:.4f}", flush=True)
