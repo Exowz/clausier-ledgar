@@ -10,9 +10,17 @@ Owner: Ewan. Branch: `ws1-classification`. Last updated: Tue 20 Oct.
   (TF-IDF word 1-2 grams + logistic regression, m1). Run: `make baseline`, or `--tune` to pick C and class weight on
   validation.
 
+- T04: `src/classification/train.py` (hand-written loop: AdamW, linear warmup, clipping, early stopping on
+  validation macro-F1, fp16 on CUDA), `lora.py` (TP06 `LoRALinear` on query and value, merged before saving),
+  `predict.py` (`load_classifier(run_dir).predict_proba(texts)` for every model type). Configs: `legal_bert.yaml`,
+  `bert_base.yaml`, `legal_bert_lora.yaml`. `make train-smoke` runs on the Mac in about 5 minutes (batch 8).
+- T04b: `src/classification/lstm.py` (TP04 pipeline, packed LSTM, optional GloVe 50d). Configs: `lstm.yaml`,
+  `lstm_glove.yaml`. Same CLI: `python -m src.classification.train --config configs/lstm.yaml`.
+- T05: `notebooks/train_colab.ipynb` trains all five configs on a Colab GPU, outputs on Google Drive.
+
 ## Left
 
-T04 transformer pipeline + LoRA (m4), T04b LSTM (m3), T05 Colab notebook, then the Colab runs.
+The Colab runs (Ewan), then copying the run directories (without `model/`) into `outputs/`.
 
 ## Interface for the other workstreams
 

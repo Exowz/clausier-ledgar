@@ -13,6 +13,16 @@ python3.11 -m venv .venv          # or: uv venv --python 3.11
 make test
 ```
 
+## Training on Colab
+
+In Colab, open `notebooks/train_colab.ipynb` from the GitHub repository.
+Select Runtime > Change runtime type > GPU (T4, L4, or A100).
+Edit the parameters cell to choose configs, smoke check, skip behavior, and any extra training arguments.
+Run all cells to mount Drive, clone the repository, install dependencies, and train the models in order.
+Completed runs and logs land in `MyDrive/clausier/outputs/<run_name>/` on Google Drive.
+Each audit zip is saved beside its run folder; use `download_run("<run_name>")` in Colab to download one.
+Unzip it into `outputs/<run_name>/` in your local clone; model weights remain on Drive.
+
 ## Main comparison (written before the runs)
 
 Written on Tue 20 Oct 2026, before any transformer or LSTM run, as the course asks for checkpoint m4. The git
