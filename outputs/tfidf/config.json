@@ -1,0 +1,23 @@
+{
+  "run_name": "tfidf",
+  "model_type": "tfidf",
+  "ngram_range": [
+    1,
+    2
+  ],
+  "min_df": 2,
+  "max_features": 200000,
+  "sublinear_tf": true,
+  "C": 30,
+  "class_weight": null,
+  "max_iter": 100,
+  "tune_C": [
+    1,
+    10,
+    30
+  ],
+  "seed": 42,
+  "solver": "saga",
+  "tol": 0.01,
+  "git_commit": "f9381f9"
+}

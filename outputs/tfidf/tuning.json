@@ -1,0 +1,38 @@
+[
+  {
+    "C": 1,
+    "class_weight": null,
+    "val_macro_f1": 0.7663615215489434,
+    "fit_time_s": 36.56117429101141
+  },
+  {
+    "C": 1,
+    "class_weight": "balanced",
+    "val_macro_f1": 0.7784232399753891,
+    "fit_time_s": 447.0374491249677
+  },
+  {
+    "C": 10,
+    "class_weight": null,
+    "val_macro_f1": 0.8103601978572015,
+    "fit_time_s": 55.666302416007966
+  },
+  {
+    "C": 10,
+    "class_weight": "balanced",
+    "val_macro_f1": 0.8063777170981478,
+    "fit_time_s": 595.9576240830356
+  },
+  {
+    "C": 30,
+    "class_weight": null,
+    "val_macro_f1": 0.8218633944604697,
+    "fit_time_s": 30.891471832990646
+  },
+  {
+    "C": 30,
+    "class_weight": "balanced",
+    "val_macro_f1": 0.8123410214999184,
+    "fit_time_s": 383.6059432500042
+  }
+]
