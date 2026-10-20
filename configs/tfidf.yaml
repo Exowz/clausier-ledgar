@@ -4,7 +4,7 @@ ngram_range: [1, 2]
 min_df: 2
 max_features: 200000
 sublinear_tf: true
-C: 10.0
+C: 30.0          # chosen on validation by --tune (outputs/tfidf/tuning.json)
 class_weight: null
 max_iter: 100
 tune_C: [1, 10, 30]
