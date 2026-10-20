@@ -15,7 +15,7 @@ eda:
 	$(PYTHON) -m src.eda
 
 baseline:
-	@echo "baseline: not implemented yet (T03)"
+	$(PYTHON) -m src.classification.baseline --config configs/tfidf.yaml
 
 train-smoke:
 	@echo "train-smoke: not implemented yet (T04)"
