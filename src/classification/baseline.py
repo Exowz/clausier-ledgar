@@ -132,4 +132,8 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    # Run main from the package module so that joblib pickles TfidfClassifier as
+    # src.classification.baseline.TfidfClassifier, not __main__.TfidfClassifier.
+    from src.classification.baseline import main as package_main
+
+    package_main()

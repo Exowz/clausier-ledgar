@@ -1,0 +1,179 @@
+{
+  "party_roles": {
+    "n": 1000,
+    "flip_rate": 0.016,
+    "flip_low": 0.009,
+    "flip_high": 0.024,
+    "ctrl_flip_rate": 0.019,
+    "ctrl_low": 0.011,
+    "ctrl_high": 0.028024999999999977,
+    "diff": -0.003,
+    "diff_low": -0.011,
+    "diff_high": 0.004,
+    "acc_orig": 0.887,
+    "acc_orig_low": 0.867,
+    "acc_orig_high": 0.906,
+    "acc_edit": 0.888,
+    "acc_edit_low": 0.868,
+    "acc_edit_high": 0.907025,
+    "acc_ctrl": 0.885,
+    "acc_ctrl_low": 0.864,
+    "acc_ctrl_high": 0.905,
+    "decision": "pass",
+    "examples": [
+      {
+        "idx": 2821,
+        "original": "Executive shall be employed by the Employer in the position of Chief Executive Officer (\u201cCEO\u201d) of the Employer. During the course of employment, Executive shall provide services for CRH Canada and its related entities or affiliates (together with the Employer, the \u201cCompany\u201d for the purposes of this ",
+        "edited": "Executive shall be employed by the Employee in the position of Chief Executive Officer (\u201cCEO\u201d) of the Employee. During the course of employment, Executive shall provide services for CRH Canada and its related entities or affiliates (together with the Employee, the \u201cCompany\u201d for the purposes of this ",
+        "label_before": "Employment",
+        "label_after": "Positions"
+      },
+      {
+        "idx": 4215,
+        "original": "(i) Any Lender with the prior written consents of the Borrower and the Facility Agent (which consents shall not be unreasonably delayed or withheld and which consent, in the case of the Borrower, shall be deemed to have been given in the absence of a written notice delivered by the Borrower to the F",
+        "edited": "(i) Any Borrower with the prior written consents of the Lender and the Facility Agent (which consents shall not be unreasonably delayed or withheld and which consent, in the case of the Lender, shall be deemed to have been given in the absence of a written notice delivered by the Lender to the Facil",
+        "label_before": "Notices",
+        "label_after": "Consents"
+      },
+      {
+        "idx": 6970,
+        "original": "When applicable, (a)\u00a0the Borrower will furnish to the Administrative Agent promptly following receipt thereof, copies of any documents described in Section\u00a0101(k) or 101(l) of ERISA that any Credit Party or any of its Subsidiaries may request with respect to any Multiemployer Plan to which a Credit ",
+        "edited": "When applicable, (a)\u00a0the Lender will furnish to the Administrative Agent promptly following receipt thereof, copies of any documents described in Section\u00a0101(k) or 101(l) of ERISA that any Credit Party or any of its Subsidiaries may request with respect to any Multiemployer Plan to which a Credit Pa",
+        "label_before": "Erisa",
+        "label_after": "Notices"
+      },
+      {
+        "idx": 7194,
+        "original": "The proceeds of the Loans shall be advanced by the Lender for the benefit of Borrower in accordance with the terms and conditions set forth in this Article 3 .",
+        "edited": "The proceeds of the Loans shall be advanced by the Borrower for the benefit of Lender in accordance with the terms and conditions set forth in this Article 3 .",
+        "label_before": "General",
+        "label_after": "Use Of Proceeds"
+      },
+      {
+        "idx": 9633,
+        "original": "Each Lender may assign its Percentage or portion of the Loan to one or more other Persons (a \u201c New Lender \u201d), or sell participations in its Percentage or portion of the Loan to one or more other Persons; provided that, in the case of assignments where the Fixed Rate applies, such New Lender (other t",
+        "edited": "Each Borrower may assign its Percentage or portion of the Loan to one or more other Persons (a \u201c New Borrower \u201d), or sell participations in its Percentage or portion of the Loan to one or more other Persons; provided that, in the case of assignments where the Fixed Rate applies, such New Borrower (o",
+        "label_before": "Participations",
+        "label_after": "Assignments"
+      }
+    ]
+  },
+  "jurisdiction": {
+    "n": 447,
+    "flip_rate": 0.013422818791946308,
+    "flip_low": 0.0044742729306487695,
+    "flip_high": 0.024608501118568233,
+    "ctrl_flip_rate": 0.029082774049217,
+    "ctrl_low": 0.015659955257270694,
+    "ctrl_high": 0.0447427293064877,
+    "diff": -0.015659955257270694,
+    "diff_low": -0.026845637583892617,
+    "diff_high": -0.006655480984340096,
+    "acc_orig": 0.8948545861297539,
+    "acc_orig_low": 0.8657718120805369,
+    "acc_orig_high": 0.9239373601789709,
+    "acc_edit": 0.901565995525727,
+    "acc_edit_low": 0.87248322147651,
+    "acc_edit_high": 0.9284116331096197,
+    "acc_ctrl": 0.8993288590604027,
+    "acc_ctrl_low": 0.8702460850111857,
+    "acc_ctrl_high": 0.9239932885906039,
+    "decision": "pass",
+    "examples": [
+      {
+        "idx": 4204,
+        "original": "The Original Company was originally organized as a Delaware limited liability company under the LLC Act. The Original Company was converted to a Delaware limited partnership pursuant to the Act on June\u00a025, 2007.",
+        "edited": "The Original Company was originally organized as a England and Wales limited liability company under the LLC Act. The Original Company was converted to a England and Wales limited partnership pursuant to the Act on June\u00a025, 2007.",
+        "label_before": "Organizations",
+        "label_after": "Terms"
+      },
+      {
+        "idx": 5599,
+        "original": "Each of the Parties (i) consents to submit for itself and its property to the exclusive personal jurisdiction of the Court of Chancery of the State of Delaware and any appellate court thereof, or, if the Court of Chancery of the State of Delaware or the Delaware Supreme Court determines that, notwit",
+        "edited": "Each of the Parties (i) consents to submit for itself and its property to the exclusive personal jurisdiction of the Court of Chancery of England and Wales and any appellate court thereof, or, if the Court of Chancery of England and Wales or the England and Wales Supreme Court determines that, notwi",
+        "label_before": "Consent To Jurisdiction",
+        "label_after": "Submission To Jurisdiction"
+      },
+      {
+        "idx": 6436,
+        "original": "a) Each capitalized term used but not defined herein shall have the meaning specified in the Credit Agreement; provided that each term defined in the New York UCC (as defined herein) and not defined in this Agreement shall have the meaning specified in the UCC. The term \u201cinstrument\u201d shall have the m",
+        "edited": "a) Each capitalized term used but not defined herein shall have the meaning specified in the Credit Agreement; provided that each term defined in the England and Wales UCC (as defined herein) and not defined in this Agreement shall have the meaning specified in the UCC. The term \u201cinstrument\u201d shall h",
+        "label_before": "Definitions",
+        "label_after": "Defined Terms"
+      },
+      {
+        "idx": 7666,
+        "original": "Each of the parties irrevocably submits to the exclusive jurisdiction and service and venue in any federal or state court sitting in the State of Delaware for the purposes of any action, suit or proceeding arising out of or with respect to this Agreement. Each of the parties irrevocably and uncondit",
+        "edited": "Each of the parties irrevocably submits to the exclusive jurisdiction and service and venue in any federal or state court sitting in England and Wales for the purposes of any action, suit or proceeding arising out of or with respect to this Agreement. Each of the parties irrevocably and unconditiona",
+        "label_before": "Consent To Jurisdiction",
+        "label_after": "Waiver Of Jury Trials"
+      },
+      {
+        "idx": 7700,
+        "original": "This Agreement shall be governed by and construed in accordance with the Laws of the State of New York, without regard to any conflict of laws provisions thereof that would result in the application of the Laws of another jurisdiction.",
+        "edited": "This Agreement shall be governed by and construed in accordance with the Laws of England and Wales, without regard to any conflict of laws provisions thereof that would result in the application of the Laws of another jurisdiction.",
+        "label_before": "Applicable Laws",
+        "label_after": "Governing Laws"
+      }
+    ]
+  },
+  "number_format": {
+    "n": 561,
+    "flip_rate": 0.0142602495543672,
+    "flip_low": 0.0053475935828877,
+    "flip_high": 0.024955436720142603,
+    "ctrl_flip_rate": 0.0196078431372549,
+    "ctrl_low": 0.008912655971479501,
+    "ctrl_high": 0.03208556149732621,
+    "diff": -0.0053475935828877,
+    "diff_low": -0.017825311942959002,
+    "diff_high": 0.0053475935828877,
+    "acc_orig": 0.8787878787878788,
+    "acc_orig_low": 0.8502673796791443,
+    "acc_orig_high": 0.9055258467023173,
+    "acc_edit": 0.8770053475935828,
+    "acc_edit_low": 0.8484848484848485,
+    "acc_edit_high": 0.9020053475935829,
+    "acc_ctrl": 0.8787878787878788,
+    "acc_ctrl_low": 0.8520053475935829,
+    "acc_ctrl_high": 0.9055258467023173,
+    "decision": "pass",
+    "examples": [
+      {
+        "idx": 103,
+        "original": " Change of Control, the Settlement Date of the Award shall accelerate and the Award shall be settled as soon as practicable but in no event more than sixty (60)\u00a0days following the date of the Director\u2019s death or such Change of Control.",
+        "edited": " Change of Control, the Settlement Date of the Award shall accelerate and the Award shall be settled as soon as practicable but in no event more than 60 days following the date of the Director\u2019s death or such Change of Control.",
+        "label_before": "Death",
+        "label_after": "Change In Control"
+      },
+      {
+        "idx": 2496,
+        "original": "All interest shall be computed on the basis of a year of 360 days for the actual number of days, including the first day but excluding the last day, elapsed.",
+        "edited": "All interest shall be computed on the basis of a year of three hundred sixty (360) days for the actual number of days, including the first day but excluding the last day, elapsed.",
+        "label_before": "Effective Dates",
+        "label_after": "Fees"
+      },
+      {
+        "idx": 5628,
+        "original": "ity-based awards held by Employee, to the extent subject to time-based vesting, shall vest in full as of the Termination Date; (d) an amount equal to twelve (12) months' Base Salary and Target Annual Incentive, to be paid in accordance with the Company's scheduled payroll practices; (e) incurred but",
+        "edited": "ity-based awards held by Employee, to the extent subject to time-based vesting, shall vest in full as of the Termination Date; (d) an amount equal to 12 months' Base Salary and Target Annual Incentive, to be paid in accordance with the Company's scheduled payroll practices; (e) incurred but unpaid b",
+        "label_before": "Releases",
+        "label_after": "Death"
+      },
+      {
+        "idx": 6262,
+        "original": "ll materially violate any covenant or agreement contained herein or in any other agreement between the parties and such violation remains uncured for 30 days following Notice by the other party, with a demand to cure the noted violation.",
+        "edited": "ll materially violate any covenant or agreement contained herein or in any other agreement between the parties and such violation remains uncured for thirty (30) days following Notice by the other party, with a demand to cure the noted violation.",
+        "label_before": "Remedies",
+        "label_after": "Notices"
+      },
+      {
+        "idx": 9147,
+        "original": "yment date(s) set forth on the Notice or, (ii) in the event Participant becomes vested in the Award pursuant to Section 9.1 of the Plan no later than 60 days following such event.",
+        "edited": "yment date(s) set forth on the Notice or, (ii) in the event Participant becomes vested in the Award pursuant to Section 9.1 of the Plan no later than sixty (60) days following such event.",
+        "label_before": "Vesting",
+        "label_after": "Payments"
+      }
+    ]
+  }
+}
