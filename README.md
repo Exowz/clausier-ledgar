@@ -57,7 +57,10 @@ the cheaper TF-IDF model is the better choice for the product.
 validation macro-F1 of `legal_bert` was still rising when it reached its 4-epoch limit (0.704, 0.758, 0.786, 0.800
 after epochs 1 to 4, validation loss still falling), so the run had not converged. We add `legal_bert_long`, identical
 except for at most 10 epochs and early stopping after 2 epochs without progress
-(`configs/legal_bert_long.yaml`). The decision was proposed from the validation curve, before the test score of
+(`configs/legal_bert_long.yaml`). The course suggests 2 to 4 epochs (S06), which `legal_bert` follows; longer
+training with early stopping is the setup of the LexGLUE benchmark, which reports LEDGAR results for models trained
+with a learning rate of 3e-5 "up to 20 epochs using early stopping on development data" (Chalkidis et al. 2022,
+"LexGLUE: A Benchmark Dataset for Legal Language Understanding in English", ACL). The decision was proposed from the validation curve, before the test score of
 `legal_bert` was read. Both runs are reported; the main comparison uses the Legal-BERT run with the best validation
 macro-F1, and Legal-BERT versus BERT-base is compared at the same budget (4 epochs).
 
