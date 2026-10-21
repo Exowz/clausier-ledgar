@@ -24,4 +24,4 @@ retrieval:
 	@echo "retrieval: not implemented yet (T06)"
 
 audit:
-	@echo "audit: not implemented yet (T08)"
+	$(PYTHON) -m src.audit.run --run outputs/tfidf

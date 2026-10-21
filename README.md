@@ -59,6 +59,28 @@ Written on Wed 21 Oct 2026, before any audit code, as the course asks for checkp
 and the decision rule in advance. Every model with a run directory in `outputs/` is audited the same way; the
 headline is Legal-BERT, compared with TF-IDF.
 
+### Why this audit and where the method comes from
+
+Added on Wed 21 Oct 2026, after the plan above and before any audit code; the measures and the decision rule are
+unchanged. The bias audit (course checkpoint m5) was not covered in class, so it is built from published methods,
+each combined with tools seen in the course (macro-F1, confusion pairs, bootstrap intervals and paired tests from
+S06).
+
+- **Slices with intervals.** A single test score can hide groups where the model is worse. Dixon et al. (2018),
+  "Measuring and Mitigating Unintended Bias in Text Classification" (AIES), measure a classifier on subgroups of
+  the test set defined by the words they contain; we do the same with contract family, jurisdiction and length,
+  and add bootstrap intervals so that small slices are not over-read.
+- **Counterfactual edits.** Ribeiro et al. (2020), "Beyond Accuracy: Behavioral Testing of NLP Models with
+  CheckList" (ACL), test invariance: an edit that should not change the answer (a name, a place) is applied and
+  the share of changed predictions is counted. Garg et al. (2019), "Counterfactual Fairness in Text Classification
+  through Robustness" (AIES), apply the same idea to identity terms. Here the terms are party roles, governing law
+  and number formats, the attributes that vary between contracts of the same type.
+- **Controls.** An edit can change a prediction just because the text changed. Each test therefore has a control
+  of the same kind that does not touch the attribute, and the decision uses the difference between the two, as
+  the course asks (S07, project checkpoint).
+- **Model card.** Mitchell et al. (2019), "Model Cards for Model Reporting" (FAT*), list what a model release must
+  state: intended use, out-of-scope uses, data, metrics by group, limits. `MODEL_CARD.md` follows that outline.
+
 ### 1. Where the classifier fails: per class and per slice
 
 - **Per class:** F1 of each of the 100 clause types on the test set; the 10 worst classes; F1 against the log of
@@ -73,6 +95,10 @@ headline is Legal-BERT, compared with TF-IDF.
   deduplicated test set.
 - **Reading rule:** a slice is "worse" only if its interval lies entirely below the interval of the whole test
   set. Slices with fewer than 100 clauses are reported but not interpreted (license: 23 clauses, non-US: 29).
+- **Clarification (Thu 22 Oct 2026, after the first audit run on TF-IDF):** the interval used by the reading rule
+  is the accuracy interval. Macro-F1 is computed over the clause types present in each slice, and many of them
+  have 1 to 3 clauses in a slice, so macro-F1 is not comparable between slices; it is reported as a within-slice
+  number only. In each bootstrap resample, macro-F1 is computed over the clause types present in that resample.
 
 ### 2. Does the prediction depend on things that should not matter: counterfactual tests
 
