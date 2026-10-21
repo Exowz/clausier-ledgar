@@ -1,0 +1,20 @@
+{
+  "name": "clausier-slides",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "figures": "rm -rf public/figures && mkdir -p public && cp -R ../reports/figures public/figures",
+    "predev": "npm run figures",
+    "prebuild": "npm run figures",
+    "preexport": "npm run figures",
+    "preexport-pptx": "npm run figures",
+    "dev": "slidev slides.md --open",
+    "build": "slidev build slides.md",
+    "export": "slidev export slides.md --output clausier-defence.pdf",
+    "export-pptx": "slidev export slides.md --format pptx --output clausier-defence.pptx"
+  },
+  "dependencies": {
+    "@slidev/cli": "53.0.0",
+    "@slidev/theme-default": "0.25.0"
+  }
+}

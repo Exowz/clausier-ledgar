@@ -1,6 +1,6 @@
 PYTHON ?= .venv/bin/python
 
-.PHONY: setup test lint eda baseline train-smoke retrieval audit
+.PHONY: setup test lint eda baseline train-smoke retrieval audit counterfactual
 
 setup:
 	python3.11 -m venv .venv && .venv/bin/pip install -r requirements.txt
@@ -24,4 +24,7 @@ retrieval:
 	@echo "retrieval: not implemented yet (T06)"
 
 audit:
-	@echo "audit: not implemented yet (T08)"
+	$(PYTHON) -m src.audit.run --run outputs/tfidf
+
+counterfactual:
+	$(PYTHON) -m src.audit.perturbations --run outputs/tfidf
