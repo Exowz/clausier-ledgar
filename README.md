@@ -53,6 +53,14 @@ Secondary comparisons, with the same paired tests:
 What would change our recommendation: if Legal-BERT does not beat TF-IDF significantly on the deduplicated test set,
 the cheaper TF-IDF model is the better choice for the product.
 
+**Added run (Thu 22 Oct 2026, after the first Legal-BERT run; the expected results above are unchanged).** The
+validation macro-F1 of `legal_bert` was still rising when it reached its 4-epoch limit (0.704, 0.758, 0.786, 0.800
+after epochs 1 to 4, validation loss still falling), so the run had not converged. We add `legal_bert_long`, identical
+except for at most 10 epochs and early stopping after 2 epochs without progress
+(`configs/legal_bert_long.yaml`). The decision was proposed from the validation curve, before the test score of
+`legal_bert` was read. Both runs are reported; the main comparison uses the Legal-BERT run with the best validation
+macro-F1, and Legal-BERT versus BERT-base is compared at the same budget (4 epochs).
+
 ## Bias audit plan (written before the audit code)
 
 Written on Wed 21 Oct 2026, before any audit code, as the course asks for checkpoint m5. It fixes what is measured
