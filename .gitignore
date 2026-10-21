@@ -14,3 +14,8 @@ outputs/**/model/
 outputs/**/cache/
 outputs/**/*_smoke/
 outputs/**/*.zip
+slides/node_modules/
+slides/dist/
+slides/*.pdf
+slides/*.pptx
+slides/public/figures/
