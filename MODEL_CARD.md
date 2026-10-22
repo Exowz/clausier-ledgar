@@ -10,7 +10,8 @@ script (`make results`, `make final`), and each section links to the file it com
 - **Recommended model: TF-IDF + logistic regression** (`outputs/tfidf/`): word 1-2 grams, `min_df=2`, 200,000
   features, sublinear term frequency, `C=30` chosen on validation. The rule written before the runs (README, "Main
   comparison") says that if Legal-BERT does not beat TF-IDF significantly on the deduplicated test set, the cheaper
-  TF-IDF model is the better choice. It does not (below), and TF-IDF needs no GPU to train or to predict.
+  TF-IDF model is the better choice. It does not (below), and TF-IDF needs no GPU: it trains in 44 seconds on a
+  laptop CPU (M2 Pro).
 - **Best transformer: Legal-BERT, up to 10 epochs** (`outputs/legal_bert_long/`): `nlpaueb/legal-bert-base-uncased`
   fine-tuned with a hand-written PyTorch loop (AdamW, lr 3e-5, weight decay 0.01, linear warmup over 10% of the
   steps, batch 32, at most 10 epochs, early stopping on validation macro-F1 after 2 epochs without progress, maximum

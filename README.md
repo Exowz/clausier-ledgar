@@ -243,8 +243,8 @@ produced by this repository; their models read up to 512 tokens and train up to 
   test set (McNemar p = 0.20, macro-F1 difference -0.001 [-0.010, 0.011]) or on the deduplicated one (p = 0.16,
   -0.000 [-0.011, 0.014]). Our predictions 1 and 3 (Legal-BERT ahead by 1 to 3 points, significantly) are wrong.
 - **By the rule written before the runs, TF-IDF is the better choice for the product:** Legal-BERT does not beat it
-  significantly on the deduplicated test set, and TF-IDF needs no GPU to train or to predict, where Legal-BERT
-  needed 2 hours 10 minutes of GPU training.
+  significantly on the deduplicated test set, and TF-IDF trains in 44 seconds on a laptop CPU (`make baseline` on an
+  M2 Pro, from a fresh clone), where Legal-BERT needed 2 hours 10 minutes of GPU training.
 - **Our Legal-BERT matches the published one on micro-F1** (88.2, the LexGLUE figure) and is 0.5 points below on
   macro-F1 (82.5 against 83.0), while reading 256 tokens instead of 512. The published TF-IDF + SVM (81.4 macro-F1)
   is 1.2 points below our tuned logistic regression, which explains why our baseline is harder to beat.
