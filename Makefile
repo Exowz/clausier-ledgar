@@ -1,6 +1,6 @@
 PYTHON ?= .venv/bin/python
 
-.PHONY: setup test lint eda baseline train-smoke retrieval audit counterfactual
+.PHONY: setup test lint eda baseline train-smoke retrieval audit counterfactual results final
 
 setup:
 	python3.11 -m venv .venv && .venv/bin/pip install -r requirements.txt
@@ -28,3 +28,10 @@ audit:
 
 counterfactual:
 	$(PYTHON) -m src.audit.perturbations --run outputs/tfidf
+
+results:
+	$(PYTHON) -m src.classification.results
+
+final: results
+	$(PYTHON) -m src.audit.run --run outputs/$$($(PYTHON) -m src.classification.results --print-best)
+	$(PYTHON) -m src.audit.perturbations --run outputs/$$($(PYTHON) -m src.classification.results --print-best)

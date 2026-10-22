@@ -1,0 +1,35 @@
+{
+  "best_legal_bert": null,
+  "results_table": [
+    {
+      "model": "TF-IDF + logistic regression",
+      "best_epoch": "",
+      "val_macro_f1": 0.8218633944604697,
+      "test_accuracy": 0.8781,
+      "test_micro_f1": 0.8781,
+      "test_macro_f1": 0.8255839287768666,
+      "test_dedup_accuracy": 0.8476607810284831,
+      "test_dedup_macro_f1": 0.7876333467663155,
+      "train_time_min": ""
+    }
+  ],
+  "lora_table": [],
+  "pairs": [],
+  "reference_lexglue": [
+    {
+      "model": "TF-IDF + SVM",
+      "micro_f1": 87.0,
+      "macro_f1": 81.4
+    },
+    {
+      "model": "BERT",
+      "micro_f1": 87.6,
+      "macro_f1": 81.8
+    },
+    {
+      "model": "Legal-BERT",
+      "micro_f1": 88.2,
+      "macro_f1": 83.0
+    }
+  ]
+}

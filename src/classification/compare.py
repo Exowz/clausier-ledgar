@@ -70,7 +70,10 @@ def _compare_subset(truth: np.ndarray, a: np.ndarray, b: np.ndarray, n_boot: int
     }
 
 
-def compare_runs(run_a: str | Path, run_b: str | Path, n_boot: int = 1000, seed: int = 42) -> dict:
+def compare_runs(
+    run_a: str | Path, run_b: str | Path, n_boot: int = 1000, seed: int = 42,
+    dedup_mask_path: str | Path = "outputs/data/test_dedup_mask.npy",
+) -> dict:
     """Compare full and deduplicated test rows from two saved runs."""
     first, second = load_run(run_a), load_run(run_b)
     truth = first["test_labels"]
@@ -78,7 +81,7 @@ def compare_runs(run_a: str | Path, run_b: str | Path, n_boot: int = 1000, seed:
         raise ValueError("Runs have different test_labels")
     pred_a = first["test_probs"].argmax(axis=1)
     pred_b = second["test_probs"].argmax(axis=1)
-    mask = np.load(resolve_path("outputs/data/test_dedup_mask.npy"))
+    mask = np.load(resolve_path(dedup_mask_path))
     if mask.shape != truth.shape or mask.dtype != np.bool_ or not mask.any():
         raise ValueError("Deduplication mask must be a nonempty boolean vector matching test labels")
     return {
@@ -97,7 +100,12 @@ def main(argv=None) -> None:
     parser.add_argument("--out", default="reports/audit")
     args = parser.parse_args(argv)
     result = compare_runs(args.a, args.b, n_boot=args.n_boot)
-    output = ensure_dir(args.out) / f"compare_{result['a']}_vs_{result['b']}"
+    print(write_comparison(result, args.out), end="")
+
+
+def write_comparison(result: dict, out_dir: str | Path) -> str:
+    """Write compare_<a>_vs_<b>.json and .md to out_dir and return the Markdown table."""
+    output = ensure_dir(out_dir) / f"compare_{result['a']}_vs_{result['b']}"
     save_json(result, output.with_suffix(".json"))
     lines = [f"# {result['a']} vs {result['b']}", "",
              "| Set | n | Accuracy A | Accuracy B | Macro-F1 A | Macro-F1 B | a | b | c | d | Chi2 | p | "
@@ -113,7 +121,7 @@ def main(argv=None) -> None:
                      f"{row['mcnemar_significant']} | {row['bootstrap_significant']} |")
     markdown = "\n".join(lines) + "\n"
     output.with_suffix(".md").write_text(markdown, encoding="utf-8")
-    print(markdown, end="")
+    return markdown
 
 
 if __name__ == "__main__":

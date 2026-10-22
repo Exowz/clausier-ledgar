@@ -50,7 +50,7 @@ def test_paired_bootstrap_uses_each_resamples_true_classes_for_both_models() -> 
     assert (low, high) == pytest.approx(np.percentile(differences, [2.5, 97.5]))
 
 
-def test_compare_runs_uses_same_test_rows_and_dedup_mask(tmp_path, monkeypatch) -> None:
+def test_compare_runs_uses_same_test_rows_and_dedup_mask(tmp_path) -> None:
     mask_path = tmp_path / "mask.npy"
     np.save(mask_path, np.array([True, False, True, True]))
     labels = np.array([0, 1, 0, 1])
@@ -59,9 +59,8 @@ def test_compare_runs_uses_same_test_rows_and_dedup_mask(tmp_path, monkeypatch) 
     for name, probs in (("a", probs_a), ("b", probs_b)):
         save_run(tmp_path / name, {"run_name": name}, probs, labels, probs, labels,
                  ["zero", "one"], dedup_mask_path=mask_path)
-    monkeypatch.setattr(compare, "resolve_path", lambda path: mask_path)
 
-    result = compare.compare_runs(tmp_path / "a", tmp_path / "b", n_boot=30)
+    result = compare.compare_runs(tmp_path / "a", tmp_path / "b", n_boot=30, dedup_mask_path=mask_path)
 
     assert result["test"]["n"] == 4
     assert result["test_dedup"]["n"] == 3
