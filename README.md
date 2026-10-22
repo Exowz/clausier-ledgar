@@ -6,8 +6,8 @@
 
 <p><em>Sorting and finding contract clauses, with evidence of where the model works and where it must not be trusted.</em></p>
 
-![Status](https://img.shields.io/badge/status-final_runs_in_progress-orange?style=flat)
-![Version](https://img.shields.io/badge/version-0.9-blue?style=flat)
+![Status](https://img.shields.io/badge/status-complete-brightgreen?style=flat)
+![Version](https://img.shields.io/badge/version-1.0-blue?style=flat)
 ![Data license](https://img.shields.io/badge/data-LEDGAR_CC_BY_4.0-brightgreen?style=flat)
 ![Course](https://img.shields.io/badge/Albert_School-Deep_Learning_for_NLP-red?style=flat)
 
@@ -870,8 +870,8 @@ build these groups; they are documented in [docs/slices.md](docs/slices.md), and
 
 ---
 
-**Version**: 0.9
+**Version**: 1.0
 
 **Last updated**: October 2026
 
-**Status**: final runs in progress
+**Status**: complete (defence on 23 October 2026)
