@@ -3,58 +3,55 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Clausier | Contract clause review</title>
+  <meta name="theme-color" content="#0b1220">
+  <title>Clausier | Contract intelligence</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
   <script src="{{ url_for('static', filename='app.js') }}" defer></script>
 </head>
 <body>
-  <div class="site-shell">
-    <header class="site-header">
-      <div class="brand-line"><div><span class="brand-mark" aria-hidden="true">C</span><span class="brand">Clausier</span></div><span class="edition">RESEARCH PROTOTYPE · 2026</span></div>
-      <p class="tagline">Contract clause review, with the evidence</p>
-      <nav class="main-nav" aria-label="Main navigation">
-        <button class="nav-item active" data-view="classify" aria-current="page">Classify a clause</button>
-        <button class="nav-item" data-view="search">Search the clause bank</button>
-        <button class="nav-item" data-view="review">Review a contract</button>
-        <button class="nav-item" data-view="stress">Stress test</button>
-        <button class="nav-item" data-view="evidence">Evidence</button>
-      </nav>
-    </header>
-
-    <main>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Workspace navigation">
+      <a class="brand" href="#classify" aria-label="Clausier home"><span class="brand-mark" aria-hidden="true">§</span><span>Clausier</span></a>
+      <div class="sidebar-middle"><span class="nav-heading">WORKSPACE</span>
+        <nav class="main-nav" aria-label="Main navigation">
+          <button class="nav-item active" type="button" data-view="classify" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h10l4 4v12H5zM15 4v4h4M8 13h8M8 17h5"/></svg><span>Classify</span><kbd>1</kbd></button>
+          <button class="nav-item" type="button" data-view="search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><span>Search</span><kbd>2</kbd></button>
+          <button class="nav-item" type="button" data-view="review"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h14v18H5zM9 8h6M9 12h6M9 16h4"/></svg><span>Review</span><kbd>3</kbd></button>
+          <button class="nav-item" type="button" data-view="stress"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 17h4l3-10 4 12 3-7h4"/></svg><span>Stress test</span><kbd>4</kbd></button>
+          <button class="nav-item" type="button" data-view="evidence"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10h4v10M10 20V4h4v16M16 20v-7h4v7M3 20h18"/></svg><span>Evidence</span><kbd>5</kbd></button>
+        </nav>
+      </div>
+      <div class="sidebar-foot"><span class="nav-heading">DEFAULT MODEL</span><div class="model-badge"><span class="model-dot"></span><span id="default-model-badge">TF-IDF · recommended</span></div><p>Research prototype · not legal advice</p></div>
+    </aside>
+    <main class="main-content"><div class="content-inner">
       <section id="view-classify" class="view active" aria-labelledby="classify-title">
-        <div class="view-heading"><div><span class="eyebrow">01 / UNDERSTAND A CLAUSE</span><h1 id="classify-title">Classify a clause</h1><p>See the likely type, when to ask a person, and which words shaped the result.</p></div><span class="view-note">Single clause analysis</span></div>
-        <div class="workspace"><form id="classify-form" class="input-card">
-          <label for="classify-text">Clause text</label><textarea id="classify-text" rows="7" placeholder="Paste a contract clause here..."></textarea>
-          <div class="examples"><span>Try an example</span><button type="button" data-example="governing">Governing law</button><button type="button" data-example="confidentiality">Confidentiality</button><button type="button" data-example="applicable">Applicable laws</button></div>
-          <div class="form-end"><label class="select-label">Model<select id="classify-model" class="model-select"></select></label><button class="primary-button" type="submit">Classify clause <span aria-hidden="true">↗</span></button></div>
-        </form><div id="classify-result" class="result-panel" aria-live="polite"><div class="empty-state"><span class="empty-symbol" aria-hidden="true">§</span><h2>Ready when you are</h2><p>Paste a clause or choose an example to see its classification and supporting detail.</p></div></div></div>
+        <div class="view-heading"><div><span class="eyebrow">01 / CLAUSE INTELLIGENCE</span><h1 id="classify-title">Understand the <em>clause.</em></h1><p>Find its likely type, see the model's confidence, and inspect the words behind the result.</p></div><span class="view-note">SINGLE CLAUSE</span></div>
+        <div class="workspace"><form id="classify-form" class="input-card"><div class="field-head"><label for="classify-text">Clause text</label><span class="character-count" data-count-for="classify-text">0 characters</span></div><textarea id="classify-text" rows="8" placeholder="Paste a contract clause here..."></textarea>
+          <div class="examples"><span>Paste example</span><button type="button" data-example="governing">Governing law</button><button type="button" data-example="confidentiality">Confidentiality</button><button type="button" data-example="applicable">Compliance</button></div>
+          <div class="form-end"><div class="model-field"><span class="field-caption">Model</span><select id="classify-model" class="model-select" aria-label="Classification model"></select><div class="model-segments" data-for="classify-model"></div></div><button class="primary-button" type="submit"><span>Classify clause</span><kbd>⌘ ↵</kbd></button></div>
+        </form><div id="classify-result" class="result-panel" aria-live="polite"><div class="empty-state"><span class="empty-symbol" aria-hidden="true">§</span><h2>Ready for a clause</h2><p>Paste text or choose an example to reveal the classification.</p></div></div></div>
       </section>
-
       <section id="view-search" class="view" aria-labelledby="search-title" hidden>
-        <div class="view-heading"><div><span class="eyebrow">02 / FIND PRECEDENT</span><h1 id="search-title">Search the clause bank</h1><p>Search real SEC contract clauses by meaning, wording, or shared terms.</p></div><span class="view-note">Training clause bank</span></div>
-        <form id="search-form" class="input-card full"><label for="search-query">Question or clause</label><textarea id="search-query" rows="3" placeholder="What are you looking for?"></textarea>
-          <div class="examples"><span>Try a search</span><button type="button" data-search-example="termination with a 30-day notice period">30-day termination</button><button type="button" data-search-example="who must indemnify the other party for third party claims">Indemnification</button><button type="button" data-search-example="which state's law governs this agreement">Governing law</button></div>
-          <div class="form-end"><label class="select-label">Search method<select id="search-method"><option value="dense">MiniLM dense</option><option value="tfidf">TF-IDF</option><option value="overlap">Keyword overlap</option></select></label><button class="primary-button" type="submit">Search clauses <span aria-hidden="true">↗</span></button></div>
+        <div class="view-heading"><div><span class="eyebrow">02 / CLAUSE BANK</span><h1 id="search-title">Find the <em>precedent.</em></h1><p>Search 60,000 SEC contract clauses by meaning, wording, or shared terms.</p></div><span class="view-note">RETRIEVAL</span></div>
+        <form id="search-form" class="input-card full"><div class="field-head"><label for="search-query">Question or clause</label><span class="character-count" data-count-for="search-query">0 characters</span></div><textarea id="search-query" rows="4" placeholder="What are you looking for?"></textarea>
+          <div class="examples"><span>Paste example</span><button type="button" data-search-example="termination with a 30-day notice period">30-day termination</button><button type="button" data-search-example="who must indemnify the other party for third party claims">Indemnification</button><button type="button" data-search-example="which state's law governs this agreement">Governing law</button></div>
+          <div class="form-end"><label class="select-label">Search method<select id="search-method"><option value="dense">MiniLM</option><option value="tfidf">TF-IDF</option><option value="overlap">Keyword overlap</option></select></label><button class="primary-button" type="submit"><span>Search clauses</span><kbd>⌘ ↵</kbd></button></div>
         </form><div id="search-result" class="result-block" aria-live="polite"></div>
       </section>
-
       <section id="view-review" class="view" aria-labelledby="review-title" hidden>
-        <div class="view-heading"><div><span class="eyebrow">03 / REVIEW A DOCUMENT</span><h1 id="review-title">Review a contract</h1><p>Check a contract against twelve common clause types, then inspect every clause in order.</p></div><span class="view-note">12-point checklist</span></div>
-        <form id="review-form" class="input-card full"><label for="review-text">Contract text</label><textarea id="review-text" class="contract-area" rows="12" placeholder="Paste contract text, with a blank line between clauses..."></textarea><div class="form-end"><span class="field-hint">Separate clauses with a blank line.</span><div class="form-controls"><label class="select-label">Model<select id="review-model" class="model-select"></select></label><button class="primary-button" type="submit">Review contract <span aria-hidden="true">↗</span></button></div></div></form><div id="review-result" class="result-block" aria-live="polite"></div>
+        <div class="view-heading"><div><span class="eyebrow">03 / CONTRACT REVIEW</span><h1 id="review-title">Review the <em>whole picture.</em></h1><p>Check a contract against twelve standard clause types, then inspect each clause in order.</p></div><span class="view-note">12-POINT CHECKLIST</span></div>
+        <form id="review-form" class="input-card full"><div class="field-head"><label for="review-text">Contract text</label><span class="character-count" data-count-for="review-text">0 characters</span></div><textarea id="review-text" class="contract-area" rows="11" placeholder="Paste contract text, with a blank line between clauses..."></textarea><div class="review-tools"><span class="field-hint">Separate clauses with a blank line.</span><button type="button" class="text-button" id="load-sample">Load sample contract</button></div><div class="form-end"><div class="model-field"><span class="field-caption">Model</span><select id="review-model" class="model-select" aria-label="Review model"></select><div class="model-segments" data-for="review-model"></div></div><button class="primary-button" type="submit"><span>Review contract</span><kbd>⌘ ↵</kbd></button></div></form><div id="review-result" class="result-block" aria-live="polite"></div>
       </section>
-
       <section id="view-stress" class="view" aria-labelledby="stress-title" hidden>
-        <div class="view-heading"><div><span class="eyebrow">04 / TEST ROBUSTNESS</span><h1 id="stress-title">Stress test a clause</h1><p>See whether changing parties, jurisdiction, or number format changes the prediction.</p></div><span class="view-note">Counterfactual audit</span></div>
-        <form id="stress-form" class="input-card full"><label for="stress-text">Clause text</label><textarea id="stress-text" rows="5" placeholder="Paste a clause here..."></textarea><div class="examples"><span>Try an example</span><button type="button" id="stress-example">License and New York law</button></div><div class="form-end"><label class="select-label">Model<select id="stress-model" class="model-select"></select></label><button class="primary-button" type="submit">Run stress test <span aria-hidden="true">↗</span></button></div></form><div id="stress-result" class="result-block" aria-live="polite"></div>
+        <div class="view-heading"><div><span class="eyebrow">04 / ROBUSTNESS AUDIT</span><h1 id="stress-title">Test the <em>edges.</em></h1><p>See whether a small wording change alters the prediction.</p></div><span class="view-note">COUNTERFACTUAL</span></div>
+        <form id="stress-form" class="input-card full"><div class="field-head"><label for="stress-text">Clause text</label><span class="character-count" data-count-for="stress-text">0 characters</span></div><textarea id="stress-text" rows="6" placeholder="Paste a clause here..."></textarea><div class="examples"><span>Paste example</span><button type="button" id="stress-example">License and New York law</button></div><div class="form-end"><div class="model-field"><span class="field-caption">Model</span><select id="stress-model" class="model-select" aria-label="Stress test model"></select><div class="model-segments" data-for="stress-model"></div></div><button class="primary-button" type="submit"><span>Run stress test</span><kbd>⌘ ↵</kbd></button></div></form><div id="stress-result" class="result-block" aria-live="polite"></div>
       </section>
-
       <section id="view-evidence" class="view" aria-labelledby="evidence-title" hidden>
-        <div class="view-heading"><div><span class="eyebrow">05 / MEASURED PERFORMANCE</span><h1 id="evidence-title">Evidence behind the results</h1><p>Evaluation figures from the project's saved reports.</p></div><span class="view-note">Read from report files</span></div>
-        <div id="evidence-result" class="result-block" aria-live="polite"></div><p class="evidence-disclaimer">Research prototype trained on US SEC contracts: not legal advice, every result is reviewed by a person.</p>
+        <div class="view-heading"><div><span class="eyebrow">05 / THE EVIDENCE</span><h1 id="evidence-title">Numbers behind <em>the answer.</em></h1><p>Measured performance, calibration, retrieval, and processing cost from saved reports.</p></div><span class="view-note">EVALUATION</span></div>
+        <div id="evidence-result" class="result-block" aria-live="polite"></div><p class="evidence-disclaimer">Research prototype trained on US SEC contracts. Every result needs human review. This is not legal advice.</p>
       </section>
-    </main>
-    <footer>Clausier, Albert School 2026. Research prototype trained on US SEC contracts (LEDGAR): not legal advice.</footer>
+      <footer>Clausier · LEDGAR <span>Research prototype · 2026</span></footer>
+    </div></main>
   </div>
 </body>
 </html>
