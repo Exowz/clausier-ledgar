@@ -1,18 +1,30 @@
 # WS3 Audit: handover note
 
-Owner: Ewan. Branch: `ws3-audit`. Last updated: Tue 20 Oct.
+Owner: Ewan. Branch: `ws3-audit`, merged into `main`. Last updated: Thu 22 Oct.
 
 ## Inputs
 
-Run directories from WS1 (`outputs/tfidf/` now, Legal-BERT and the others after the Colab runs), read with
-`src.classification.run_io.load_run`. Slice functions from `src/data.py`, rules in `docs/slices.md`.
+Run directories from WS1, read with `src.classification.run_io.load_run`. Slice functions from `src/data.py`, rules
+in `docs/slices.md`. The counterfactual tests also need the saved model (`outputs/<run>/model/` or
+`outputs/tfidf/model.joblib`), since they predict edited clauses.
 
-## Plan (T08)
+## Done
 
-Per-class F1 versus training frequency, top confused pairs with examples, slices (contract family, jurisdiction,
-length) with n, macro-F1 and bootstrap intervals, paired tests between runs (McNemar with continuity correction,
-paired bootstrap on macro-F1, 1,000 resamples). T09 (perturbations, calibration, model card) waits for Session 7.
+- Plan committed in the README before any audit code (m5).
+- T08: `src/audit/per_class.py`, `slices.py`, `stats.py`, `run.py` (`make audit`): per-class F1 versus training
+  frequency, top confused pairs with examples, slices with bootstrap intervals; `src/classification/compare.py`
+  (McNemar with continuity correction, paired bootstrap on macro-F1).
+- T09: `src/audit/perturbations.py` (`make counterfactual`): party roles, jurisdiction, number format, each with a
+  control, decision rule from the plan.
+- Audited runs: `tfidf`, `legal_bert`, `legal_bert_long` (reports in `reports/audit/<run>/`, figures in
+  `reports/figures/`). `MODEL_CARD.md` filled from these reports.
 
-## Done / left
+## Left
 
-Done: nothing yet (handover point reached with T03). Left: T08, T09 if Session 7 happens before Thu 22.
+Nothing required. Possible additions (decision pending): calibration and an abstention threshold on the saved
+probabilities.
+
+## How to rerun
+
+`make audit` and `make counterfactual` on TF-IDF; `make final` on the best Legal-BERT run, chosen on validation
+macro-F1.

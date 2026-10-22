@@ -447,8 +447,12 @@ Summary of the [model card](MODEL_CARD.md).
 - **Out of scope:** legal advice; any decision on a contract without human review; contracts in other languages or
   from other legal systems (including EU contracts) without a new evaluation; clause types outside the 100 LEDGAR
   labels, since the model always answers one of the 100.
+- **Recommended model:** TF-IDF + logistic regression, by the rule written before the runs: Legal-BERT does not
+  beat it significantly on the deduplicated test set, and TF-IDF needs no GPU.
 - **Known failure modes:** overlapping labels (Applicable Laws / Governing Laws, No Waivers / Waivers), lease
-  contracts, clauses longer than 256 tokens (only the beginning is read).
+  contracts (worse for both models on both test sets), probabilities that are not calibrated (Legal-BERT is more
+  confident on its errors as training goes on). Legal-BERT only reads the first 256 tokens of a clause; the
+  truncated clauses are not measured as worse.
 
 ## Residual risks
 
