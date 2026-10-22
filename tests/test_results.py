@@ -99,6 +99,7 @@ def test_main_writes_tables_pair_results_and_figure(runs, tmp_path, capsys):
     assert len(data["pairs"]) == 3
     assert data["reference_lexglue"][2] == {"model": "Legal-BERT", "micro_f1": 88.2, "macro_f1": 83.0}
     assert (out / "figures" / "model_comparison.png").is_file()
+    assert (out / "figures" / "validation_curves.png").is_file()
     assert (out / "audit" / "compare_legal_bert_long_vs_tfidf.json").is_file()
     assert (out / "audit" / "compare_legal_bert_long_vs_tfidf.md").is_file()
     captured = capsys.readouterr().out

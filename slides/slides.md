@@ -367,3 +367,15 @@ const human = Math.round(deck.calibration.tfidf.abstention.share_sent_to_human *
 Speaker: Ewan. Budget: 0:40.
 The business choice is the cheaper classifier with confidence and a person in the loop. We pair it with MiniLM when the input is a lawyer's question. Before expanding the dataset, we would have lawyers resolve the overlapping labels. This is for reviewed US contract work and is not legal advice.
 -->
+
+---
+
+<div class="deck-slide">
+  <h1>Backup: validation macro-F1 per epoch</h1>
+  <img src="/figures/validation_curves.png" style="height: 520px; margin: 0 auto; display: block;" />
+  <div class="deck-footer"><span>Clausier · LEDGAR</span><span>Backup</span></div>
+</div>
+
+<!--
+Backup for questions on training length. Every 4-epoch run was still rising at its last epoch, so we added the 10-epoch runs, decided on the validation curve only. Full fine-tuning levels off from epoch 7; LoRA is still rising at epoch 10. The 10-epoch run starts lower because its warmup lasts a whole epoch.
+-->

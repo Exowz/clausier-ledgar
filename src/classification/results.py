@@ -1,6 +1,7 @@
 """Build final classifier tables, paired tests, and a comparison figure."""
 
 import argparse
+import json
 from pathlib import Path
 
 import numpy as np
@@ -172,6 +173,53 @@ def plot_models(
     plt.close(fig)
 
 
+CURVE_STYLES = {
+    "legal_bert": ("#14213d", "--"), "legal_bert_long": ("#14213d", "-"),
+    "legal_bert_lora": ("#0f766e", "--"), "legal_bert_lora_long": ("#0f766e", "-"),
+    "bert_base": ("#8b99a5", "--"), "lstm": ("#c2a878", ":"), "lstm_glove": ("#b45309", ":"),
+}
+
+
+def plot_curves(runs: list[str], outputs_dir: Path, path: Path) -> None:
+    """Plot validation macro-F1 per epoch for every trained run, with TF-IDF as a reference line."""
+    import matplotlib
+
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+
+    root = resolve_path(outputs_dir)
+    plt.rcParams.update({"font.size": 12})
+    fig, ax = plt.subplots(figsize=(10, 6))
+    for run in runs:
+        history_path = root / run / "history.json"
+        if run not in CURVE_STYLES or not history_path.is_file():
+            continue
+        rows = [row for row in json.loads(history_path.read_text(encoding="utf-8")) if "val_macro_f1" in row]
+        if not rows:
+            continue
+        color, style = CURVE_STYLES[run]
+        epochs = [row["epoch"] for row in rows]
+        scores = [row["val_macro_f1"] for row in rows]
+        ax.plot(epochs, scores, linestyle=style, color=color, marker="o", markersize=4, linewidth=2, label=RUNS[run])
+        best = int(np.argmax(scores))
+        ax.scatter([epochs[best]], [scores[best]], marker="*", s=160, color=color, zorder=3)
+    if "tfidf" in runs:
+        tfidf = load_json(root / "tfidf" / "metrics.json")["validation"]["macro_f1"]
+        ax.axhline(tfidf, color="#617083", linestyle="-.", linewidth=1.5, label=f"{RUNS['tfidf']} ({tfidf:.3f})")
+    ax.set_title("Validation macro-F1 per epoch (star: best epoch)")
+    ax.set_xlabel("Epoch")
+    ax.set_ylabel("Validation macro-F1")
+    ax.set_ylim(0.4, 0.85)
+    ax.set_xticks(range(1, 11))
+    ax.grid(alpha=0.3)
+    ax.legend(loc="lower right", fontsize=11)
+    fig.tight_layout()
+    output = resolve_path(path)
+    ensure_dir(output.parent)
+    fig.savefig(output, dpi=150)
+    plt.close(fig)
+
+
 def _format_cell(column: str, value: object) -> str:
     if value == "" or value is None:
         return ""
@@ -247,6 +295,7 @@ def main(argv=None) -> None:
         comparisons.append({"question": question, **pair})
     plot_models(available, args.outputs, output / "figures" / "model_comparison.png",
                 n_boot=args.n_boot, seed=42)
+    plot_curves(available, args.outputs, output / "figures" / "validation_curves.png")
 
     selected = RUNS[best] if best else "none available"
     reference_rows = "\n".join(

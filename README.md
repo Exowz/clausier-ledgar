@@ -241,6 +241,14 @@ all eight runs are in.
 The best Legal-BERT run is chosen on validation macro-F1 only: the run trained up to 10 epochs, which is the one used
 in the main comparison and in the audit.
 
+![Validation macro-F1 per epoch](reports/figures/validation_curves.png)
+
+Validation curves ([history.json](outputs/legal_bert_long/history.json) of each run, plotted by `make results`). Every
+4-epoch transformer run has its best epoch at the last one, still rising, which is why the longer runs were added.
+Full fine-tuning levels off from epoch 7 (0.821 to 0.825), LoRA is still rising at epoch 10, and both LSTMs reach
+their best score at their last epoch (8). Up to epoch 4 the 10-epoch run is below the 4-epoch run: its linear warmup
+covers 10% of 10 epochs, a whole epoch, so the learning rate peaks later.
+
 ![Test macro-F1 per model](reports/figures/model_comparison.png)
 
 Paired tests ([reports/results.md](reports/results.md#paired-tests); McNemar on accuracy, paired bootstrap on
