@@ -25,7 +25,7 @@ train-smoke:
 	$(PYTHON) -m src.classification.train --config configs/legal_bert.yaml --smoke --batch-size 8 --eval-batch-size 32  # small batches fit a 16 GB Mac
 
 retrieval:
-	@echo "retrieval: not implemented yet (T06)"
+	$(PYTHON) -m src.retrieval.evaluate
 
 audit:
 	$(PYTHON) -m src.audit.run --run outputs/tfidf

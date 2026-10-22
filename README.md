@@ -35,6 +35,7 @@ Group project, Deep Learning for Sequential Data and NLP (Guillaume Saint-Cirgue
 > make baseline        # TF-IDF + logistic regression, writes outputs/tfidf/
 > make audit           # per class, confusions, slices with intervals
 > make counterfactual  # party roles, jurisdiction, number format, each with a control
+> make retrieval       # MiniLM, TF-IDF and keyword search over the 60,000 training clauses
 > make results         # every final table, from the run directories in outputs/
 > ```
 >
@@ -165,12 +166,22 @@ comparisons are the ones written in the README before the runs ([results.py](src
 
 ### 7. Clause retrieval (m2)
 
-*Owner: Wiyao. In progress on the `ws2-retrieval` branch; plan in [docs/ws2.md](docs/ws2.md).* The clause bank is
-the training split. Dense retrieval uses `sentence-transformers/all-MiniLM-L6-v2` with normalised embeddings and
-the score `D @ q` (TP03 Part D); it is compared with TF-IDF cosine and the TP03 keyword-overlap score. A `re`
-extractor of durations ("30 days", "thirty (30) days") filters the results for questions such as "30-day notice".
-Evaluation uses "same clause type = relevant" as a proxy, with top-1 accuracy and precision at 5 and 10, and 15 to
-20 lawyer-style queries in `data/queries.yaml`, checked by hand.
+The clause bank is the training split (60,000 clauses). [index.py](src/retrieval/index.py) holds three ways to
+search it, each returning the top k with `np.argsort(-scores)`:
+
+| Method | Score | Course |
+| --- | --- | --- |
+| Dense | `all-MiniLM-L6-v2`, `encode(..., normalize_embeddings=True)`, cosine `D @ q` | TP03 Part D |
+| TF-IDF | word 1-2 grams fitted on the bank, cosine | TF-IDF of m1, cosine of TP03 |
+| Keyword overlap | number of shared words, `words_of(q) & words_of(c)` | TP03 exercise 18 |
+
+[constraints.py](src/retrieval/constraints.py) extracts durations in days with `re` ("30 days", "30-day", "thirty
+(30) days", "ten business days"): when a question names a duration, only the clauses that mention it are kept among
+the 200 best candidates. [evaluate.py](src/retrieval/evaluate.py) (`make retrieval`) measures the three methods
+with "same clause type = relevant" as a proxy: top-1 accuracy and precision at 5 and 10 (precision as in S01) for
+1,000 seeded test clauses used as queries, with 95% bootstrap intervals, on all of them and on the 761 that are not
+near copies of a training clause. 18 lawyer-style questions ([data/queries.yaml](data/queries.yaml)) are searched
+too, and their top 5 are read by hand, as in TP03.
 
 ### 8. Bias audit (m5)
 
@@ -236,6 +247,33 @@ For reference, the LexGLUE benchmark reports on the same LEDGAR test set a micro
 TF-IDF + SVM, 87.6 / 81.8 for BERT and 88.2 / 83.0 for Legal-BERT (Chalkidis et al. 2022, published numbers, not
 produced by this repository; their models read up to 512 tokens and train up to 20 epochs).
 
+### Clause retrieval
+
+Bank of 60,000 training clauses ([metrics.md](outputs/retrieval/metrics.md)); embedding the bank takes 73 seconds on
+an M2 Pro GPU, searching 1,000 queries 4 seconds (dense), 10 (TF-IDF) and 7 (overlap).
+
+| Method | Top-1 accuracy (deduplicated queries) | Precision at 5 | Precision at 10 | Top-1 accuracy (all queries) |
+| --- | ---: | ---: | ---: | ---: |
+| Dense (MiniLM) | 0.771 [0.742, 0.802] | 0.711 | 0.686 | 0.821 |
+| TF-IDF cosine | **0.787** [0.756, 0.817] | **0.741** | **0.720** | **0.833** |
+| Keyword overlap | 0.635 [0.603, 0.671] | 0.556 | 0.534 | 0.714 |
+
+Lawyer-style questions, top 5 read by hand ([lawyer_queries.md](outputs/retrieval/lawyer_queries.md)):
+
+| Method | Expected clause type at rank 1 | In the top 5 |
+| --- | ---: | ---: |
+| Dense (MiniLM) | **13 / 18** | **15 / 18** |
+| TF-IDF cosine | 10 / 18 | 15 / 18 |
+| Keyword overlap | 6 / 18 | 13 / 18 |
+
+Reading of the dense misses: "which court has jurisdiction over disputes" returns clauses that submit to the courts
+of a named city, labelled Venues and Jurisdictions instead of Consent To Jurisdiction; "what warranties does the
+seller give" returns "Seller hereby represents and warrants...", labelled Representations; "cure period of ten days
+after notice of a breach" returns termination clauses that give ten days to cure. A lawyer would accept these
+answers, so the same-label proxy undercounts; the same overlapping labels cause the classification errors. The one
+real miss is "who must indemnify the other party", answered with clauses on cooperating in the defence of
+third-party claims. The duration filter works on the three questions that name one (30, 60 and 10 days).
+
 ### Key findings
 
 - **Legal-BERT and the tuned TF-IDF baseline are tied.** The best Legal-BERT run (up to 10 epochs) reaches a test
@@ -264,6 +302,11 @@ produced by this repository; their models read up to 512 tokens and train up to 
 - **Near copies flatter both models equally:** TF-IDF and Legal-BERT (up to 10 epochs) each lose 3.8 macro-F1
   points on the deduplicated set, so prediction 2 (a larger gap on the deduplicated set) is not confirmed either. At
   4 epochs the gap shrank from 3.3 to 2.6 points.
+- **For retrieval, the method depends on the query.** When the query is a clause, TF-IDF cosine is slightly ahead
+  of MiniLM (top-1 0.787 against 0.771 on deduplicated queries, overlapping intervals), because a clause shares its
+  wording with clauses of the same type. When the query is a lawyer's question, MiniLM finds the expected clause
+  type first 13 times out of 18, TF-IDF 10 and keyword overlap 6: a question shares few words with the clause it
+  asks for, the TP03 lesson. The product should use the dense index for questions.
 - **LoRA keeps most of the score with 0.34% of the parameters:** 1.1 macro-F1 points below full fine-tuning on the
   test set (within the 2 points predicted), a quarter of the training memory, 21% less time per epoch. The
   difference is significant on the full test set.
@@ -517,7 +560,10 @@ reports/: results.md, audit tables, figures  →  MODEL_CARD.md, slides/
 │   │   ├── run_io.py             # standard run directory
 │   │   ├── compare.py            # McNemar and paired bootstrap (m4)
 │   │   └── results.py            # final tables and comparison figure
-│   ├── retrieval/                # clause retrieval (m2, in progress)
+│   ├── retrieval/
+│   │   ├── index.py              # MiniLM, TF-IDF and keyword-overlap search (m2)
+│   │   ├── constraints.py        # durations in days, with re
+│   │   └── evaluate.py           # top-1 accuracy, precision at 5 and 10, lawyer queries
 │   └── audit/
 │       ├── stats.py              # bootstrap intervals
 │       ├── per_class.py          # per class table, F1 against frequency, confused pairs
@@ -646,7 +692,8 @@ difference, which McNemar cannot test.
 
 LEDGAR has no relevance judgments. Two clauses of the same type are a reasonable proxy for "a similar clause", but
 the proxy ignores what the lawyer asked (a 30-day notice period, a given law), so the lawyer-style queries are also
-checked by hand.
+checked by hand. The hand check shows that the proxy is strict: several "wrong" answers are clauses a lawyer would
+accept, filed under an overlapping label.
 
 ### Why slices derived from the text?
 

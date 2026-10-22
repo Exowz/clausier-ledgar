@@ -1,7 +1,7 @@
 # WS2 Retrieval: handover note
 
-Owner: Wiyao (from Tue 20 Oct). Branch: `ws2-retrieval`, merged into `main` after review. Tasks T06 (index) and T07
-(evaluation). Last updated: Tue 20 Oct.
+Owner: Wiyao (from Tue 20 Oct), Ewan (from Thu 22 Oct). Tasks T06 (index) and T07 (evaluation). Last updated:
+Thu 22 Oct.
 
 ## Goal
 
@@ -39,4 +39,11 @@ similar clauses of the clause bank (the LEDGAR train split, 60,000 clauses), and
 
 ## Done / left
 
-Done: nothing yet. Left: T06, T07. Open decisions: none.
+Done: T06 and T07. `make retrieval` embeds the 60,000 training clauses (73 s on an M2 Pro GPU, cached in
+`outputs/retrieval/bank_embeddings_all.npy`, not in git), evaluates 1,000 seeded test queries and the 18 lawyer
+queries, and writes `outputs/retrieval/metrics.md`, `lawyer_queries.md` and `examples.md`. `--n-bank 2000
+--n-queries 100 --device cpu` runs in about 15 s for development. Results and the hand reading are in the README
+(Results, Clause retrieval).
+
+Left: nothing required. For an app, `DenseIndex(embed(...), load_model()).search(query, k)` and `search_with_days`
+answer one question at a time.
