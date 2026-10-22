@@ -1,15 +1,16 @@
 import { defineMermaidSetup } from '@slidev/types'
 
-// Deck palette for the pipeline diagram (slide 3), instead of the default purple theme.
 export default defineMermaidSetup(() => ({
   theme: 'base',
   themeVariables: {
-    background: '#f7f6f2',
-    primaryColor: '#ffffff',
-    primaryBorderColor: '#0f766e',
-    primaryTextColor: '#14213d',
-    lineColor: '#617083',
-    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+    background: '#0b1220',
+    primaryColor: '#111a2e',
+    primaryBorderColor: 'rgba(244,239,230,0.18)',
+    primaryTextColor: '#f4efe6',
+    secondaryColor: '#111a2e',
+    tertiaryColor: '#111a2e',
+    lineColor: '#8a94a6',
+    fontFamily: 'Inter Variable, Inter, sans-serif',
     fontSize: '17px',
   },
 }))

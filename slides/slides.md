@@ -7,7 +7,7 @@ aspectRatio: 16/9
 fonts:
   provider: none
 favicon: /favicon.svg
-transition: fade
+transition: view-transition
 ---
 
 <script setup>
@@ -15,10 +15,9 @@ import { deck } from './data'
 </script>
 
 <div class="title-slide">
+  <ClauseField />
   <div class="title-copy">
-    <div class="brand-mark">C</div>
-    <h1>Clausier</h1>
-    <p class="title-tagline">Contract clause review, with the evidence</p>
+    <Headline text="Clausier" eyebrow="CONTRACT REVIEW, WITH THE EVIDENCE" />
     <p class="presenters">Ewan · Wiyao TAKOUGNADI</p>
     <p class="course">Deep Learning for Sequential Data and NLP · Albert School · 23 October 2026</p>
   </div>
@@ -40,21 +39,22 @@ A start-up wants to help lawyers review large collections of contracts without h
 <script setup>
 import { deck, integer } from './data'
 const distribution = {
-  animationDuration: 1100,
+  animationDuration: 850,
+  animationDelay: (index) => index * 90,
   grid: { left: 68, right: 30, top: 30, bottom: 105 },
-  xAxis: { type: 'category', data: deck.label_distribution.names, axisLabel: { interval: 0, fontSize: 18, formatter: (value, index) => index === 0 || index === deck.label_distribution.names.length - 1 ? value : '' }, axisTick: { show: false } },
-  yAxis: { type: 'log', name: 'Training clauses (log scale)', nameTextStyle: { fontSize: 18, align: 'left' }, axisLabel: { fontSize: 18 } },
-  series: [{ type: 'bar', data: deck.label_distribution.counts.map((count, index) => ({ value: count, itemStyle: { color: index === 0 || index === deck.label_distribution.counts.length - 1 ? '#0f766e' : '#b7c1c5' }, label: { show: index === 0 || index === deck.label_distribution.counts.length - 1, position: 'top', fontSize: 20, formatter: integer(count) } })), barWidth: '80%' }],
+  xAxis: { type: 'category', data: deck.label_distribution.names, axisLabel: { interval: 0, fontSize: 18, color: '#8a94a6', formatter: (value, index) => index === 0 || index === deck.label_distribution.names.length - 1 ? value : '' }, axisTick: { show: false } },
+  yAxis: { type: 'log', name: 'Training clauses (log scale)', nameTextStyle: { fontSize: 18, color: '#8a94a6', align: 'left' }, axisLabel: { fontSize: 18, color: '#8a94a6' }, splitLine: { lineStyle: { color: 'rgba(244,239,230,.10)' } } },
+  series: [{ type: 'bar', data: deck.label_distribution.counts.map((count, index) => ({ value: count, itemStyle: { color: index === 0 || index === deck.label_distribution.counts.length - 1 ? '#d4a853' : '#475569' }, label: { show: index === 0 || index === deck.label_distribution.counts.length - 1, position: 'top', fontSize: 20, color: '#d4a853', formatter: integer(count) } })), barWidth: '80%' }],
 }
 const overlap = deck.eda.overlap.exact_duplicates + deck.eda.overlap.near_duplicates
 </script>
 
 <div class="deck-slide">
-  <h1>{{ deck.label_distribution.names.length }} clause types, very unequal</h1>
+  <Headline :text="`${deck.label_distribution.names.length} clause types, very unequal`" eyebrow="DATA" emphasis="unequal" />
   <div class="two-col data-layout">
     <EChart :option="distribution" height="475px" />
     <div class="stat-aside">
-      <div class="big-stat"><CountUp :value="Object.values(deck.eda.split_sizes).reduce((sum, n) => sum + n, 0)" /> <span>clauses</span></div>
+      <div class="big-stat"><CountUp :value="Object.values(deck.eda.split_sizes).reduce((sum, n) => sum + n, 0)" /> <span class="stat-unit">clauses</span></div>
       <p><strong>{{ integer(overlap) }}</strong> test clauses are near copies of training clauses.</p>
       <p>Every result is also shown without them.</p>
     </div>
@@ -73,8 +73,9 @@ LEDGAR has a long tail of clause types, so accuracy alone can hide weak performa
 import { deck } from './data'
 </script>
 
-<div class="deck-slide">
-  <h1>The course pipeline, end to end</h1>
+<div class="deck-slide pipeline-slide">
+  <PipelineMotion />
+  <Headline text="The course pipeline, end to end" eyebrow="PIPELINE" emphasis="pipeline" />
 
 ```mermaid {scale: 0.9}
 flowchart LR
@@ -88,7 +89,7 @@ flowchart LR
   L --> M[MiniLM index · m2]
   M --> S[Search]
   A -.-> X[Additions: calibration, cost,<br/>labels, explanations, contracts]
-  style X stroke-dasharray: 7 5
+  style X stroke:#d4a853,stroke-dasharray:7 5,color:#f4efe6,fill:#111a2e
 ```
 
   <div class="pipeline-lines">
@@ -112,27 +113,27 @@ const rows = [...deck.results_table].reverse()
 const comparison = deck.pairs.legal_bert_long_vs_tfidf.test
 const resultOption = {
   animationDuration: 1200,
-  grid: { left: 330, right: 24, top: 20, bottom: 40 },
+  animationDelay: 1550,
+  grid: { left: 280, right: 18, top: 6, bottom: 30 },
   xAxis: { type: 'value', min: 0, max: 0.9, axisLabel: { fontSize: 18, formatter: (v) => v.toFixed(1) } },
-  yAxis: { type: 'category', data: rows.map(row => row.model.replace('Legal-BERT LoRA', 'LoRA')), axisLabel: { fontSize: 18, color: '#14213d', width: 320, overflow: 'truncate' } },
+  yAxis: { type: 'category', data: rows.map(row => row.model.replace('Legal-BERT LoRA', 'LoRA')), axisLabel: { fontSize: 18, color: '#8a94a6', width: 320, overflow: 'truncate' } },
   series: [
-    { name: 'Test', type: 'bar', data: rows.map(row => ({ value: row.test_macro_f1, itemStyle: { color: row.model.startsWith('TF-IDF') ? '#0f766e' : row.model === 'Legal-BERT (up to 10 epochs)' ? '#14213d' : '#9facb6' } })), barWidth: 18 },
-    { name: 'Without near copies', type: 'bar', data: rows.map(row => ({ value: row.test_dedup_macro_f1, itemStyle: { color: row.model.startsWith('TF-IDF') ? '#a8d7cf' : row.model === 'Legal-BERT (up to 10 epochs)' ? '#9ba9bd' : '#d5dbde' } })), barWidth: 18 },
+    { name: 'Test', type: 'bar', data: rows.map(row => ({ value: row.test_macro_f1, itemStyle: { color: row.model.startsWith('TF-IDF') ? '#d4a853' : row.model === 'Legal-BERT (up to 10 epochs)' ? '#2dd4bf' : '#475569' } })), barWidth: 12 },
+    { name: 'Without near copies', type: 'bar', data: rows.map(row => ({ value: row.test_dedup_macro_f1, itemStyle: { color: row.model.startsWith('TF-IDF') ? '#806a44' : row.model === 'Legal-BERT (up to 10 epochs)' ? '#286f70' : '#334155' } })), barWidth: 12 },
   ],
 }
 </script>
 
-<div class="deck-slide">
-  <h1>TF-IDF and Legal-BERT are tied</h1>
-  <div class="two-col results-layout">
-    <div><EChart :option="resultOption" height="450px" /><p class="legend-note">Test macro-F1: dark bar, full test set; light bar, without near copies</p></div>
-    <div class="results-aside">
-      <div class="duel"><div><span>TF-IDF</span><strong><CountUp :value="tfidf.test_macro_f1" :decimals="3" /></strong></div><div><span>Legal-BERT</span><strong><CountUp :value="legalBert.test_macro_f1" :decimals="3" /></strong></div></div>
-      <p>McNemar p = {{ comparison.p_value.toFixed(2) }}</p>
-      <p>Difference {{ comparison.diff_macro_f1.toFixed(3) }} [{{ comparison.diff_low.toFixed(3) }}, {{ comparison.diff_high.toFixed(3) }}]</p>
-      <div v-click class="prediction-box">Predicted before the runs: Legal-BERT ahead by {{ deck.planned_advantage_points[0] }} to {{ deck.planned_advantage_points[1] }} points. Wrong. Our rule: then recommend the cheaper TF-IDF.</div>
-    </div>
+<div class="deck-slide results-slide">
+  <Headline text="TF-IDF and Legal-BERT are tied" eyebrow="RESULTS" emphasis="tied" />
+  <div class="duel">
+    <div><span class="duel-label">TF-IDF</span><strong><CountUp :value="tfidf.test_macro_f1" :decimals="3" /></strong></div>
+    <span class="duel-equals">≈</span>
+    <div><span class="duel-label">Legal-BERT</span><strong><CountUp :value="legalBert.test_macro_f1" :decimals="3" /></strong></div>
   </div>
+  <p class="results-evidence">McNemar p = {{ comparison.p_value.toFixed(2) }}, difference {{ comparison.diff_macro_f1.toFixed(3) }} [{{ comparison.diff_low.toFixed(3) }}, {{ comparison.diff_high.toFixed(3) }}]</p>
+  <div class="results-chart"><EChart :option="resultOption" height="265px" /><p class="legend-note">Bright bar: full test set · dim bar: without near copies</p></div>
+  <div v-click class="prediction-box">Predicted before the runs: <span class="wrong">Legal-BERT ahead by {{ deck.planned_advantage_points[0] }} to {{ deck.planned_advantage_points[1] }} points</span> <span class="wrong-word">Wrong.</span> <span class="rule">Our rule: recommend the cheaper TF-IDF.</span></div>
   <div class="deck-footer"><span>Clausier · LEDGAR</span><span>04</span></div>
 </div>
 
@@ -146,25 +147,27 @@ We predicted that legal pretraining would put Legal-BERT ahead by one to three p
 <script setup>
 import { deck, legalBert, tfidf } from './data'
 const positionRows = [
-  { name: 'ChatGPT few-shot', score: deck.chatgpt_zero_shot.few_shot_macro_f1, color: '#b45309' },
-  { name: 'ChatGPT zero-shot', score: deck.chatgpt_zero_shot.macro_f1, color: '#d79b4b' },
-  { name: 'LexGLUE TF-IDF + SVM', score: deck.lexglue.find(row => row.model === 'TF-IDF + SVM').macro_f1, color: '#adb8be' },
-  { name: 'LexGLUE Legal-BERT', score: deck.lexglue.find(row => row.model === 'Legal-BERT').macro_f1, color: '#8b99a5' },
-  { name: 'Our TF-IDF', score: tfidf.test_macro_f1 * 100, color: '#0f766e' },
-  { name: 'Our Legal-BERT', score: legalBert.test_macro_f1 * 100, color: '#14213d' },
+  { name: 'ChatGPT few-shot', score: deck.chatgpt_zero_shot.few_shot_macro_f1, color: '#f59e0b' },
+  { name: 'ChatGPT zero-shot', score: deck.chatgpt_zero_shot.macro_f1, color: '#f59e0b' },
+  { name: 'LexGLUE TF-IDF + SVM', score: deck.lexglue.find(row => row.model === 'TF-IDF + SVM').macro_f1, color: '#475569' },
+  { name: 'LexGLUE Legal-BERT', score: deck.lexglue.find(row => row.model === 'Legal-BERT').macro_f1, color: '#334155' },
+  { name: 'Our TF-IDF', score: tfidf.test_macro_f1 * 100, color: '#d4a853' },
+  { name: 'Our Legal-BERT', score: legalBert.test_macro_f1 * 100, color: '#2dd4bf' },
 ].reverse()
 const positionOption = {
-  animationDuration: 1100,
-  grid: { left: 320, right: 90, top: 20, bottom: 65 },
-  xAxis: { type: 'value', min: 0, max: 100, name: 'Macro-F1 (%)', nameTextStyle: { fontSize: 18 }, axisLabel: { fontSize: 18 } },
-  yAxis: { type: 'category', data: positionRows.map(row => row.name), axisLabel: { fontSize: 21, color: '#14213d' } },
-  series: [{ type: 'bar', data: positionRows.map(row => ({ value: row.score, itemStyle: { color: row.color } })), barWidth: 37, label: { show: true, position: 'right', fontSize: 21, formatter: ({ value }) => value.toFixed(1) } }],
+  animationDuration: 1050,
+  animationDelay: (index) => (5 - index) * 250,
+  grid: { left: 320, right: 380, top: 20, bottom: 40 },
+  xAxis: { type: 'value', min: 0, max: 100, axisLabel: { fontSize: 18, formatter: (v) => `${v}` } },
+  yAxis: { type: 'category', data: positionRows.map(row => row.name), axisLabel: { fontSize: 21, color: '#f4efe6' } },
+  series: [{ type: 'bar', data: positionRows.map(row => ({ value: row.score, itemStyle: { color: row.color } })), barWidth: 37, label: { show: true, position: 'right', fontSize: 21, color: '#f4efe6', formatter: ({ value }) => value.toFixed(1) } }],
 }
 </script>
 
-<div class="deck-slide">
-  <h1>State of the art, and far ahead of ChatGPT</h1>
+<div class="deck-slide position-slide">
+  <Headline text="State of the art, and far ahead of ChatGPT" eyebrow="POSITIONING" emphasis="ChatGPT" />
   <EChart :option="positionOption" height="420px" />
+  <div class="position-gap">+{{ Math.round(tfidf.test_macro_f1 * 100 - deck.chatgpt_zero_shot.macro_f1) }}<small>macro-F1 points for our TF-IDF over ChatGPT zero-shot</small></div>
   <p class="caption">ChatGPT figures: Chalkidis 2023, gpt-3.5-turbo, {{ deck.chatgpt_zero_shot.source.match(/[\d,]+ LEDGAR/)?.[0].replace(' LEDGAR', '') }} test clauses. Published: LexGLUE, ACL 2022.</p>
   <div class="deck-footer"><span>Clausier · LEDGAR</span><span>05</span></div>
 </div>
@@ -182,14 +185,14 @@ const lawyer = deck.retrieval.lawyer
 </script>
 
 <div class="deck-slide">
-  <h1>Ask a question, get the clauses</h1>
+  <Headline text="Ask a question, get the clauses" eyebrow="RETRIEVAL" emphasis="clauses" />
   <div class="retrieval-layout">
     <ClauseCloud />
     <div class="retrieval-ranks">
       <p>Right type at rank 1, {{ lawyer.dense.n }} lawyer questions</p>
-      <div><span>MiniLM</span><strong>{{ lawyer.dense.rank1 }}</strong><i :style="{ width: `${lawyer.dense.rank1 / lawyer.dense.n * 100}%`, background: '#0f766e' }" /></div>
-      <div><span>TF-IDF</span><strong>{{ lawyer.tfidf.rank1 }}</strong><i :style="{ width: `${lawyer.tfidf.rank1 / lawyer.tfidf.n * 100}%`, background: '#14213d' }" /></div>
-      <div><span>Keyword overlap</span><strong>{{ lawyer.overlap.rank1 }}</strong><i :style="{ width: `${lawyer.overlap.rank1 / lawyer.overlap.n * 100}%`, background: '#9facb6' }" /></div>
+      <div><span>MiniLM</span><strong>{{ lawyer.dense.rank1 }}</strong><i :style="{ width: `${lawyer.dense.rank1 / lawyer.dense.n * 100}%`, background: '#2dd4bf' }" /></div>
+      <div><span>TF-IDF</span><strong>{{ lawyer.tfidf.rank1 }}</strong><i :style="{ width: `${lawyer.tfidf.rank1 / lawyer.tfidf.n * 100}%`, background: '#d4a853' }" /></div>
+      <div><span>Keyword overlap</span><strong>{{ lawyer.overlap.rank1 }}</strong><i :style="{ width: `${lawyer.overlap.rank1 / lawyer.overlap.n * 100}%`, background: '#475569' }" /></div>
     </div>
   </div>
   <div class="deck-footer"><span>Clausier · LEDGAR</span><span>06</span></div>
@@ -210,7 +213,7 @@ const days = cloud.query.text.match(/\d+/)?.[0]
 </script>
 
 <div class="deck-slide">
-  <h1>The right method depends on the query</h1>
+  <Headline text="The right method depends on the query" eyebrow="RETRIEVAL, BY HAND" emphasis="query" />
   <div class="two-col query-compare">
     <div><h2>From a clause</h2><p><strong>TF-IDF {{ f1(metrics.tfidf.deduplicated.top_1_accuracy[0]) }}</strong> vs MiniLM {{ f1(metrics.dense.deduplicated.top_1_accuracy[0]) }} top-1</p></div>
     <div><h2>From a question</h2><p><strong>MiniLM {{ lawyer.dense.rank1 }}/{{ lawyer.dense.n }}</strong> vs TF-IDF {{ lawyer.tfidf.rank1 }}/{{ lawyer.tfidf.n }}</p></div>
@@ -218,7 +221,7 @@ const days = cloud.query.text.match(/\d+/)?.[0]
   <div v-click class="example-card">
     <p class="query-text">“which court has jurisdiction over disputes”</p>
     <p>“The parties agree irrevocably to submit to the exclusive jurisdiction of the federal courts ... located in Boston, Massachusetts”</p>
-    <div><span class="label-pill">Venues</span><s>counted wrong</s><span>A lawyer would accept it: the same-label check is strict.</span></div>
+    <div><span class="label-pill">Venues</span><span class="wrong">counted wrong</span><span>A lawyer would accept it: the same-label check is strict.</span></div>
   </div>
   <div class="filter-note"><span class="chip">Filter: {{ days }} days</span><span>Durations in the question filter the results.</span></div>
   <div class="deck-footer"><span>Clausier · LEDGAR</span><span>07</span></div>
@@ -242,7 +245,7 @@ const qualityDrop = (deck.cost_quality.fp32.macro_f1 - deck.cost_quality.int8.ma
 </script>
 
 <div class="deck-slide">
-  <h1>Same quality, {{ integer(speed) }} times faster</h1>
+  <Headline :text="`Same quality, ${integer(speed)}× faster`" eyebrow="COST" :emphasis="`${integer(speed)}×`" />
   <p class="chart-intro">Time to classify {{ integer(tf.n * 10) }} clauses</p>
   <TimeRace />
   <div class="cost-bottom"><p>Training: {{ integer(deck.tfidf_train_seconds) }} s on a laptop CPU vs {{ Math.floor(legalBert.train_time_min / 60) }} h {{ Math.round(legalBert.train_time_min % 60) }} on a GPU</p><p>int8 Legal-BERT: {{ sizeRatio.toFixed(1) }} times smaller but slower on this laptop, and {{ qualityDrop.toFixed(1) }} points lower</p></div>
@@ -264,20 +267,20 @@ const threshold = deck.counterfactual_fail_threshold
 const auditOption = {
   animationDuration: 1000,
   grid: { left: 65, right: 30, top: 70, bottom: 80 },
-  legend: { top: 5, textStyle: { fontSize: 19 } },
-  xAxis: { type: 'category', data: categories.map(row => row[1]), axisLabel: { fontSize: 19, color: '#14213d' } },
+  legend: { top: 5, textStyle: { fontSize: 19, color: '#f4efe6' } },
+  xAxis: { type: 'category', data: categories.map(row => row[1]), axisLabel: { fontSize: 19, color: '#f4efe6' } },
   yAxis: { type: 'value', max: 0.04, name: 'Flip rate', axisLabel: { fontSize: 18, formatter: (v) => `${Math.round(v * 100)}%` }, nameTextStyle: { fontSize: 18 } },
   series: [
-    { name: 'Edit', type: 'bar', data: categories.map(row => audit[row[0]].flip_rate), itemStyle: { color: '#14213d' }, barWidth: 45, markLine: { symbol: 'none', label: { formatter: 'fail threshold fixed in advance', fontSize: 18, position: 'insideEndTop' }, lineStyle: { type: 'dashed', color: '#b91c1c' }, data: [{ yAxis: threshold }] } },
-    { name: 'Control', type: 'bar', data: categories.map(row => audit[row[0]].ctrl_flip_rate), itemStyle: { color: '#aab7bf' }, barWidth: 45 },
+    { name: 'Edit', type: 'bar', data: categories.map(row => audit[row[0]].flip_rate), itemStyle: { color: '#2dd4bf' }, barWidth: 45, markLine: { symbol: 'none', label: { formatter: 'fail threshold fixed in advance', fontSize: 17, position: 'insideEndTop', color: '#f59e0b', textBorderWidth: 0 }, lineStyle: { type: 'dashed', color: '#f59e0b' }, data: [{ yAxis: threshold }] } },
+    { name: 'Control', type: 'bar', data: categories.map(row => audit[row[0]].ctrl_flip_rate), itemStyle: { color: '#475569' }, barWidth: 45 },
   ],
 }
 </script>
 
 <div class="deck-slide">
-  <h1>Robust to parties, laws and number formats</h1>
+  <Headline text="Robust to parties, laws and number formats" eyebrow="AUDIT" emphasis="Robust" />
   <div class="two-col audit-layout">
-    <div class="audit-chart"><div class="pass-row"><span v-for="row in categories" :key="row[0]" class="pass-tag">{{ audit[row[0]].decision }}</span></div><EChart :option="auditOption" height="420px" /><p class="chart-note">Party roles: {{ (audit.party_roles.flip_rate * 100).toFixed(1) }}%, just above the line, but no more than its control ({{ (audit.party_roles.ctrl_flip_rate * 100).toFixed(1) }}%): pass by the rule.</p></div>
+    <div class="audit-chart"><div class="pass-row"><span v-for="row in categories" :key="row[0]" class="pass-tag">{{ audit[row[0]].decision }}</span></div><div class="threshold-draw" /><EChart :option="auditOption" height="420px" /><p class="chart-note">Party roles: {{ (audit.party_roles.flip_rate * 100).toFixed(1) }}%, just above the line, but no more than its control ({{ (audit.party_roles.ctrl_flip_rate * 100).toFixed(1) }}%): pass by the rule.</p></div>
     <div class="audit-aside"><strong>Known weakness</strong><p>Lease contracts: accuracy {{ deck.lease_slice.accuracy.toFixed(3) }} against {{ deck.lease_slice.overall_accuracy.toFixed(3) }} overall.</p><p>Flagged for review.</p></div>
   </div>
   <div class="deck-footer"><span>Clausier · LEDGAR</span><span>09</span></div>
@@ -297,9 +300,8 @@ const share = taxonomy.runs[1].share_errors_removed * 100
 </script>
 
 <div class="deck-slide">
-  <h1>A fifth of the errors are the label set, not the model</h1>
-  <div class="two-col taxonomy-layout"><LabelMerge /><div class="taxonomy-aside"><div class="big-stat"><CountUp :value="share" :decimals="0" suffix="%" /></div><p>of Legal-BERT errors removed after merging overlapping labels</p><p>Paired accuracy p = {{ taxonomy.paired_tests.test.p_value.toFixed(3) }}</p></div></div>
-  <p class="recommend-line">Recommendation: review these {{ taxonomy.pairs.length }} pairs with the start-up's lawyers.</p>
+  <Headline text="A fifth of the errors are the label set, not the model" eyebrow="OVERLAPPING LABELS" emphasis="fifth" />
+  <div class="two-col taxonomy-layout"><LabelMerge /><div class="taxonomy-aside"><div class="big-stat"><CountUp :value="share" :decimals="0" suffix="%" /></div><p>of Legal-BERT errors removed after merging overlapping labels</p><p>Paired accuracy p = {{ taxonomy.paired_tests.test.p_value.toFixed(3) }} (exploratory)</p><p class="recommend-line">Recommendation: review these {{ taxonomy.pairs.length }} pairs with the start-up's lawyers.</p></div></div>
   <div class="deck-footer"><span>Clausier · LEDGAR</span><span>10</span></div>
 </div>
 
@@ -319,8 +321,8 @@ const human = recommended.abstention.share_sent_to_human * 100
 </script>
 
 <div class="deck-slide">
-  <h1>It knows when to ask a person</h1>
-  <div class="two-col trust-layout"><Reliability /><div class="trust-aside"><div class="trust-stat"><strong><CountUp :value="handled" :decimals="0" suffix="%" /></strong><span>handled automatically, {{ (recommended.abstention.test_accuracy * 100).toFixed(1) }}% of them right</span><small>TF-IDF; Legal-BERT {{ (trust.abstention.test_coverage * 100).toFixed(1) }}%</small></div><div class="trust-stat"><strong><CountUp :value="human" :decimals="0" suffix="%" /></strong><span>sent to a person</span></div><p>Prediction sets: {{ Math.round(trust.conformal.test_coverage * 100) }}% coverage with {{ trust.conformal.mean_set_size.toFixed(2) }} types per clause.</p></div></div>
+  <Headline text="It knows when to ask a person" eyebrow="TRUST" emphasis="person" />
+  <div class="two-col trust-layout"><Reliability /><div class="trust-aside"><ReviewFlow /><p>TF-IDF: {{ handled.toFixed(0) }}% handled automatically, {{ (recommended.abstention.test_accuracy * 100).toFixed(1) }}% of them right; {{ human.toFixed(0) }}% sent to a person. Legal-BERT: {{ (trust.abstention.test_coverage * 100).toFixed(1) }}% handled automatically.</p><p>Prediction sets: {{ Math.round(trust.conformal.test_coverage * 100) }}% coverage with {{ trust.conformal.mean_set_size.toFixed(2) }} types per clause.</p></div></div>
   <div class="deck-footer"><span>Clausier · LEDGAR</span><span>11</span></div>
 </div>
 
@@ -330,12 +332,25 @@ Temperature scaling is fitted on validation data, then checked on the test set. 
 -->
 
 ---
-transition: none
+transition: view-transition
 ---
 
+<script setup>
+import { onMounted, ref } from 'vue'
+const demoVideo = ref(false)
+const demoUrl = '/demo.mp4'
+onMounted(async () => {
+  try {
+    const response = await fetch(demoUrl, { method: 'HEAD' })
+    demoVideo.value = response.ok && (response.headers.get('content-type') || '').includes('video')
+  }
+  catch { demoVideo.value = false }
+})
+</script>
+
 <div class="deck-slide demo-slide">
-  <h1>Demo</h1>
-  <div class="demo-frame"><h2>Live demo</h2><p>http://127.0.0.1:5050</p><div>Classify <span>·</span> Search <span>·</span> Missing clauses <span>·</span> Stress tests <span>·</span> Evidence</div></div>
+  <Headline text="Demo" eyebrow="DEMO" emphasis="" />
+  <div class="demo-frame"><video v-if="demoVideo" :src="demoUrl" controls playsinline /><template v-else><h2>Live demo</h2><p>http://127.0.0.1:5050</p><div>Classify <span>·</span> Search <span>·</span> Missing clauses <span>·</span> Stress tests <span>·</span> Evidence</div></template></div>
   <div class="deck-footer"><span>Clausier · LEDGAR</span><span>12</span></div>
 </div>
 
@@ -352,13 +367,14 @@ const human = Math.round(deck.calibration.tfidf.abstention.share_sent_to_human *
 </script>
 
 <div class="deck-slide closing-slide">
-  <h1>What we recommend to the start-up</h1>
+  <Headline text="What we recommend to the start-up" eyebrow="RECOMMENDATION" emphasis="recommend" />
   <div class="closing-list">
-    <p v-click>TF-IDF to classify, with calibrated confidence and a person for the {{ human }}% it is unsure of</p>
-    <p v-click>MiniLM to search from a lawyer's question</p>
-    <p v-click>Review {{ deck.taxonomy.pairs.length }} overlapping label pairs before collecting more data</p>
-    <p v-click>Not for non-US contracts, never without human review: not legal advice</p>
+    <p v-click><b>1</b><span>TF-IDF to classify, with calibrated confidence and a person for the {{ human }}% it is unsure of</span></p>
+    <p v-click><b>2</b><span>MiniLM to search from a lawyer's question</span></p>
+    <p v-click><b>3</b><span>Review {{ deck.taxonomy.pairs.length }} overlapping label pairs before collecting more data</span></p>
+    <p v-click><b>4</b><span>Not for non-US contracts, never without human review: not legal advice</span></p>
   </div>
+  <svg class="signature" viewBox="0 0 720 65" aria-hidden="true"><path d="M0 46 C120 51 220 34 330 42 S565 52 710 31" /><text x="370" y="35">Clausier</text></svg>
   <p class="repo-line">Code, results and model card: github.com/Exowz/clausier-ledgar</p>
   <div class="deck-footer"><span>Clausier · LEDGAR</span><span>13</span></div>
 </div>
@@ -371,8 +387,8 @@ The business choice is the cheaper classifier with confidence and a person in th
 ---
 
 <div class="deck-slide">
-  <h1>Backup: validation macro-F1 per epoch</h1>
-  <img src="/figures/validation_curves.png" style="height: 520px; margin: 0 auto; display: block;" />
+  <Headline text="Backup: validation macro-F1 per epoch" eyebrow="BACKUP" emphasis="validation" />
+  <div class="backup-card"><img src="/figures/validation_curves.png" /></div>
   <div class="deck-footer"><span>Clausier · LEDGAR</span><span>Backup</span></div>
 </div>
 

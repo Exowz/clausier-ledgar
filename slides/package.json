@@ -12,9 +12,13 @@
     "dev": "slidev slides.md --open",
     "build": "slidev build slides.md",
     "export": "slidev export slides.md --output clausier-defence.pdf",
-    "export-pptx": "slidev export slides.md --format pptx --output clausier-defence.pptx"
+    "export-pptx": "slidev export slides.md --format pptx --output clausier-defence.pptx",
+    "prepresent": "npm run figures",
+    "present": "slidev slides.md --remote clausier"
   },
   "dependencies": {
+    "@fontsource-variable/inter": "5.3.0",
+    "@fontsource/instrument-serif": "5.3.0",
     "@slidev/cli": "53.0.0",
     "@slidev/theme-default": "0.25.0",
     "d3": "7.9.0",

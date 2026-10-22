@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { onBeforeUnmount, ref, watch } from 'vue'
 import { useIsSlideActive } from '@slidev/client'
 import gsap from 'gsap'
 
@@ -15,6 +15,10 @@ watch(active, (isActive) => {
   tween?.kill()
   shown.value = 0
   if (isActive) {
+    if ((window.matchMedia('(prefers-reduced-motion: reduce)').matches || window.location.search.includes('print'))) {
+      shown.value = props.value
+      return
+    }
     const state = { value: 0 }
     tween = gsap.to(state, {
       value: props.value,
@@ -24,6 +28,7 @@ watch(active, (isActive) => {
     })
   }
 }, { immediate: true })
+onBeforeUnmount(() => tween?.kill())
 </script>
 
 <template>

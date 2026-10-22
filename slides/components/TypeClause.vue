@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { onBeforeUnmount, ref, watch } from 'vue'
 import { useIsSlideActive } from '@slidev/client'
 import gsap from 'gsap'
 
@@ -13,15 +13,21 @@ watch(active, (isActive) => {
   visible.value = ''
   if (pill.value) gsap.set(pill.value, { opacity: 0, rotateX: -85, transformOrigin: 'center bottom' })
   if (!isActive) return
+  if ((window.matchMedia('(prefers-reduced-motion: reduce)').matches || window.location.search.includes('print'))) {
+    visible.value = props.clause
+    gsap.set(pill.value, { opacity: 1, rotateX: 0 })
+    return
+  }
   const state = { length: 0 }
   tween = gsap.to(state, {
     length: props.clause.length,
     duration: 1.45,
     ease: 'none',
     onUpdate: () => { visible.value = props.clause.slice(0, Math.round(state.length)) },
-    onComplete: () => gsap.to(pill.value, { opacity: 1, rotateX: 0, duration: 0.65, ease: 'back.out(1.4)' }),
+    onComplete: () => gsap.to(pill.value, { opacity: 1, rotateX: 0, duration: 0.65, ease: 'power3.out' }),
   })
 }, { immediate: true })
+onBeforeUnmount(() => tween?.kill())
 </script>
 
 <template>

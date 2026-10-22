@@ -21,8 +21,8 @@ const option = computed(() => {
     xAxis: { type: 'category', data: bins.map(bin => percent(bin.bin_high)), name: 'Confidence', nameLocation: 'middle', nameGap: 38, axisLabel: { fontSize: 18, interval: 0, formatter: (value: string, index: number) => (index + 1) % 3 === 0 ? value : '' }, axisTick: { show: false } },
     yAxis: { type: 'value', min: 0, max: 1, name: 'Observed accuracy', nameLocation: 'middle', nameGap: 48, axisLabel: { fontSize: 18, formatter: (v: number) => percent(v) } },
     series: [
-      { type: 'bar', barWidth: 24, data: bins.map(bin => bin.accuracy), itemStyle: { color: '#14213d' } },
-      { type: 'line', data: bins.map(bin => bin.mean_confidence), symbol: 'none', lineStyle: { color: '#9aa8b3', type: 'dashed', width: 2 }, animation: false },
+      { type: 'bar', barWidth: 24, data: bins.map(bin => bin.accuracy), itemStyle: { color: '#2dd4bf' } },
+      { type: 'line', data: bins.map(bin => bin.mean_confidence), symbol: 'none', lineStyle: { color: '#d4a853', type: 'dashed', width: 2 }, animation: false },
     ],
   }
 })
@@ -33,9 +33,13 @@ watch(active, value => {
   eceShown.value = data.ece_before * 100
   if (value) timer = setTimeout(() => {
     after.value = true
+    if ((window.matchMedia('(prefers-reduced-motion: reduce)').matches || window.location.search.includes('print'))) {
+      eceShown.value = data.ece_after * 100
+      return
+    }
     const state = { value: data.ece_before * 100 }
     tween = gsap.to(state, { value: data.ece_after * 100, duration: 0.95, ease: 'power2.out', onUpdate: () => { eceShown.value = state.value } })
-  }, 1500)
+  }, (window.matchMedia('(prefers-reduced-motion: reduce)').matches || window.location.search.includes('print')) ? 0 : 1500)
 }, { immediate: true })
 onBeforeUnmount(() => { clearTimeout(timer); tween?.kill() })
 </script>
