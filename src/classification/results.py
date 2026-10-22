@@ -18,7 +18,8 @@ RUNS: dict[str, str] = {
     "bert_base": "BERT-base",
     "legal_bert": "Legal-BERT (4 epochs)",
     "legal_bert_long": "Legal-BERT (up to 10 epochs)",
-    "legal_bert_lora": "Legal-BERT LoRA",
+    "legal_bert_lora": "Legal-BERT LoRA (4 epochs)",
+    "legal_bert_lora_long": "Legal-BERT LoRA (up to 10 epochs)",
 }
 
 RESULT_COLUMNS = ["model", "best_epoch", "val_macro_f1", "test_accuracy", "test_micro_f1",
@@ -79,7 +80,7 @@ def lora_table(runs: list[str], outputs_dir: Path) -> pd.DataFrame:
     root = resolve_path(outputs_dir)
     rows = []
     for name in runs:
-        if name not in {"legal_bert", "legal_bert_long", "legal_bert_lora"}:
+        if name not in {"legal_bert", "legal_bert_long", "legal_bert_lora", "legal_bert_lora_long"}:
             continue
         config = load_json(root / name / "config.json")
         metrics = load_json(root / name / "metrics.json")
@@ -107,6 +108,7 @@ def pairs(outputs_dir: Path) -> list[tuple[str, str, str]]:
         (best, "tfidf", "main comparison"),
         ("legal_bert", "bert_base", "legal pretraining, same 4-epoch budget"),
         ("legal_bert_lora", "legal_bert", "LoRA versus full fine-tuning, same budget"),
+        ("legal_bert_lora_long", "legal_bert_long", "LoRA versus full fine-tuning, up to 10 epochs"),
         ("lstm", "tfidf", "LSTM versus TF-IDF"),
         ("lstm_glove", "lstm", "GloVe initialisation"),
     ]

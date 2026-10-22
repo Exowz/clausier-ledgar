@@ -48,6 +48,7 @@ def test_parameters_cover_existing_model_configs():
     assert configs == [
         "configs/legal_bert.yaml", "configs/bert_base.yaml", "configs/legal_bert_lora.yaml",
         "configs/lstm.yaml", "configs/lstm_glove.yaml", "configs/legal_bert_long.yaml",
+        "configs/legal_bert_lora_long.yaml",
     ]
     assert all((PROJECT_ROOT / path).is_file() for path in configs)
 

@@ -252,6 +252,12 @@ with a learning rate of 3e-5 "up to 20 epochs using early stopping on developmen
 `legal_bert` was read. Both runs are reported; the main comparison uses the Legal-BERT run with the best validation
 macro-F1, and Legal-BERT versus BERT-base is compared at the same budget (4 epochs).
 
+**Added run (Thu 22 Oct 2026, same reason; the expected results above are unchanged).** `legal_bert_lora` was also
+still improving at its 4-epoch limit (validation macro-F1 0.692, 0.729, 0.762, 0.777, validation loss still
+falling). `legal_bert_lora_long` is identical except for at most 10 epochs and early stopping after 2 epochs without
+progress (`configs/legal_bert_lora_long.yaml`), so that LoRA is also compared with full fine-tuning at the longer
+budget. Both LoRA runs are reported.
+
 ### Bias audit plan (written before the audit code)
 
 Written on Wed 21 Oct 2026, before any audit code, as the course asks for checkpoint m5. It fixes what is measured
