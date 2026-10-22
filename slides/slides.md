@@ -7,19 +7,20 @@ aspectRatio: 16/9
 fonts:
   provider: none
 favicon: /favicon.svg
-transition: view-transition
+transition: deck-forward | deck-backward
 ---
 
 <script setup>
-import { deck } from './data'
+import { deck } from '@deck'
 </script>
 
 <div class="title-slide">
+  <Stage />
   <ClauseField />
   <div class="title-copy">
     <Headline text="Clausier" eyebrow="CONTRACT REVIEW, WITH THE EVIDENCE" />
-    <p class="presenters">Ewan · Wiyao TAKOUGNADI</p>
-    <p class="course">Deep Learning for Sequential Data and NLP · Albert School · 23 October 2026</p>
+    <p data-r="1" class="presenters">Ewan · Wiyao TAKOUGNADI</p>
+    <p data-r="2" class="course">Deep Learning for Sequential Data and NLP · Albert School · 23 October 2026</p>
   </div>
   <TypeClause clause="This Agreement shall be governed by the laws of the State of New York." label="Governing Laws" />
   <div class="title-promises">
@@ -37,10 +38,10 @@ A start-up wants to help lawyers review large collections of contracts without h
 ---
 
 <script setup>
-import { deck, integer } from './data'
+import { deck, integer } from '@deck'
 const distribution = {
   animationDuration: 850,
-  animationDelay: (index) => index * 90,
+  animationDelay: (index) => index * 14,
   grid: { left: 68, right: 30, top: 30, bottom: 105 },
   xAxis: { type: 'category', data: deck.label_distribution.names, axisLabel: { interval: 0, fontSize: 18, color: '#8a94a6', formatter: (value, index) => index === 0 || index === deck.label_distribution.names.length - 1 ? value : '' }, axisTick: { show: false } },
   yAxis: { type: 'log', name: 'Training clauses (log scale)', nameTextStyle: { fontSize: 18, color: '#8a94a6', align: 'left' }, axisLabel: { fontSize: 18, color: '#8a94a6' }, splitLine: { lineStyle: { color: 'rgba(244,239,230,.10)' } } },
@@ -50,13 +51,14 @@ const overlap = deck.eda.overlap.exact_duplicates + deck.eda.overlap.near_duplic
 </script>
 
 <div class="deck-slide">
+  <Stage />
   <Headline :text="`${deck.label_distribution.names.length} clause types, very unequal`" eyebrow="DATA" emphasis="unequal" />
   <div class="two-col data-layout">
     <EChart :option="distribution" height="475px" />
     <div class="stat-aside">
-      <div class="big-stat"><CountUp :value="Object.values(deck.eda.split_sizes).reduce((sum, n) => sum + n, 0)" /> <span class="stat-unit">clauses</span></div>
-      <p><strong>{{ integer(overlap) }}</strong> test clauses are near copies of training clauses.</p>
-      <p>Every result is also shown without them.</p>
+      <div data-r="1" class="big-stat"><CountUp :value="Object.values(deck.eda.split_sizes).reduce((sum, n) => sum + n, 0)" /> <span class="stat-unit">clauses</span></div>
+      <p data-r="2"><strong>{{ integer(overlap) }}</strong> test clauses are near copies of training clauses.</p>
+      <p data-r="3">Every result is also shown without them.</p>
     </div>
   </div>
   <div class="deck-footer"><span>Clausier · LEDGAR</span><span>02</span></div>
@@ -70,10 +72,11 @@ LEDGAR has a long tail of clause types, so accuracy alone can hide weak performa
 ---
 
 <script setup>
-import { deck } from './data'
+import { deck } from '@deck'
 </script>
 
 <div class="deck-slide pipeline-slide">
+  <Stage />
   <PipelineMotion />
   <Headline text="The course pipeline, end to end" eyebrow="PIPELINE" emphasis="pipeline" />
 
@@ -106,9 +109,11 @@ The work follows the course checkpoints from a simple classifier through retriev
 -->
 
 ---
+transition: deck-zoom
+---
 
 <script setup>
-import { deck, legalBert, tfidf } from './data'
+import { deck, legalBert, tfidf } from '@deck'
 const rows = [...deck.results_table].reverse()
 const comparison = deck.pairs.legal_bert_long_vs_tfidf.test
 const resultOption = {
@@ -125,14 +130,15 @@ const resultOption = {
 </script>
 
 <div class="deck-slide results-slide">
+  <Stage />
   <Headline text="TF-IDF and Legal-BERT are tied" eyebrow="RESULTS" emphasis="tied" />
-  <div class="duel">
+  <div data-r="1" class="duel">
     <div><span class="duel-label">TF-IDF</span><strong><CountUp :value="tfidf.test_macro_f1" :decimals="3" /></strong></div>
     <span class="duel-equals">≈</span>
     <div><span class="duel-label">Legal-BERT</span><strong><CountUp :value="legalBert.test_macro_f1" :decimals="3" /></strong></div>
   </div>
   <p class="results-evidence">McNemar p = {{ comparison.p_value.toFixed(2) }}, difference {{ comparison.diff_macro_f1.toFixed(3) }} [{{ comparison.diff_low.toFixed(3) }}, {{ comparison.diff_high.toFixed(3) }}]</p>
-  <div class="results-chart"><EChart :option="resultOption" height="265px" /><p class="legend-note">Bright bar: full test set · dim bar: without near copies</p></div>
+  <div data-r="4" class="results-chart"><EChart :option="resultOption" height="265px" /><p class="legend-note">Bright bar: full test set · dim bar: without near copies</p></div>
   <div v-click class="prediction-box">Predicted before the runs: <span class="wrong">Legal-BERT ahead by {{ deck.planned_advantage_points[0] }} to {{ deck.planned_advantage_points[1] }} points</span> <span class="wrong-word">Wrong.</span> <span class="rule">Our rule: recommend the cheaper TF-IDF.</span></div>
   <div class="deck-footer"><span>Clausier · LEDGAR</span><span>04</span></div>
 </div>
@@ -145,7 +151,7 @@ We predicted that legal pretraining would put Legal-BERT ahead by one to three p
 ---
 
 <script setup>
-import { deck, legalBert, tfidf } from './data'
+import { deck, legalBert, tfidf } from '@deck'
 const positionRows = [
   { name: 'ChatGPT few-shot', score: deck.chatgpt_zero_shot.few_shot_macro_f1, color: '#f59e0b' },
   { name: 'ChatGPT zero-shot', score: deck.chatgpt_zero_shot.macro_f1, color: '#f59e0b' },
@@ -165,10 +171,11 @@ const positionOption = {
 </script>
 
 <div class="deck-slide position-slide">
+  <Stage />
   <Headline text="State of the art, and far ahead of ChatGPT" eyebrow="POSITIONING" emphasis="ChatGPT" />
   <EChart :option="positionOption" height="420px" />
   <div class="position-gap">+{{ Math.round(tfidf.test_macro_f1 * 100 - deck.chatgpt_zero_shot.macro_f1) }}<small>macro-F1 points for our TF-IDF over ChatGPT zero-shot</small></div>
-  <p class="caption">ChatGPT figures: Chalkidis 2023, gpt-3.5-turbo, {{ deck.chatgpt_zero_shot.source.match(/[\d,]+ LEDGAR/)?.[0].replace(' LEDGAR', '') }} test clauses. Published: LexGLUE, ACL 2022.</p>
+  <p data-r="6" class="caption">ChatGPT figures: Chalkidis 2023, gpt-3.5-turbo, {{ deck.chatgpt_zero_shot.source.match(/[\d,]+ LEDGAR/)?.[0].replace(' LEDGAR', '') }} test clauses. Published: LexGLUE, ACL 2022.</p>
   <div class="deck-footer"><span>Clausier · LEDGAR</span><span>05</span></div>
 </div>
 
@@ -180,19 +187,20 @@ Our best results are in the range of the published LexGLUE reference. The ChatGP
 ---
 
 <script setup>
-import { deck } from './data'
+import { deck } from '@deck'
 const lawyer = deck.retrieval.lawyer
 </script>
 
 <div class="deck-slide">
+  <Stage />
   <Headline text="Ask a question, get the clauses" eyebrow="RETRIEVAL" emphasis="clauses" />
   <div class="retrieval-layout">
     <ClauseCloud />
     <div class="retrieval-ranks">
-      <p>Right type at rank 1, {{ lawyer.dense.n }} lawyer questions</p>
-      <div><span>MiniLM</span><strong>{{ lawyer.dense.rank1 }}</strong><i :style="{ width: `${lawyer.dense.rank1 / lawyer.dense.n * 100}%`, background: '#2dd4bf' }" /></div>
-      <div><span>TF-IDF</span><strong>{{ lawyer.tfidf.rank1 }}</strong><i :style="{ width: `${lawyer.tfidf.rank1 / lawyer.tfidf.n * 100}%`, background: '#d4a853' }" /></div>
-      <div><span>Keyword overlap</span><strong>{{ lawyer.overlap.rank1 }}</strong><i :style="{ width: `${lawyer.overlap.rank1 / lawyer.overlap.n * 100}%`, background: '#475569' }" /></div>
+      <p data-r="2">Right type at rank 1, {{ lawyer.dense.n }} lawyer questions</p>
+      <div data-r="3"><span>MiniLM</span><strong>{{ lawyer.dense.rank1 }}</strong><i :style="{ width: `${lawyer.dense.rank1 / lawyer.dense.n * 100}%`, background: '#2dd4bf' }" /></div>
+      <div data-r="4"><span>TF-IDF</span><strong>{{ lawyer.tfidf.rank1 }}</strong><i :style="{ width: `${lawyer.tfidf.rank1 / lawyer.tfidf.n * 100}%`, background: '#d4a853' }" /></div>
+      <div data-r="5"><span>Keyword overlap</span><strong>{{ lawyer.overlap.rank1 }}</strong><i :style="{ width: `${lawyer.overlap.rank1 / lawyer.overlap.n * 100}%`, background: '#475569' }" /></div>
     </div>
   </div>
   <div class="deck-footer"><span>Clausier · LEDGAR</span><span>06</span></div>
@@ -206,13 +214,14 @@ We embedded the clause bank with MiniLM and search it by cosine similarity. Each
 ---
 
 <script setup>
-import { cloud, deck, f1 } from './data'
+import { cloud, deck, f1 } from '@deck'
 const metrics = deck.retrieval.metrics
 const lawyer = deck.retrieval.lawyer
 const days = cloud.query.text.match(/\d+/)?.[0]
 </script>
 
 <div class="deck-slide">
+  <Stage />
   <Headline text="The right method depends on the query" eyebrow="RETRIEVAL, BY HAND" emphasis="query" />
   <div class="two-col query-compare">
     <div><h2>From a clause</h2><p><strong>TF-IDF {{ f1(metrics.tfidf.deduplicated.top_1_accuracy[0]) }}</strong> vs MiniLM {{ f1(metrics.dense.deduplicated.top_1_accuracy[0]) }} top-1</p></div>
@@ -223,7 +232,7 @@ const days = cloud.query.text.match(/\d+/)?.[0]
     <p>“The parties agree irrevocably to submit to the exclusive jurisdiction of the federal courts ... located in Boston, Massachusetts”</p>
     <div><span class="label-pill">Venues</span><span class="wrong">counted wrong</span><span>A lawyer would accept it: the same-label check is strict.</span></div>
   </div>
-  <div class="filter-note"><span class="chip">Filter: {{ days }} days</span><span>Durations in the question filter the results.</span></div>
+  <div data-r="4" class="filter-note"><span class="chip">Filter: {{ days }} days</span><span>Durations in the question filter the results.</span></div>
   <div class="deck-footer"><span>Clausier · LEDGAR</span><span>07</span></div>
 </div>
 
@@ -233,9 +242,11 @@ When the query is itself a clause, TF-IDF narrowly leads on the deduplicated tes
 -->
 
 ---
+transition: deck-zoom
+---
 
 <script setup>
-import { deck, integer, legalBert } from './data'
+import { deck, integer, legalBert } from '@deck'
 const tf = deck.cost.find(row => row.configuration === 'tfidf' && row.device === 'cpu')
 const bertCpu = deck.cost.find(row => row.configuration === 'legal_bert_long fp32' && row.device === 'cpu')
 const bertInt8 = deck.cost.find(row => row.configuration === 'legal_bert_long int8' && row.device === 'cpu')
@@ -245,10 +256,11 @@ const qualityDrop = (deck.cost_quality.fp32.macro_f1 - deck.cost_quality.int8.ma
 </script>
 
 <div class="deck-slide">
+  <Stage />
   <Headline :text="`Same quality, ${integer(speed)}× faster`" eyebrow="COST" :emphasis="`${integer(speed)}×`" />
-  <p class="chart-intro">Time to classify {{ integer(tf.n * 10) }} clauses</p>
+  <p data-r="1" class="chart-intro">Time to classify {{ integer(tf.n * 10) }} clauses</p>
   <TimeRace />
-  <div class="cost-bottom"><p>Training: {{ integer(deck.tfidf_train_seconds) }} s on a laptop CPU vs {{ Math.floor(legalBert.train_time_min / 60) }} h {{ Math.round(legalBert.train_time_min % 60) }} on a GPU</p><p>int8 Legal-BERT: {{ sizeRatio.toFixed(1) }} times smaller but slower on this laptop, and {{ qualityDrop.toFixed(1) }} points lower</p></div>
+  <div class="cost-bottom"><p data-r="8">Training: {{ integer(deck.tfidf_train_seconds) }} s on a laptop CPU vs {{ Math.floor(legalBert.train_time_min / 60) }} h {{ Math.round(legalBert.train_time_min % 60) }} on a GPU</p><p data-r="9">int8 Legal-BERT: {{ sizeRatio.toFixed(1) }} times smaller but slower on this laptop, and {{ qualityDrop.toFixed(1) }} points lower</p></div>
   <div class="deck-footer"><span>Clausier · LEDGAR</span><span>08</span></div>
 </div>
 
@@ -260,7 +272,7 @@ The classification quality is tied, but the cost is not. For a large batch on th
 ---
 
 <script setup>
-import { deck } from './data'
+import { deck } from '@deck'
 const audit = deck.counterfactual.legal_bert_long
 const categories = [['party_roles', 'Party roles'], ['jurisdiction', 'Jurisdiction'], ['number_format', 'Number format']]
 const threshold = deck.counterfactual_fail_threshold
@@ -278,6 +290,7 @@ const auditOption = {
 </script>
 
 <div class="deck-slide">
+  <Stage />
   <Headline text="Robust to parties, laws and number formats" eyebrow="AUDIT" emphasis="Robust" />
   <div class="two-col audit-layout">
     <div class="audit-chart"><div class="pass-row"><span v-for="row in categories" :key="row[0]" class="pass-tag">{{ audit[row[0]].decision }}</span></div><div class="threshold-draw" /><EChart :option="auditOption" height="420px" /><p class="chart-note">Party roles: {{ (audit.party_roles.flip_rate * 100).toFixed(1) }}%, just above the line, but no more than its control ({{ (audit.party_roles.ctrl_flip_rate * 100).toFixed(1) }}%): pass by the rule.</p></div>
@@ -294,14 +307,15 @@ We used CheckList-style edits with controls and a decision rule fixed before the
 ---
 
 <script setup>
-import { deck } from './data'
+import { deck } from '@deck'
 const taxonomy = deck.taxonomy
 const share = taxonomy.runs[1].share_errors_removed * 100
 </script>
 
 <div class="deck-slide">
+  <Stage />
   <Headline text="A fifth of the errors are the label set, not the model" eyebrow="OVERLAPPING LABELS" emphasis="fifth" />
-  <div class="two-col taxonomy-layout"><LabelMerge /><div class="taxonomy-aside"><div class="big-stat"><CountUp :value="share" :decimals="0" suffix="%" /></div><p>of Legal-BERT errors removed after merging overlapping labels</p><p>Paired accuracy p = {{ taxonomy.paired_tests.test.p_value.toFixed(3) }} (exploratory)</p><p class="recommend-line">Recommendation: review these {{ taxonomy.pairs.length }} pairs with the start-up's lawyers.</p></div></div>
+  <div class="two-col taxonomy-layout"><LabelMerge /><div class="taxonomy-aside"><div data-r="2" class="big-stat"><CountUp :value="share" :decimals="0" suffix="%" /></div><p data-r="3">of Legal-BERT errors removed after merging overlapping labels</p><p data-r="4">Paired accuracy p = {{ taxonomy.paired_tests.test.p_value.toFixed(3) }} (exploratory)</p><p data-r="5" class="recommend-line">Recommendation: review these {{ taxonomy.pairs.length }} pairs with the start-up's lawyers.</p></div></div>
   <div class="deck-footer"><span>Clausier · LEDGAR</span><span>10</span></div>
 </div>
 
@@ -313,7 +327,7 @@ This was an exploratory analysis outside the original plan. Nine label pairs des
 ---
 
 <script setup>
-import { deck } from './data'
+import { deck } from '@deck'
 const trust = deck.calibration.legal_bert_long
 const recommended = deck.calibration.tfidf
 const handled = recommended.abstention.test_coverage * 100
@@ -321,8 +335,9 @@ const human = recommended.abstention.share_sent_to_human * 100
 </script>
 
 <div class="deck-slide">
+  <Stage />
   <Headline text="It knows when to ask a person" eyebrow="TRUST" emphasis="person" />
-  <div class="two-col trust-layout"><Reliability /><div class="trust-aside"><ReviewFlow /><p>TF-IDF: {{ handled.toFixed(0) }}% handled automatically, {{ (recommended.abstention.test_accuracy * 100).toFixed(1) }}% of them right; {{ human.toFixed(0) }}% sent to a person. Legal-BERT: {{ (trust.abstention.test_coverage * 100).toFixed(1) }}% handled automatically.</p><p>Prediction sets: {{ Math.round(trust.conformal.test_coverage * 100) }}% coverage with {{ trust.conformal.mean_set_size.toFixed(2) }} types per clause.</p></div></div>
+  <div class="two-col trust-layout"><Reliability /><div class="trust-aside"><ReviewFlow /><p data-r="6">TF-IDF: {{ handled.toFixed(0) }}% handled automatically, {{ (recommended.abstention.test_accuracy * 100).toFixed(1) }}% of them right; {{ human.toFixed(0) }}% sent to a person. Legal-BERT: {{ (trust.abstention.test_coverage * 100).toFixed(1) }}% handled automatically.</p><p data-r="7">Prediction sets: {{ Math.round(trust.conformal.test_coverage * 100) }}% coverage with {{ trust.conformal.mean_set_size.toFixed(2) }} types per clause.</p></div></div>
   <div class="deck-footer"><span>Clausier · LEDGAR</span><span>11</span></div>
 </div>
 
@@ -332,7 +347,7 @@ Temperature scaling is fitted on validation data, then checked on the test set. 
 -->
 
 ---
-transition: view-transition
+transition: deck-forward | deck-backward
 ---
 
 <script setup>
@@ -349,8 +364,9 @@ onMounted(async () => {
 </script>
 
 <div class="deck-slide demo-slide">
+  <Stage />
   <Headline text="Demo" eyebrow="DEMO" emphasis="" />
-  <div class="demo-frame"><video v-if="demoVideo" :src="demoUrl" controls playsinline /><template v-else><h2>Live demo</h2><p>http://127.0.0.1:5050</p><div>Classify <span>·</span> Search <span>·</span> Missing clauses <span>·</span> Stress tests <span>·</span> Evidence</div></template></div>
+  <div data-r="1" class="demo-frame"><video v-if="demoVideo" :src="demoUrl" controls playsinline /><template v-else><h2>Live demo</h2><p>http://127.0.0.1:5050</p><div>Classify <span>·</span> Search <span>·</span> Missing clauses <span>·</span> Stress tests <span>·</span> Evidence</div></template></div>
   <div class="deck-footer"><span>Clausier · LEDGAR</span><span>12</span></div>
 </div>
 
@@ -360,13 +376,16 @@ Wiyao enters a lawyer question and shows the matching clauses and their types. E
 -->
 
 ---
+transition: deck-zoom
+---
 
 <script setup>
-import { deck } from './data'
+import { deck } from '@deck'
 const human = Math.round(deck.calibration.tfidf.abstention.share_sent_to_human * 100)
 </script>
 
 <div class="deck-slide closing-slide">
+  <Stage />
   <Headline text="What we recommend to the start-up" eyebrow="RECOMMENDATION" emphasis="recommend" />
   <div class="closing-list">
     <p v-click><b>1</b><span>TF-IDF to classify, with calibrated confidence and a person for the {{ human }}% it is unsure of</span></p>
@@ -387,8 +406,9 @@ The business choice is the cheaper classifier with confidence and a person in th
 ---
 
 <div class="deck-slide">
+  <Stage />
   <Headline text="Backup: validation macro-F1 per epoch" eyebrow="BACKUP" emphasis="validation" />
-  <div class="backup-card"><img src="/figures/validation_curves.png" /></div>
+  <div data-r="1" class="backup-card"><img src="/figures/validation_curves.png" /></div>
   <div class="deck-footer"><span>Clausier · LEDGAR</span><span>Backup</span></div>
 </div>
 

@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
-import { useIsSlideActive } from '@slidev/client'
+import { computed, onBeforeUnmount, ref } from 'vue'
+import { useStage } from '../composables/stage'
 import gsap from 'gsap'
 import { compactTime, deck } from '../data'
 
-const active = useIsSlideActive()
 const bars = ref<HTMLElement[]>([])
 const labels = ref<HTMLElement[]>([])
 const elapsed = ref(0)
@@ -17,33 +16,35 @@ const rows = computed(() => [
 ].map(row => ({ ...row, seconds: deck.cost.find(cost => cost.configuration === row.key && cost.device === row.device)!.seconds_per_1000 * 10 })))
 const slowest = computed(() => Math.max(...rows.value.map(row => row.seconds)))
 const elapsedLabel = computed(() => elapsed.value < 60 ? `${Math.round(elapsed.value)} s` : `${Math.floor(elapsed.value / 60)} min ${Math.round(elapsed.value % 60)} s`)
-function play(isActive: boolean) {
+const width = (index: number) => `${Math.max(1.2, rows.value[index].seconds / slowest.value * 100)}%`
+function reset() {
   timeline?.kill()
   elapsed.value = 0; done.value = false
   bars.value.forEach(bar => gsap.set(bar, { width: 0 }))
-  labels.value.forEach(label => gsap.set(label, { opacity: 0 }))
-  if (!isActive) return
-  const reduce = (matchMedia('(prefers-reduced-motion: reduce)').matches || location.search.includes('print'))
-  if (reduce) {
-    bars.value.forEach((bar,index) => gsap.set(bar, { width: `${Math.max(1.2, rows.value[index].seconds / slowest.value * 100)}%` }))
-    labels.value.forEach(label => gsap.set(label, { opacity: 1 }))
-    elapsed.value = slowest.value; done.value = true
-    return
-  }
-  const clock = { value: 0 }
-  timeline = gsap.timeline()
-  timeline.to(clock, { value: slowest.value, duration: 6, ease: 'none', onUpdate: () => { elapsed.value = clock.value } }, 0)
-  rows.value.forEach((row,index) => {
-    timeline!.to(bars.value[index], {
-      width: `${Math.max(1.2, row.seconds / slowest.value * 100)}%`,
-      duration: index === 0 ? 0.9 : Math.max(1.2, row.seconds / slowest.value * 6),
-      ease: 'power2.out',
-      onComplete: () => { gsap.to(labels.value[index], { opacity: 1, duration: .3 }); if (index === 0) done.value = true },
-    }, 0)
-  })
+  labels.value.forEach(label => gsap.set(label, { opacity: 0, x: -10 }))
 }
-watch(active, play)
-onMounted(() => play(active.value))
+useStage({
+  setup: reset,
+  enter() {
+    reset()
+    const clock = { value: 0 }
+    timeline = gsap.timeline({ delay: 0.9 })
+    timeline.to(clock, { value: slowest.value, duration: 6, ease: 'none', onUpdate: () => { elapsed.value = clock.value } }, 0)
+    rows.value.forEach((row, index) => {
+      timeline!.to(bars.value[index], {
+        width: width(index),
+        duration: index === 0 ? 0.6 : Math.max(1.2, row.seconds / slowest.value * 6),
+        ease: index === 0 ? 'expo.out' : 'none',
+        onComplete: () => { gsap.to(labels.value[index], { opacity: 1, x: 0, duration: 0.4, ease: 'power3.out' }); if (index === 0) done.value = true },
+      }, 0)
+    })
+  },
+  final() {
+    bars.value.forEach((bar, index) => gsap.set(bar, { width: width(index) }))
+    labels.value.forEach(label => gsap.set(label, { opacity: 1, x: 0 }))
+    elapsed.value = slowest.value; done.value = true
+  },
+})
 onBeforeUnmount(() => timeline?.kill())
 </script>
 <template>

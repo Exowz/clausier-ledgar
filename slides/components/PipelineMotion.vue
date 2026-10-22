@@ -1,45 +1,47 @@
 <script setup lang="ts">
-import { nextTick, onBeforeUnmount, watch } from 'vue'
-import { useIsSlideActive } from '@slidev/client'
+import { onBeforeUnmount, ref } from 'vue'
 import gsap from 'gsap'
+import { useStage } from '../composables/stage'
 
-const active = useIsSlideActive()
+// The Mermaid diagram of this slide is drawn inside a shadow root, out of reach of the page's CSS: its nodes and
+// links are found there and animated with GSAP once the diagram exists.
+const anchor = ref<HTMLElement>()
 let timeline: gsap.core.Timeline | undefined
-let observer: MutationObserver | undefined
-let timer: ReturnType<typeof setTimeout> | undefined
+let poll: ReturnType<typeof setInterval> | undefined
+const order = ['LEDGAR', 'TF-IDF', 'LSTM', 'Legal-BERT', 'MiniLM', 'Paired tests', 'Search', 'Audit', 'Additions']
 
-function run() {
-  const svg = document.querySelector('.pipeline-slide .mermaid svg')
-  if (!svg || !active.value) return false
-  const nodes = [...svg.querySelectorAll<SVGElement>('.node')]
-  const edges = [...svg.querySelectorAll<SVGPathElement>('.edgePath path, .flowchart-link')]
-  if (!nodes.length) return false
-  timeline?.kill()
-  const reduce = (window.matchMedia('(prefers-reduced-motion: reduce)').matches || window.location.search.includes('print'))
-  if (reduce) { gsap.set([...nodes, ...edges], { clearProps: 'all' }); return true }
-  const order = ['LEDGAR', 'TF-IDF', 'LSTM', 'Legal-BERT', 'MiniLM', 'Paired tests', 'Search', 'Audit', 'Additions']
-  const ordered = order.flatMap(label => nodes.filter(node => node.textContent?.includes(label)))
-  gsap.set(ordered, { opacity: 0, y: 12 })
-  edges.forEach(path => {
-    const length = path.getTotalLength?.() || 500
-    gsap.set(path, { strokeDasharray: length, strokeDashoffset: length })
-  })
-  timeline = gsap.timeline()
-    .to(ordered, { opacity: 1, y: 0, duration: 0.55, stagger: 0.12, ease: 'power2.out' })
-    .to(edges, { strokeDashoffset: 0, duration: 0.7, stagger: 0.06, ease: 'power2.out' }, 0.25)
-  return true
+function parts() {
+  const root = anchor.value?.parentElement?.querySelector('.mermaid')?.shadowRoot
+  const nodes = [...(root?.querySelectorAll<SVGElement>('.node') || [])]
+  if (!nodes.length) return undefined
+  const edges = [...root!.querySelectorAll<SVGPathElement>('.flowchart-link, .edgePath path')]
+  return { nodes: order.flatMap(label => nodes.filter(node => node.textContent?.includes(label))), edges }
 }
-watch(active, async value => {
-  timeline?.kill()
-  observer?.disconnect()
-  clearTimeout(timer)
-  if (!value) return
-  await nextTick()
-  if (run()) return
-  observer = new MutationObserver(() => { if (run()) observer?.disconnect() })
-  observer.observe(document.body, { childList: true, subtree: true })
-  timer = setTimeout(() => observer?.disconnect(), 4000)
-}, { immediate: true })
-onBeforeUnmount(() => { timeline?.kill(); observer?.disconnect(); clearTimeout(timer) })
+function whenRendered(callback: (found: NonNullable<ReturnType<typeof parts>>) => void) {
+  clearInterval(poll)
+  const found = parts()
+  if (found) return callback(found)
+  let tries = 0
+  poll = setInterval(() => {
+    const late = parts()
+    if (late || ++tries > 40) { clearInterval(poll); if (late) callback(late) }
+  }, 75)
+}
+function hide({ nodes, edges }: NonNullable<ReturnType<typeof parts>>) {
+  gsap.set(nodes, { opacity: 0, y: 16, scale: 0.9, transformOrigin: '50% 50%' })
+  edges.forEach((path) => { const length = path.getTotalLength?.() || 500; gsap.set(path, { strokeDasharray: length, strokeDashoffset: length }) })
+}
+useStage({
+  setup: () => whenRendered(hide),
+  enter: () => whenRendered((found) => {
+    timeline?.kill()
+    hide(found)
+    timeline = gsap.timeline({ delay: 0.5 })
+      .to(found.nodes, { opacity: 1, y: 0, scale: 1, duration: 0.65, stagger: 0.15, ease: 'back.out(1.8)' })
+      .to(found.edges, { strokeDashoffset: 0, duration: 0.9, stagger: 0.07, ease: 'power2.inOut' }, 0.35)
+  }),
+  final: () => whenRendered(({ nodes, edges }) => gsap.set([...nodes, ...edges], { clearProps: 'all' })),
+})
+onBeforeUnmount(() => { timeline?.kill(); clearInterval(poll) })
 </script>
-<template><span class="motion-anchor" aria-hidden="true" /></template>
+<template><span ref="anchor" class="motion-anchor" aria-hidden="true" /></template>

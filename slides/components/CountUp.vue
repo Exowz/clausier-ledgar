@@ -1,33 +1,30 @@
 <script setup lang="ts">
-import { onBeforeUnmount, ref, watch } from 'vue'
-import { useIsSlideActive } from '@slidev/client'
+import { onBeforeUnmount, ref } from 'vue'
 import gsap from 'gsap'
+import { useStage } from '../composables/stage'
 
-const props = withDefaults(defineProps<{ value: number, decimals?: number, prefix?: string, suffix?: string }>(), {
+const props = withDefaults(defineProps<{ value: number, decimals?: number, prefix?: string, suffix?: string, delay?: number, duration?: number }>(), {
   decimals: 0,
   prefix: '',
   suffix: '',
+  delay: 0.3,
+  duration: 1.6,
 })
 const shown = ref(0)
-const active = useIsSlideActive()
 let tween: gsap.core.Tween | undefined
-watch(active, (isActive) => {
-  tween?.kill()
-  shown.value = 0
-  if (isActive) {
-    if ((window.matchMedia('(prefers-reduced-motion: reduce)').matches || window.location.search.includes('print'))) {
-      shown.value = props.value
-      return
-    }
+useStage({
+  setup: () => { shown.value = 0 },
+  enter() {
+    tween?.kill()
     const state = { value: 0 }
+    shown.value = 0
     tween = gsap.to(state, {
-      value: props.value,
-      duration: 1.3,
-      ease: 'power3.out',
+      value: props.value, duration: props.duration, delay: props.delay, ease: 'expo.out',
       onUpdate: () => { shown.value = state.value },
     })
-  }
-}, { immediate: true })
+  },
+  final: () => { shown.value = props.value },
+})
 onBeforeUnmount(() => tween?.kill())
 </script>
 

@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { nextTick, onBeforeUnmount, ref, watch } from 'vue'
-import { useIsSlideActive } from '@slidev/client'
+import { onSlideLeave } from '@slidev/client'
+import { useStage } from '../composables/stage'
 import gsap from 'gsap'
 import * as THREE from 'three'
 import { cloud } from '../data'
 
 const colors = ['#d4a853', '#2dd4bf', '#f4efe6', '#8a94a6', '#a88958', '#6aaea7', '#b1aaa0', '#475569']
-const active = useIsSlideActive()
 const mount = ref<HTMLElement>()
 const highlighted = ref(-1)
 let renderer: THREE.WebGLRenderer | undefined
@@ -18,6 +18,8 @@ let lines: THREE.Line[] = []
 let markers: THREE.Mesh[] = []
 let timeline: gsap.core.Timeline | undefined
 let frame = 0
+// Static contexts (presenter preview, overview, export) draw one still frame and run no loop.
+let stillMode = false
 let sprite: THREE.Texture | undefined
 const lineProgress = cloud.neighbours.map(() => ({ value: 0 }))
 const position = (point: number[]) => new THREE.Vector3(point[0] * 3.2, point[1] * 3.2, point[2] * 3.2)
@@ -31,7 +33,7 @@ function resize() {
 }
 function render() {
   if (!renderer || !scene || !camera || !group) return
-  if (!location.search.includes('print')) group.rotation.y += 0.00055
+  if (!stillMode && !location.search.includes('print')) group.rotation.y += 0.00055
   lines.forEach((line, index) => {
     const neighbor = position(cloud.points[cloud.neighbours[index].index])
     const end = target.clone().lerp(neighbor, lineProgress[index].value)
@@ -42,7 +44,7 @@ function render() {
     line.visible = lineProgress[index].value > 0
   })
   renderer.render(scene, camera)
-  if (!location.search.includes('print')) frame = requestAnimationFrame(render)
+  if (!stillMode && !location.search.includes('print')) frame = requestAnimationFrame(render)
 }
 function animate() {
   if (!camera || !query) return
@@ -52,7 +54,7 @@ function animate() {
   query.position.copy(target).add(new THREE.Vector3(-5, 3, 2))
   lineProgress.forEach(progress => { progress.value = 0 })
   markers.forEach(marker => { marker.scale.setScalar(1) })
-  const reduce = (matchMedia('(prefers-reduced-motion: reduce)').matches || location.search.includes('print'))
+  const reduce = stillMode || (matchMedia('(prefers-reduced-motion: reduce)').matches || location.search.includes('print'))
   if (reduce) {
     camera.position.z = 8.5
     query.position.copy(target)
@@ -69,10 +71,11 @@ function animate() {
     timeline!.to(markers[index].scale, { x: 1.6, y: 1.6, z: 1.6, duration: 0.16, yoyo: true, repeat: 1 }, at + 0.3)
   })
 }
-async function start() {
-  if (renderer || !active.value) return
+async function start(still = false) {
+  stillMode = still
+  if (renderer) return
   await nextTick()
-  if (!mount.value || !active.value) return
+  if (!mount.value) return
   scene = new THREE.Scene()
   camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100)
   group = new THREE.Group(); group.rotation.x = 0.17; scene.add(group)
@@ -110,7 +113,7 @@ async function start() {
   renderer = new THREE.WebGLRenderer({ antialias:true, alpha:true })
   renderer.setPixelRatio(Math.min(devicePixelRatio,2)); mount.value.appendChild(renderer.domElement)
   window.addEventListener('resize',resize); resize(); animate()
-  if (location.search.includes('print')) render()
+  if (stillMode || location.search.includes('print')) render()
   else frame=requestAnimationFrame(render)
 }
 function stop() {
@@ -126,7 +129,13 @@ function stop() {
   renderer=undefined; scene=undefined; camera=undefined; group=undefined; query=undefined; lines=[]; markers=[]
   highlighted.value=-1
 }
-watch(active, value => { if (value) start(); else stop() }, { immediate:true })
+let leaveTimer: ReturnType<typeof setTimeout> | undefined
+useStage({
+  enter: () => { clearTimeout(leaveTimer); stop(); nextTick(() => start()) },
+  final: () => { stop(); nextTick(() => start(true)) },
+})
+// The scene is released only after the slide transition, so the outgoing slide never goes blank.
+onSlideLeave(() => { clearTimeout(leaveTimer); leaveTimer = setTimeout(stop, 900) })
 onBeforeUnmount(stop)
 </script>
 <template>

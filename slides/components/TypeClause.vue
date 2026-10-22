@@ -1,33 +1,35 @@
 <script setup lang="ts">
-import { onBeforeUnmount, ref, watch } from 'vue'
-import { useIsSlideActive } from '@slidev/client'
+import { onBeforeUnmount, ref } from 'vue'
 import gsap from 'gsap'
+import { useStage } from '../composables/stage'
 
 const props = defineProps<{ clause: string, label: string }>()
-const active = useIsSlideActive()
 const visible = ref('')
 const pill = ref<HTMLElement>()
-let tween: gsap.core.Tween | undefined
-watch(active, (isActive) => {
-  tween?.kill()
+let timeline: gsap.core.Timeline | undefined
+const start = () => {
   visible.value = ''
-  if (pill.value) gsap.set(pill.value, { opacity: 0, rotateX: -85, transformOrigin: 'center bottom' })
-  if (!isActive) return
-  if ((window.matchMedia('(prefers-reduced-motion: reduce)').matches || window.location.search.includes('print'))) {
+  if (pill.value) gsap.set(pill.value, { opacity: 0, scale: 0.6, y: 10, filter: 'blur(8px)' })
+}
+useStage({
+  setup: start,
+  enter() {
+    timeline?.kill()
+    start()
+    const state = { length: 0 }
+    timeline = gsap.timeline({ delay: 0.9 })
+      .to(state, {
+        length: props.clause.length, duration: 1.6, ease: 'none',
+        onUpdate: () => { visible.value = props.clause.slice(0, Math.round(state.length)) },
+      })
+      .to(pill.value!, { opacity: 1, scale: 1, y: 0, filter: 'blur(0px)', duration: 0.7, ease: 'back.out(2.2)' }, '+=0.15')
+  },
+  final() {
     visible.value = props.clause
-    gsap.set(pill.value, { opacity: 1, rotateX: 0 })
-    return
-  }
-  const state = { length: 0 }
-  tween = gsap.to(state, {
-    length: props.clause.length,
-    duration: 1.45,
-    ease: 'none',
-    onUpdate: () => { visible.value = props.clause.slice(0, Math.round(state.length)) },
-    onComplete: () => gsap.to(pill.value, { opacity: 1, rotateX: 0, duration: 0.65, ease: 'power3.out' }),
-  })
-}, { immediate: true })
-onBeforeUnmount(() => tween?.kill())
+    if (pill.value) gsap.set(pill.value, { opacity: 1, scale: 1, y: 0, filter: 'blur(0px)' })
+  },
+})
+onBeforeUnmount(() => timeline?.kill())
 </script>
 
 <template>

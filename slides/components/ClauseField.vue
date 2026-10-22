@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { nextTick, onBeforeUnmount, ref, watch } from 'vue'
-import { useIsSlideActive } from '@slidev/client'
+import { onSlideLeave } from '@slidev/client'
+import { useStage } from '../composables/stage'
 import gsap from 'gsap'
 import * as THREE from 'three'
 import { cloud } from '../data'
 
-const active = useIsSlideActive()
 const mount = ref<HTMLElement>()
 const colors = ['#d4a853', '#2dd4bf', '#f4efe6', '#8a94a6', '#a88958', '#6aaea7', '#b1aaa0', '#475569']
 let renderer: THREE.WebGLRenderer | undefined
@@ -17,6 +17,8 @@ let target: Float32Array | undefined
 let scattered: Float32Array | undefined
 let timeline: gsap.core.Timeline | undefined
 let frame = 0
+// Static contexts (presenter preview, overview, export) draw one still frame and run no loop.
+let stillMode = false
 let started = 0
 const state = { progress: 0 }
 
@@ -33,9 +35,9 @@ function render(now: number) {
       scattered[i + 2] * (1 - p) + target[i + 2] * p)
   }
   positions.needsUpdate = true
-  if (!location.search.includes('print')) group.rotation.y += 2 * Math.PI / (90 * 60)
+  if (!stillMode && !location.search.includes('print')) group.rotation.y += 2 * Math.PI / (90 * 60)
   renderer.render(scene, camera)
-  if (!location.search.includes('print')) frame = requestAnimationFrame(render)
+  if (!stillMode && !location.search.includes('print')) frame = requestAnimationFrame(render)
 }
 function resize() {
   if (!mount.value || !renderer || !camera) return
@@ -44,10 +46,11 @@ function resize() {
   camera.aspect = width / height
   camera.updateProjectionMatrix()
 }
-async function start() {
-  if (renderer || !active.value) return
+async function start(still = false) {
+  stillMode = still
+  if (renderer) return
   await nextTick()
-  if (!mount.value || !active.value) return
+  if (!mount.value) return
   const count = cloud.points.length
   target = new Float32Array(count * 3)
   scattered = new Float32Array(count * 3)
@@ -80,11 +83,11 @@ async function start() {
   renderer.setPixelRatio(Math.min(devicePixelRatio, 2))
   mount.value.appendChild(renderer.domElement)
   window.addEventListener('resize', resize); resize()
-  const reduce = (matchMedia('(prefers-reduced-motion: reduce)').matches || location.search.includes('print'))
+  const reduce = stillMode || (matchMedia('(prefers-reduced-motion: reduce)').matches || location.search.includes('print'))
   state.progress = reduce ? 1 : 0
   if (!reduce) timeline = gsap.timeline({ delay: 0.5 }).to(state, { progress: 1, duration: 2.5, ease: 'power3.inOut' })
   started = performance.now()
-  if (location.search.includes('print')) render(started)
+  if (stillMode || location.search.includes('print')) render(started)
   else frame = requestAnimationFrame(render)
 }
 function stop() {
@@ -97,7 +100,13 @@ function stop() {
   renderer = undefined; scene = undefined; camera = undefined; group = undefined; points = undefined
   target = undefined; scattered = undefined
 }
-watch(active, value => { if (value) start(); else stop() }, { immediate: true })
+let leaveTimer: ReturnType<typeof setTimeout> | undefined
+useStage({
+  enter: () => { clearTimeout(leaveTimer); stop(); nextTick(() => start()) },
+  final: () => { stop(); nextTick(() => start(true)) },
+})
+// The scene is released only after the slide transition, so the outgoing slide never goes blank.
+onSlideLeave(() => { clearTimeout(leaveTimer); leaveTimer = setTimeout(stop, 900) })
 onBeforeUnmount(stop)
 </script>
 <template><div ref="mount" class="clause-field" aria-hidden="true" /></template>

@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
-import { useIsSlideActive } from '@slidev/client'
+import { computed, onBeforeUnmount, ref } from 'vue'
+import { useStage } from '../composables/stage'
 import gsap from 'gsap'
 import { deck } from '../data'
 
-const active = useIsSlideActive()
 const handled = Math.round(deck.calibration.tfidf.abstention.test_coverage * 100)
 const human = 100 - handled
 const dots = computed(() => Array.from({ length: 100 }, (_, index) => {
@@ -20,30 +19,32 @@ const shownHuman = ref(0)
 const circles = ref<SVGCircleElement[]>([])
 let timeline: gsap.core.Timeline | undefined
 
-function play(value: boolean) {
+function reset() {
   timeline?.kill()
   shownHandled.value = 0
   shownHuman.value = 0
-  circles.value.forEach((circle, index) => gsap.set(circle, { attr: { cx: dots.value[index].x, cy: dots.value[index].y }, opacity: 0.7 }))
-  if (!value) return
-  const reduce = (window.matchMedia('(prefers-reduced-motion: reduce)').matches || window.location.search.includes('print'))
-  if (reduce) {
+  circles.value.forEach((circle, index) => gsap.set(circle, { attr: { cx: dots.value[index].x, cy: dots.value[index].y }, opacity: 0 }))
+}
+useStage({
+  setup: reset,
+  enter() {
+    reset()
+    timeline = gsap.timeline({ delay: 0.8 })
+    timeline.to(circles.value, { opacity: 0.75, duration: 0.3, stagger: 0.004 }, 0)
+    circles.value.forEach((circle, index) => {
+      const dot = dots.value[index]
+      timeline!.to(circle, {
+        attr: { cx: dot.destinationX, cy: dot.destinationY }, opacity: 1,
+        duration: 1.1, ease: 'power3.inOut',
+        onComplete: () => { if (index < handled) shownHandled.value++; else shownHuman.value++ },
+      }, 0.7 + index * 0.02)
+    })
+  },
+  final() {
     circles.value.forEach((circle, index) => gsap.set(circle, { attr: { cx: dots.value[index].destinationX, cy: dots.value[index].destinationY }, opacity: 1 }))
     shownHandled.value = handled; shownHuman.value = human
-    return
-  }
-  timeline = gsap.timeline({ delay: 0.35 })
-  circles.value.forEach((circle, index) => {
-    const dot = dots.value[index]
-    timeline!.to(circle, {
-      attr: { cx: dot.destinationX, cy: dot.destinationY }, opacity: 1,
-      duration: 1.15, ease: 'power2.inOut',
-      onComplete: () => { if (index < handled) shownHandled.value++; else shownHuman.value++ },
-    }, index * 0.018)
-  })
-}
-watch(active, play, { flush: 'post', immediate: true })
-onMounted(() => play(active.value))
+  },
+})
 onBeforeUnmount(() => timeline?.kill())
 </script>
 <template>

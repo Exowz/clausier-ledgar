@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
-import { useIsSlideActive } from '@slidev/client'
+import { onBeforeUnmount, ref } from 'vue'
+import { useStage } from '../composables/stage'
 import gsap from 'gsap'
 import { deck, f1 } from '../data'
 
-const active = useIsSlideActive()
 const pair = deck.taxonomy.runs[1].group_f1['Applicable Laws / Governing Laws']
 const names = deck.taxonomy.pairs.map(pair => pair.join(' / '))
 const left = ref<SVGGElement>()
@@ -16,30 +15,35 @@ const beforeA = ref(0)
 const beforeB = ref(0)
 let timeline: gsap.core.Timeline | undefined
 const radius = (value: number) => Math.sqrt(value) * 102
-function play(value: boolean) {
-  timeline?.kill(); shown.value=0; beforeA.value=0; beforeB.value=0
-  gsap.set(left.value, { x:0, opacity:1 }); gsap.set(right.value, { x:0, opacity:1 })
-  gsap.set(final.value, { opacity:0 }); gsap.set(chips.value, { opacity:0, y:10 })
-  if (!value) return
-  if ((matchMedia('(prefers-reduced-motion: reduce)').matches || location.search.includes('print'))) {
-    gsap.set([left.value,right.value], { opacity:0 })
-    gsap.set(final.value, { opacity:1 }); gsap.set(chips.value, { opacity:1, y:0 }); shown.value=pair.f1_after
-    beforeA.value=pair.f1_before_a; beforeB.value=pair.f1_before_b
-    return
-  }
-  const number={value:0}
-  const initial={a:0,b:0}
-  timeline=gsap.timeline()
-    .to(initial, { a:pair.f1_before_a, b:pair.f1_before_b, duration:.7, ease:'power2.out', onUpdate:()=>{beforeA.value=initial.a; beforeB.value=initial.b} }, 0)
-    .to(left.value, { x:148, duration:1.15, ease:'power2.inOut' }, 0.3)
-    .to(right.value, { x:-148, duration:1.15, ease:'power2.inOut' }, 0.3)
-    .to([left.value,right.value], { opacity:0, duration:.35 }, 1.25)
-    .to(final.value, { opacity:1, duration:.5 }, 1.2)
-    .to(number, { value:pair.f1_after, duration:1, ease:'power2.out', onUpdate:()=>{shown.value=number.value} }, 1.35)
-    .to(chips.value, { opacity:1, y:0, duration:.35, stagger:.05 }, 2.25)
+function reset() {
+  timeline?.kill(); shown.value = 0; beforeA.value = 0; beforeB.value = 0
+  gsap.set(left.value!, { x: -60, opacity: 0, scale: 0.6, transformOrigin: 'center' })
+  gsap.set(right.value!, { x: 60, opacity: 0, scale: 0.6, transformOrigin: 'center' })
+  gsap.set(final.value!, { opacity: 0, scale: 0.8, transformOrigin: 'center' })
+  gsap.set(chips.value, { opacity: 0, y: 10 })
 }
-onMounted(()=>play(active.value))
-watch(active,play)
+useStage({
+  setup: reset,
+  enter() {
+    reset()
+    const number = { value: 0 }
+    const initial = { a: 0, b: 0 }
+    timeline = gsap.timeline({ delay: 0.6 })
+      .to([left.value!, right.value!], { x: 0, opacity: 1, scale: 1, duration: 0.8, ease: 'back.out(1.6)', stagger: 0.12 }, 0)
+      .to(initial, { a: pair.f1_before_a, b: pair.f1_before_b, duration: 1, ease: 'power2.out', onUpdate: () => { beforeA.value = initial.a; beforeB.value = initial.b } }, 0.3)
+      .to(left.value!, { x: 148, duration: 1.1, ease: 'power3.inOut' }, 1.6)
+      .to(right.value!, { x: -148, duration: 1.1, ease: 'power3.inOut' }, 1.6)
+      .to([left.value!, right.value!], { opacity: 0, duration: 0.35 }, 2.5)
+      .to(final.value!, { opacity: 1, scale: 1, duration: 0.6, ease: 'back.out(2)' }, 2.45)
+      .to(number, { value: pair.f1_after, duration: 1.1, ease: 'expo.out', onUpdate: () => { shown.value = number.value } }, 2.55)
+      .to(chips.value, { opacity: 1, y: 0, duration: 0.4, stagger: 0.06, ease: 'power3.out' }, 3.2)
+  },
+  final() {
+    gsap.set([left.value!, right.value!], { opacity: 0 })
+    gsap.set(final.value!, { opacity: 1, scale: 1 }); gsap.set(chips.value, { opacity: 1, y: 0 })
+    shown.value = pair.f1_after; beforeA.value = pair.f1_before_a; beforeB.value = pair.f1_before_b
+  },
+})
 onBeforeUnmount(()=>timeline?.kill())
 </script>
 <template>

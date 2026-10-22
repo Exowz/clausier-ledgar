@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import { computed, onBeforeUnmount, ref, watch } from 'vue'
-import { useIsSlideActive } from '@slidev/client'
+import { computed, onBeforeUnmount, ref } from 'vue'
+import { useStage } from '../composables/stage'
 import gsap from 'gsap'
 import { deck, percent } from '../data'
 
-const active = useIsSlideActive()
 const data = deck.calibration.legal_bert_long
 const after = ref(false)
 const eceShown = ref(data.ece_before * 100)
@@ -26,21 +25,20 @@ const option = computed(() => {
     ],
   }
 })
-watch(active, value => {
-  clearTimeout(timer)
-  tween?.kill()
-  after.value = false
-  eceShown.value = data.ece_before * 100
-  if (value) timer = setTimeout(() => {
-    after.value = true
-    if ((window.matchMedia('(prefers-reduced-motion: reduce)').matches || window.location.search.includes('print'))) {
-      eceShown.value = data.ece_after * 100
-      return
-    }
-    const state = { value: data.ece_before * 100 }
-    tween = gsap.to(state, { value: data.ece_after * 100, duration: 0.95, ease: 'power2.out', onUpdate: () => { eceShown.value = state.value } })
-  }, (window.matchMedia('(prefers-reduced-motion: reduce)').matches || window.location.search.includes('print')) ? 0 : 1500)
-}, { immediate: true })
+useStage({
+  setup() { clearTimeout(timer); tween?.kill(); after.value = false; eceShown.value = data.ece_before * 100 },
+  enter() {
+    clearTimeout(timer); tween?.kill()
+    after.value = false
+    eceShown.value = data.ece_before * 100
+    timer = setTimeout(() => {
+      after.value = true
+      const state = { value: data.ece_before * 100 }
+      tween = gsap.to(state, { value: data.ece_after * 100, duration: 1.1, ease: 'power2.inOut', onUpdate: () => { eceShown.value = state.value } })
+    }, 2600)
+  },
+  final() { after.value = true; eceShown.value = data.ece_after * 100 },
+})
 onBeforeUnmount(() => { clearTimeout(timer); tween?.kill() })
 </script>
 
