@@ -37,6 +37,7 @@ Group project, Deep Learning for Sequential Data and NLP (Guillaume Saint-Cirgue
 > make counterfactual  # party roles, jurisdiction, number format, each with a control
 > make retrieval       # MiniLM, TF-IDF and keyword search over the 60,000 training clauses
 > make results         # every final table, from the run directories in outputs/
+> make app             # the demo app on http://127.0.0.1:5050 (classify, search, review a contract)
 > ```
 >
 > The transformer and LSTM runs are trained on a GPU with [notebooks/train_colab.ipynb](notebooks/train_colab.ipynb)
@@ -58,6 +59,7 @@ Group project, Deep Learning for Sequential Data and NLP (Guillaume Saint-Cirgue
   - [7. Clause retrieval (m2)](#7-clause-retrieval-m2)
   - [8. Bias audit (m5)](#8-bias-audit-m5)
   - [9. Additions from published work](#9-additions-from-published-work)
+  - [10. Demo app](#10-demo-app)
 - [Results](#results)
 - [Plans written before the runs](#plans-written-before-the-runs)
 - [Error analysis](#error-analysis)
@@ -209,6 +211,16 @@ one comes from published work, is cited, and is computed from the saved run dire
 | 3. Overlapping labels | How much error comes from the label set? | Nine label pairs merged, rule fixed before measuring; probabilities summed, no retraining | [taxonomy.py](src/audit/taxonomy.py) |
 | 4. Word-level explanation | Why did the model choose this type? | Word erasure (Li, Monroe and Jurafsky 2016, arXiv:1612.08220), checked with ERASER comprehensiveness (DeYoung et al. 2020, ACL) | [occlusion.py](src/audit/occlusion.py) |
 | 5. Missing clauses | Which standard clauses does a contract lack? | Checklist of the 12 most frequent clause types, evaluated on simulated contracts built from test clauses | [checklist.py](src/review/checklist.py) |
+
+### 10. Demo app
+
+[app/](app/) is a Flask app (`make app`, then http://127.0.0.1:5050) that calls the functions above; it trains
+nothing and needs no network. Five views: **Classify** (clause type, calibrated confidence, "handled automatically"
+or "check by a person" from the abstention threshold, prediction set, words highlighted by erasure importance),
+**Search** (MiniLM, TF-IDF or keyword search over the 60,000 training clauses, with the duration filter), **Review a
+contract** (the missing-clause check on the sample agreement or a pasted contract), **Stress test** (the three
+counterfactual edits of the audit, applied live to a pasted clause) and **Evidence** (the key results, read from the
+report files). TF-IDF is the default model, as recommended; Legal-BERT is offered when its run directory is present.
 
 ## Results
 
@@ -387,6 +399,22 @@ Warranties), so 100 labels become 91 groups. The saved probabilities of a group 
   cleaner label set may get more from Legal-BERT.
 - **Recommendation to the start-up:** review these nine pairs with its lawyers and either merge them or write
   definitions that separate them, before collecting more training data.
+
+### Additions: word-level explanations (4)
+
+[occlusion.py](src/audit/occlusion.py) (`make explain`): the importance of a word is the drop in the probability of
+the predicted type when that word is removed (word erasure). To check that the highlighted words really drive the
+prediction, the 3 most important words and 3 random words are removed from 200 test clauses (ERASER
+comprehensiveness): [TF-IDF](reports/audit/tfidf/occlusion.md), [Legal-BERT](reports/audit/legal_bert_long/occlusion.md).
+
+| Model | Probability drop, top 3 words removed | Probability drop, 3 random words | Prediction changed, top 3 / random |
+| --- | ---: | ---: | ---: |
+| TF-IDF | 0.230 | 0.024 | 24.5% / 4.0% |
+| Legal-BERT (up to 10 epochs) | 0.261 | 0.036 | 28.5% / 5.0% |
+
+For both models the highlighted words matter about ten times more than random ones, so the highlights shown in the
+app are faithful to the model. Long clauses repeat their key words, so removing one word at a time can show low
+importance everywhere; the explanation covers the first 200 words.
 
 ### Additions: missing clauses in a contract (5)
 

@@ -1,6 +1,6 @@
 PYTHON ?= .venv/bin/python
 
-.PHONY: setup test lint eda baseline train-smoke retrieval audit counterfactual results calibration cost taxonomy explain review final
+.PHONY: setup test lint eda baseline train-smoke retrieval audit counterfactual results calibration cost taxonomy explain review final app
 
 setup:
 	if command -v uv >/dev/null 2>&1; then \
@@ -51,6 +51,9 @@ explain:
 
 review:
 	$(PYTHON) -m src.review.checklist --runs outputs/tfidf outputs/$$($(PYTHON) -m src.classification.results --print-best)
+
+app:
+	$(PYTHON) -m app.server --preload
 
 final: results
 	$(PYTHON) -m src.audit.run --run outputs/$$($(PYTHON) -m src.classification.results --print-best)
