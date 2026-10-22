@@ -15,11 +15,13 @@ const beforeA = ref(0)
 const beforeB = ref(0)
 let timeline: gsap.core.Timeline | undefined
 const radius = (value: number) => Math.sqrt(value) * 102
+const labels = () => [...(left.value?.querySelectorAll('text') || []), ...(right.value?.querySelectorAll('text') || [])]
 function reset() {
+  gsap.set(labels(), { opacity: 1 })
   timeline?.kill(); shown.value = 0; beforeA.value = 0; beforeB.value = 0
-  gsap.set(left.value!, { x: -60, opacity: 0, scale: 0.6, transformOrigin: 'center' })
-  gsap.set(right.value!, { x: 60, opacity: 0, scale: 0.6, transformOrigin: 'center' })
-  gsap.set(final.value!, { opacity: 0, scale: 0.8, transformOrigin: 'center' })
+  gsap.set(left.value!, { x: -60, opacity: 0, scale: 0.6, transformOrigin: '0px 0px' })
+  gsap.set(right.value!, { x: 60, opacity: 0, scale: 0.6, transformOrigin: '0px 0px' })
+  gsap.set(final.value!, { opacity: 0, scale: 0.8, transformOrigin: '0px 0px' })
   gsap.set(chips.value, { opacity: 0, y: 10 })
 }
 useStage({
@@ -31,6 +33,8 @@ useStage({
     timeline = gsap.timeline({ delay: 0.6 })
       .to([left.value!, right.value!], { x: 0, opacity: 1, scale: 1, duration: 0.8, ease: 'back.out(1.6)', stagger: 0.12 }, 0)
       .to(initial, { a: pair.f1_before_a, b: pair.f1_before_b, duration: 1, ease: 'power2.out', onUpdate: () => { beforeA.value = initial.a; beforeB.value = initial.b } }, 0.3)
+      // The two labels fade just before the circles touch, so their texts never overlap.
+      .to(labels(), { opacity: 0, duration: 0.35, ease: 'power1.in' }, 1.45)
       .to(left.value!, { x: 148, duration: 1.1, ease: 'power3.inOut' }, 1.6)
       .to(right.value!, { x: -148, duration: 1.1, ease: 'power3.inOut' }, 1.6)
       .to([left.value!, right.value!], { opacity: 0, duration: 0.35 }, 2.5)
@@ -50,11 +54,11 @@ onBeforeUnmount(()=>timeline?.kill())
   <div class="merge-wrap">
     <svg viewBox="0 0 780 390" class="merge-svg" role="img" aria-label="Applicable Laws and Governing Laws merge into one label">
       <defs><filter id="merge-goo"><feGaussianBlur in="SourceGraphic" stdDeviation="11" result="blur" /><feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -9" result="goo" /><feComposite in="SourceGraphic" in2="goo" operator="atop" /></filter></defs>
-      <g filter="url(#merge-goo)">
-        <g ref="left" transform="translate(205,205)"><circle :r="radius(pair.f1_before_a)" fill="rgba(45,212,191,.13)" stroke="#2dd4bf" stroke-width="2" /><text text-anchor="middle" y="-8" class="merge-label">Applicable Laws</text><text text-anchor="middle" y="36" class="merge-number">{{ f1(beforeA) }}</text></g>
-        <g ref="right" transform="translate(575,205)"><circle :r="radius(pair.f1_before_b)" fill="rgba(212,168,83,.15)" stroke="#d4a853" stroke-width="2" /><text text-anchor="middle" y="-8" class="merge-label">Governing Laws</text><text text-anchor="middle" y="36" class="merge-number">{{ f1(beforeB) }}</text></g>
+      <g>
+        <g transform="translate(205,205)"><g ref="left"><circle :r="radius(pair.f1_before_a)" fill="rgba(45,212,191,.13)" stroke="#2dd4bf" stroke-width="2" /><text text-anchor="middle" y="-8" class="merge-label">Applicable Laws</text><text text-anchor="middle" y="36" class="merge-number">{{ f1(beforeA) }}</text></g></g>
+        <g transform="translate(575,205)"><g ref="right"><circle :r="radius(pair.f1_before_b)" fill="rgba(212,168,83,.15)" stroke="#d4a853" stroke-width="2" /><text text-anchor="middle" y="-8" class="merge-label">Governing Laws</text><text text-anchor="middle" y="36" class="merge-number">{{ f1(beforeB) }}</text></g></g>
       </g>
-      <g ref="final" transform="translate(390,205)" opacity="0"><circle :r="radius(pair.f1_after)" fill="rgba(212,168,83,.12)" stroke="#d4a853" stroke-width="3" /><text text-anchor="middle" y="-8" class="merge-label">Merged label</text><text text-anchor="middle" y="36" class="merge-number">{{ shown.toFixed(3) }}</text></g>
+      <g transform="translate(390,205)"><g ref="final" opacity="0"><circle :r="radius(pair.f1_after)" fill="rgba(212,168,83,.12)" stroke="#d4a853" stroke-width="3" /><text text-anchor="middle" y="-8" class="merge-label">Merged label</text><text text-anchor="middle" y="36" class="merge-number">{{ shown.toFixed(3) }}</text></g></g>
     </svg>
     <div class="merge-list"><span v-for="(name,index) in names" :key="name" :ref="el => { if (el) chips[index]=el as HTMLElement }">{{ name }}</span></div>
   </div>

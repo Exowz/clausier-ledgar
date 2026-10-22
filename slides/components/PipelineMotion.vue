@@ -27,8 +27,10 @@ function whenRendered(callback: (found: NonNullable<ReturnType<typeof parts>>) =
     if (late || ++tries > 40) { clearInterval(poll); if (late) callback(late) }
   }, 75)
 }
+// Mermaid positions each node with its own transform attribute, so nodes only fade and sharpen: moving them with a
+// transform would overwrite their position.
 function hide({ nodes, edges }: NonNullable<ReturnType<typeof parts>>) {
-  gsap.set(nodes, { opacity: 0, y: 16, scale: 0.9, transformOrigin: '50% 50%' })
+  gsap.set(nodes, { opacity: 0, filter: 'blur(6px) brightness(2)' })
   edges.forEach((path) => { const length = path.getTotalLength?.() || 500; gsap.set(path, { strokeDasharray: length, strokeDashoffset: length }) })
 }
 useStage({
@@ -37,7 +39,7 @@ useStage({
     timeline?.kill()
     hide(found)
     timeline = gsap.timeline({ delay: 0.5 })
-      .to(found.nodes, { opacity: 1, y: 0, scale: 1, duration: 0.65, stagger: 0.15, ease: 'back.out(1.8)' })
+      .to(found.nodes, { opacity: 1, filter: 'blur(0px) brightness(1)', duration: 0.7, stagger: 0.16, ease: 'power2.out' })
       .to(found.edges, { strokeDashoffset: 0, duration: 0.9, stagger: 0.07, ease: 'power2.inOut' }, 0.35)
   }),
   final: () => whenRendered(({ nodes, edges }) => gsap.set([...nodes, ...edges], { clearProps: 'all' })),

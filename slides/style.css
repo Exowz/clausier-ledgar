@@ -241,3 +241,66 @@
 .deck-progress span { display:block; height:100%; background:linear-gradient(90deg, rgba(212,168,83,.35), var(--gold)); transform-origin:left; transition:transform .9s cubic-bezier(.22,.8,.2,1); box-shadow:0 0 12px rgba(212,168,83,.45); }
 
 .backup-card img { max-height:455px; }
+.deck-footer { display:flex; align-items:center; justify-content:space-between; }
+.footer-speaker { display:inline-flex; align-items:center; gap:9px; padding:4px 13px 4px 10px; border:1px solid var(--line); border-radius:100px; color:var(--ivory); font-size:15px; letter-spacing:.04em; }
+.footer-speaker i { width:8px; height:8px; border-radius:50%; background:var(--muted); box-shadow:0 0 10px currentColor; }
+.footer-speaker.is-ewan i { background:var(--gold); color:var(--gold); }
+.footer-speaker.is-wiyao i { background:var(--teal); color:var(--teal); }
+.title-slide .deck-footer { position:absolute; left:70px; right:70px; bottom:24px; z-index:2; }
+
+/* ===== Slide transitions =====
+   The incoming slide is revealed over the outgoing one with a clip-path; the outgoing slide recedes into the dark
+   (smaller, dimmer, slightly blurred), so every change of slide reads as depth, not a cut.
+   deck-sweep      default: a curtain from the right with a brass light edge, content drifting in (parallax)
+   deck-sweep-back going back: the same curtain from the left
+   deck-iris       key results (4, 8, 13): an iris opening from the centre
+   deck-rise       new chapter (5, 9, 12): a panel rising from the bottom edge */
+.deck-sweep-enter-active, .deck-sweep-back-enter-active, .deck-iris-enter-active, .deck-rise-enter-active { z-index:3; }
+.deck-sweep-leave-active, .deck-sweep-back-leave-active, .deck-iris-leave-active, .deck-rise-leave-active { z-index:1; pointer-events:none; }
+
+.deck-sweep-enter-active { animation:sweep-in 1.05s cubic-bezier(.77,0,.18,1) both; }
+.deck-sweep-back-enter-active { animation:sweep-in-back 1.05s cubic-bezier(.77,0,.18,1) both; }
+.deck-sweep-leave-active { animation:recede-left 1.05s cubic-bezier(.77,0,.18,1) both; }
+.deck-sweep-back-leave-active { animation:recede-right 1.05s cubic-bezier(.77,0,.18,1) both; }
+.deck-iris-enter-active { animation:iris-in 1.25s cubic-bezier(.7,0,.2,1) both; }
+.deck-iris-leave-active { animation:recede-deep 1.25s cubic-bezier(.7,0,.2,1) both; }
+.deck-rise-enter-active { animation:rise-in 1.1s cubic-bezier(.77,0,.18,1) both; }
+.deck-rise-leave-active { animation:recede-up 1.1s cubic-bezier(.77,0,.18,1) both; }
+
+/* The light edge that leads each reveal. */
+.deck-sweep-enter-active::after, .deck-sweep-back-enter-active::after, .deck-rise-enter-active::after, .deck-iris-enter-active::after {
+  content:''; position:absolute; z-index:50; pointer-events:none;
+}
+.deck-sweep-enter-active::after, .deck-sweep-back-enter-active::after {
+  top:0; bottom:0; width:3px; background:linear-gradient(180deg, transparent, #f4d58c 18%, var(--gold) 50%, #f4d58c 82%, transparent);
+  box-shadow:0 0 24px 6px rgba(212,168,83,.55), 0 0 90px 30px rgba(212,168,83,.18);
+}
+.deck-sweep-enter-active::after { animation:edge-left 1.05s cubic-bezier(.77,0,.18,1) both; }
+.deck-sweep-back-enter-active::after { animation:edge-right 1.05s cubic-bezier(.77,0,.18,1) both; }
+.deck-rise-enter-active::after {
+  left:0; right:0; height:3px; background:linear-gradient(90deg, transparent, #f4d58c 18%, var(--gold) 50%, #f4d58c 82%, transparent);
+  box-shadow:0 0 24px 6px rgba(212,168,83,.55), 0 0 90px 30px rgba(212,168,83,.18); animation:edge-up 1.1s cubic-bezier(.77,0,.18,1) both;
+}
+.deck-iris-enter-active::after {
+  left:50%; top:50%; width:0; height:0; border-radius:50%; transform:translate(-50%,-50%);
+  border:2px solid rgba(244,213,140,.9); box-shadow:0 0 30px 8px rgba(212,168,83,.45), inset 0 0 30px 8px rgba(212,168,83,.25);
+  animation:iris-ring 1.25s cubic-bezier(.7,0,.2,1) both;
+}
+
+@keyframes sweep-in { from { clip-path:inset(0 0 0 100%); transform:translateX(9%); } to { clip-path:inset(0 0 0 0); transform:none; } }
+@keyframes sweep-in-back { from { clip-path:inset(0 100% 0 0); transform:translateX(-9%); } to { clip-path:inset(0 0 0 0); transform:none; } }
+@keyframes recede-left { from { transform:none; filter:none; } to { transform:translateX(-7%) scale(.9); filter:brightness(.25) blur(3px); } }
+@keyframes recede-right { from { transform:none; filter:none; } to { transform:translateX(7%) scale(.9); filter:brightness(.25) blur(3px); } }
+@keyframes recede-deep { from { transform:none; filter:none; } to { transform:scale(1.12); filter:brightness(.2) blur(8px); } }
+@keyframes recede-up { from { transform:none; filter:none; } to { transform:translateY(-6%) scale(.92); filter:brightness(.25) blur(3px); } }
+@keyframes iris-in { from { clip-path:circle(0% at 50% 50%); transform:scale(1.06); } to { clip-path:circle(75% at 50% 50%); transform:none; } }
+@keyframes rise-in { from { clip-path:inset(100% 0 0 0); transform:translateY(8%); } to { clip-path:inset(0 0 0 0); transform:none; } }
+/* The edge sits on the moving border of the clip; the page itself is also translated, so the edge travels in page
+   coordinates from the right border to the left one. */
+@keyframes edge-left { 0% { left:100%; opacity:1; } 92% { opacity:1; } 100% { left:0; opacity:0; } }
+@keyframes edge-right { 0% { left:0; opacity:1; } 92% { opacity:1; } 100% { left:100%; opacity:0; } }
+@keyframes edge-up { 0% { top:100%; opacity:1; } 92% { opacity:1; } 100% { top:0; opacity:0; } }
+@keyframes iris-ring { 0% { width:0; height:0; opacity:1; } 90% { opacity:1; } 100% { width:150vmax; height:150vmax; opacity:0; } }
+
+/* Ink behind the slides, so a receding slide never uncovers a light background. */
+#slideshow, .slidev-slide-container, .slidev-slides-container { background:var(--ink) !important; }
