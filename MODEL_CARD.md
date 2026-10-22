@@ -34,9 +34,9 @@ script (`make results`, `make final`), and each section links to the file it com
   the models have only seen US SEC filings. The jurisdiction test below only shows that renaming the governing law
   does not change the predicted type; it says nothing about how well the model reads a European contract.
 - Clause types outside the 100 LEDGAR labels: the model always answers one of the 100, even when none applies.
-- Reading the predicted probability as a confidence: the validation loss of Legal-BERT rises after epoch 4 while its
-  macro-F1 keeps improving, so it is more confident on its errors than it should be. The probabilities are not
-  calibrated.
+- Reading the raw Legal-BERT probability as a confidence: it is overconfident (expected calibration error 0.085 on
+  test). Use the temperature-scaled probability (T = 1.42, fitted on validation, error 0.031), as the app does. TF-IDF
+  is already calibrated (0.021).
 - For Legal-BERT, clauses much longer than 256 tokens: only the first 256 tokens are read (12.0% of the training
   clauses are longer). TF-IDF reads the whole clause.
 
@@ -82,6 +82,22 @@ Figures from the audit of both models ([TF-IDF](reports/audit/tfidf/), [Legal-BE
     set only, for both models.
   - Truncated clauses (256 tokens or more) are not worse for Legal-BERT (0.896).
   - The license (23 clauses) and non-US (29) slices are too small to interpret.
+
+## Confidence, abstention and cost
+
+From `reports/audit/<run>/calibration.json` and `reports/cost.json`.
+
+- **Abstention:** below a calibrated confidence of 0.76 (TF-IDF) or 0.88 (Legal-BERT), chosen on validation for 95%
+  accuracy, a clause is sent to a person. On test this sends 17.0% (TF-IDF) and 17.5% (Legal-BERT) of the clauses
+  to a person, and the others are 94.7% and 94.9% accurate.
+- **Prediction sets:** conformal sets with alpha 0.1 reach 89.8% and 89.7% coverage on test with about 1.05 types per
+  clause; two-type sets are mostly the overlapping label pairs below.
+- **Cost on a laptop (Apple M2 Pro):** 0.09 ms per clause for TF-IDF on CPU, 31.8 ms for Legal-BERT on CPU and 13.3 ms
+  on the laptop GPU. int8 quantisation of Legal-BERT is 2.4 times smaller but slower on this CPU and 1.2 macro-F1
+  points lower.
+- **Overlapping labels:** about a fifth of the errors (19% for TF-IDF, 22% for Legal-BERT) are confusions inside nine
+  pairs of labels given to the same kind of clause (`reports/audit/taxonomy.md`). Merging them raises accuracy to
+  0.901 and 0.908.
 
 ## Counterfactual tests
 
