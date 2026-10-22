@@ -1,0 +1,40 @@
+{
+  "a": "legal_bert_lora",
+  "b": "legal_bert",
+  "test": {
+    "n": 10000,
+    "accuracy_a": 0.8612,
+    "accuracy_b": 0.8737,
+    "macro_f1_a": 0.7815764481260694,
+    "macro_f1_b": 0.7929307672715449,
+    "a": 8427,
+    "b": 185,
+    "c": 310,
+    "d": 1078,
+    "chi2": 31.062626262626264,
+    "p_value": 2.4983583711713124e-08,
+    "diff_macro_f1": -0.011354319145475467,
+    "diff_low": -0.022881024546298506,
+    "diff_high": -0.0026128324827037084,
+    "mcnemar_significant": true,
+    "bootstrap_significant": true
+  },
+  "test_dedup": {
+    "n": 7759,
+    "accuracy_a": 0.8401855909266658,
+    "accuracy_b": 0.8495940198479185,
+    "macro_f1_a": 0.7532318864167525,
+    "macro_f1_b": 0.7614463380674615,
+    "a": 6344,
+    "b": 175,
+    "c": 248,
+    "d": 992,
+    "chi2": 12.25531914893617,
+    "p_value": 0.0004639337983508047,
+    "diff_macro_f1": -0.008214451650708998,
+    "diff_low": -0.022346094961554944,
+    "diff_high": 0.0020029350630366835,
+    "mcnemar_significant": true,
+    "bootstrap_significant": false
+  }
+}

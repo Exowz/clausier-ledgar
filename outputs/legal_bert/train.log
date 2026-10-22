@@ -1,0 +1,126 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Device: cuda
+[transformers] You passed `num_labels=100` which is incompatible to the `id2label` map of length `2`.
+
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]
+Loading weights: 100%|██████████| 199/199 [00:00<00:00, 18396.07it/s]
+[transformers] [1mBertForSequenceClassification LOAD REPORT[0m from: nlpaueb/legal-bert-base-uncased
+Key                                        | Status     | 
+-------------------------------------------+------------+-
+cls.predictions.transform.LayerNorm.bias   | UNEXPECTED | 
+cls.predictions.decoder.weight             | UNEXPECTED | 
+cls.predictions.decoder.bias               | UNEXPECTED | 
+cls.predictions.bias                       | UNEXPECTED | 
+cls.seq_relationship.bias                  | UNEXPECTED | 
+cls.predictions.transform.LayerNorm.weight | UNEXPECTED | 
+cls.seq_relationship.weight                | UNEXPECTED | 
+cls.predictions.transform.dense.bias       | UNEXPECTED | 
+cls.predictions.transform.dense.weight     | UNEXPECTED | 
+classifier.weight                          | MISSING    | 
+classifier.bias                            | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+
+Map:   0%|          | 0/60000 [00:00<?, ? examples/s]
+Map:   2%|▏         | 1000/60000 [00:00<00:25, 2310.35 examples/s]
+Map:   3%|▎         | 2000/60000 [00:00<00:23, 2457.88 examples/s]
+Map:   5%|▌         | 3000/60000 [00:01<00:22, 2537.78 examples/s]
+Map:   7%|▋         | 4000/60000 [00:01<00:21, 2600.90 examples/s]
+Map:   8%|▊         | 5000/60000 [00:01<00:20, 2645.12 examples/s]
+Map:  10%|█         | 6000/60000 [00:02<00:20, 2580.62 examples/s]
+Map:  12%|█▏        | 7000/60000 [00:02<00:19, 2666.54 examples/s]
+Map:  13%|█▎        | 8000/60000 [00:03<00:19, 2651.29 examples/s]
+Map:  15%|█▌        | 9000/60000 [00:03<00:19, 2631.36 examples/s]
+Map:  17%|█▋        | 10000/60000 [00:03<00:18, 2676.50 examples/s]
+Map:  18%|█▊        | 11000/60000 [00:04<00:18, 2634.64 examples/s]
+Map:  20%|██        | 12000/60000 [00:04<00:18, 2644.28 examples/s]
+Map:  22%|██▏       | 13000/60000 [00:04<00:17, 2658.17 examples/s]
+Map:  23%|██▎       | 14000/60000 [00:05<00:17, 2626.09 examples/s]
+Map:  25%|██▌       | 15000/60000 [00:05<00:17, 2619.76 examples/s]
+Map:  27%|██▋       | 16000/60000 [00:06<00:16, 2651.83 examples/s]
+Map:  28%|██▊       | 17000/60000 [00:06<00:16, 2618.60 examples/s]
+Map:  30%|███       | 18000/60000 [00:06<00:15, 2679.66 examples/s]
+Map:  32%|███▏      | 19000/60000 [00:07<00:15, 2582.42 examples/s]
+Map:  33%|███▎      | 20000/60000 [00:07<00:15, 2557.54 examples/s]
+Map:  35%|███▌      | 21000/60000 [00:08<00:15, 2587.96 examples/s]
+Map:  37%|███▋      | 22000/60000 [00:08<00:14, 2604.30 examples/s]
+Map:  38%|███▊      | 23000/60000 [00:08<00:14, 2571.29 examples/s]
+Map:  40%|████      | 24000/60000 [00:09<00:13, 2599.74 examples/s]
+Map:  42%|████▏     | 25000/60000 [00:09<00:13, 2558.99 examples/s]
+Map:  43%|████▎     | 26000/60000 [00:09<00:13, 2596.31 examples/s]
+Map:  45%|████▌     | 27000/60000 [00:10<00:12, 2628.88 examples/s]
+Map:  47%|████▋     | 28000/60000 [00:10<00:12, 2657.66 examples/s]
+Map:  48%|████▊     | 29000/60000 [00:11<00:11, 2643.42 examples/s]
+Map:  50%|█████     | 30000/60000 [00:11<00:11, 2655.41 examples/s]
+Map:  52%|█████▏    | 31000/60000 [00:11<00:11, 2602.99 examples/s]
+Map:  53%|█████▎    | 32000/60000 [00:12<00:10, 2590.79 examples/s]
+Map:  55%|█████▌    | 33000/60000 [00:12<00:10, 2600.69 examples/s]
+Map:  57%|█████▋    | 34000/60000 [00:13<00:10, 2579.15 examples/s]
+Map:  58%|█████▊    | 35000/60000 [00:13<00:11, 2098.92 examples/s]
+Map:  60%|██████    | 36000/60000 [00:14<00:10, 2242.31 examples/s]
+Map:  62%|██████▏   | 37000/60000 [00:14<00:09, 2343.02 examples/s]
+Map:  63%|██████▎   | 38000/60000 [00:14<00:09, 2380.79 examples/s]
+Map:  65%|██████▌   | 39000/60000 [00:15<00:08, 2435.36 examples/s]
+Map:  67%|██████▋   | 40000/60000 [00:15<00:07, 2501.31 examples/s]
+Map:  68%|██████▊   | 41000/60000 [00:16<00:07, 2489.09 examples/s]
+Map:  70%|███████   | 42000/60000 [00:16<00:07, 2543.16 examples/s]
+Map:  72%|███████▏  | 43000/60000 [00:16<00:06, 2528.72 examples/s]
+Map:  73%|███████▎  | 44000/60000 [00:17<00:06, 2562.93 examples/s]
+Map:  75%|███████▌  | 45000/60000 [00:17<00:06, 2448.29 examples/s]
+Map:  77%|███████▋  | 46000/60000 [00:18<00:05, 2436.59 examples/s]
+Map:  78%|███████▊  | 47000/60000 [00:18<00:05, 2509.30 examples/s]
+Map:  80%|████████  | 48000/60000 [00:18<00:04, 2534.05 examples/s]
+Map:  82%|████████▏ | 49000/60000 [00:19<00:04, 2505.98 examples/s]
+Map:  83%|████████▎ | 50000/60000 [00:19<00:03, 2542.49 examples/s]
+Map:  85%|████████▌ | 51000/60000 [00:20<00:03, 2486.57 examples/s]
+Map:  87%|████████▋ | 52000/60000 [00:20<00:03, 2536.74 examples/s]
+Map:  88%|████████▊ | 53000/60000 [00:20<00:02, 2579.13 examples/s]
+Map:  90%|█████████ | 54000/60000 [00:21<00:02, 2578.30 examples/s]
+Map:  92%|█████████▏| 55000/60000 [00:21<00:01, 2636.62 examples/s]
+Map:  93%|█████████▎| 56000/60000 [00:21<00:01, 2618.38 examples/s]
+Map:  95%|█████████▌| 57000/60000 [00:22<00:01, 2541.69 examples/s]
+Map:  97%|█████████▋| 58000/60000 [00:22<00:00, 2584.39 examples/s]
+Map:  98%|█████████▊| 59000/60000 [00:23<00:00, 2563.60 examples/s]
+Map: 100%|██████████| 60000/60000 [00:23<00:00, 2583.26 examples/s]
+Map: 100%|██████████| 60000/60000 [00:23<00:00, 2554.02 examples/s]
+
+Map:   0%|          | 0/10000 [00:00<?, ? examples/s]
+Map:  10%|█         | 1000/10000 [00:00<00:03, 2453.08 examples/s]
+Map:  20%|██        | 2000/10000 [00:00<00:03, 2526.21 examples/s]
+Map:  30%|███       | 3000/10000 [00:01<00:02, 2607.35 examples/s]
+Map:  40%|████      | 4000/10000 [00:01<00:02, 2582.90 examples/s]
+Map:  50%|█████     | 5000/10000 [00:01<00:01, 2513.26 examples/s]
+Map:  60%|██████    | 6000/10000 [00:02<00:01, 2573.91 examples/s]
+Map:  70%|███████   | 7000/10000 [00:02<00:01, 2553.75 examples/s]
+Map:  80%|████████  | 8000/10000 [00:03<00:00, 2592.24 examples/s]
+Map:  90%|█████████ | 9000/10000 [00:03<00:00, 2629.73 examples/s]
+Map: 100%|██████████| 10000/10000 [00:03<00:00, 2554.12 examples/s]
+Map: 100%|██████████| 10000/10000 [00:03<00:00, 2560.62 examples/s]
+
+Map:   0%|          | 0/10000 [00:00<?, ? examples/s]
+Map:  10%|█         | 1000/10000 [00:00<00:04, 2067.52 examples/s]
+Map:  20%|██        | 2000/10000 [00:00<00:03, 2406.65 examples/s]
+Map:  30%|███       | 3000/10000 [00:01<00:02, 2550.11 examples/s]
+Map:  40%|████      | 4000/10000 [00:01<00:02, 2631.60 examples/s]
+Map:  50%|█████     | 5000/10000 [00:01<00:01, 2583.50 examples/s]
+Map:  60%|██████    | 6000/10000 [00:02<00:01, 2665.94 examples/s]
+Map:  70%|███████   | 7000/10000 [00:02<00:01, 2704.03 examples/s]
+Map:  80%|████████  | 8000/10000 [00:03<00:00, 2694.71 examples/s]
+Map:  90%|█████████ | 9000/10000 [00:03<00:00, 2715.72 examples/s]
+Map: 100%|██████████| 10000/10000 [00:03<00:00, 2697.26 examples/s]
+Map: 100%|██████████| 10000/10000 [00:03<00:00, 2627.76 examples/s]
+Steps per epoch: 1875
+/content/clausier-ledgar/src/classification/train.py:67: UserWarning: Detected call of `lr_scheduler.step()` before `optimizer.step()`. In PyTorch 1.1.0 and later, you should call them in the opposite order: `optimizer.step()` before `lr_scheduler.step()`.  Failure to do this will result in PyTorch skipping the first value of the learning rate schedule. See more details at https://pytorch.org/docs/stable/optim.html#how-to-adjust-learning-rate
+  scheduler.step()
+[legal_bert] epoch 1: train loss 1.686, val loss 0.642, val macro-F1 0.704 (752s)
+[legal_bert] epoch 2: train loss 0.541, val loss 0.535, val macro-F1 0.758 (759s)
+[legal_bert] epoch 3: train loss 0.385, val loss 0.497, val macro-F1 0.786 (759s)
+[legal_bert] epoch 4: train loss 0.290, val loss 0.489, val macro-F1 0.800 (759s)
+
+Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]
+Writing model shards: 100%|██████████| 1/1 [00:01<00:00,  1.27s/it]
+Writing model shards: 100%|██████████| 1/1 [00:01<00:00,  1.27s/it]
+validation: accuracy=0.8750, macro-F1=0.7997
+test: accuracy=0.8737, macro-F1=0.7929

@@ -1,0 +1,14 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Device: cuda
+GloVe coverage: 11819/13250 (89.2%)
+Vocabulary: 13252; steps per epoch: 938
+[lstm_glove] epoch 1: train loss 2.510, val loss 1.218, val macro-F1 0.491 (14s)
+[lstm_glove] epoch 2: train loss 0.940, val loss 0.778, val macro-F1 0.655 (14s)
+[lstm_glove] epoch 3: train loss 0.660, val loss 0.667, val macro-F1 0.712 (14s)
+[lstm_glove] epoch 4: train loss 0.524, val loss 0.632, val macro-F1 0.733 (14s)
+[lstm_glove] epoch 5: train loss 0.428, val loss 0.623, val macro-F1 0.737 (14s)
+[lstm_glove] epoch 6: train loss 0.352, val loss 0.621, val macro-F1 0.757 (14s)
+[lstm_glove] epoch 7: train loss 0.292, val loss 0.627, val macro-F1 0.756 (14s)
+[lstm_glove] epoch 8: train loss 0.240, val loss 0.648, val macro-F1 0.759 (14s)
+validation: accuracy=0.8402, macro-F1=0.7593
+test: accuracy=0.8346, macro-F1=0.7519

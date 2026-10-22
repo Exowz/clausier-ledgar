@@ -1,0 +1,151 @@
+{
+  "party_roles": {
+    "n": 1000,
+    "flip_rate": 0.009,
+    "flip_low": 0.004,
+    "flip_high": 0.016,
+    "ctrl_flip_rate": 0.018,
+    "ctrl_low": 0.01,
+    "ctrl_high": 0.026,
+    "diff": -0.009,
+    "diff_low": -0.016024999999999998,
+    "diff_high": -0.002,
+    "acc_orig": 0.886,
+    "acc_orig_low": 0.866,
+    "acc_orig_high": 0.905,
+    "acc_edit": 0.882,
+    "acc_edit_low": 0.8629749999999999,
+    "acc_edit_high": 0.901,
+    "acc_ctrl": 0.882,
+    "acc_ctrl_low": 0.862,
+    "acc_ctrl_high": 0.902,
+    "decision": "pass",
+    "examples": [
+      {
+        "idx": 1137,
+        "original": "Notwithstanding anything herein to the contrary, to the extent, and solely to the extent, Landlord secures and receives liquidated damages from the General Contractor under the Construction Contract directly related to a delay in the Substantial Completion of a Building, Landlord agrees to provide T",
+        "edited": "Notwithstanding anything herein to the contrary, to the extent, and solely to the extent, Tenant secures and receives liquidated damages from the General Contractor under the Construction Contract directly related to a delay in the Substantial Completion of a Building, Tenant agrees to provide Landl",
+        "label_before": "Expenses",
+        "label_after": "Payments"
+      },
+      {
+        "idx": 3889,
+        "original": "\u201cCEO\u201d) or its designee(s) and shall perform and discharge well and faithfully the duties which may be assigned to her from time to time by the Employer in connection with the conduct of its business. The duties and responsibilities of the Executive are set forth on Exhibit A attached hereto.",
+        "edited": "\u201cCEO\u201d) or its designee(s) and shall perform and discharge well and faithfully the duties which may be assigned to her from time to time by the Employee in connection with the conduct of its business. The duties and responsibilities of the Executive are set forth on Exhibit A attached hereto.",
+        "label_before": "Positions",
+        "label_after": "Employment"
+      },
+      {
+        "idx": 4191,
+        "original": "The Borrower agrees to indemnify the Bank, each legal entity, if any, who controls, is controlled by or is under common control with the Bank, and each of their respective directors, officers and employees (the \u201cIndemnified Parties\u201d ), and to defend and hold each Indemnified Party harmless from and ",
+        "edited": "The Lender agrees to indemnify the Bank, each legal entity, if any, who controls, is controlled by or is under common control with the Bank, and each of their respective directors, officers and employers (the \u201cIndemnified Parties\u201d ), and to defend and hold each Indemnified Party harmless from and ag",
+        "label_before": "Indemnity",
+        "label_after": "Indemnifications"
+      },
+      {
+        "idx": 7195,
+        "original": "Guarantor agrees that any Lender may elect, subject to the terms of the Loan Agreement, at any time and from time to time, both before and after the occurrence of an Event of Default to the extent permitted under the Loan Agreement, to sell, assign or encumber all or a portion of the Loan and the Lo",
+        "edited": "Guarantor agrees that any Borrower may elect, subject to the terms of the Loan Agreement, at any time and from time to time, both before and after the occurrence of an Event of Default to the extent permitted under the Loan Agreement, to sell, assign or encumber all or a portion of the Loan and the ",
+        "label_before": "Participations",
+        "label_after": "Assignments"
+      },
+      {
+        "idx": 9633,
+        "original": "Each Lender may assign its Percentage or portion of the Loan to one or more other Persons (a \u201c New Lender \u201d), or sell participations in its Percentage or portion of the Loan to one or more other Persons; provided that, in the case of assignments where the Fixed Rate applies, such New Lender (other t",
+        "edited": "Each Borrower may assign its Percentage or portion of the Loan to one or more other Persons (a \u201c New Borrower \u201d), or sell participations in its Percentage or portion of the Loan to one or more other Persons; provided that, in the case of assignments where the Fixed Rate applies, such New Borrower (o",
+        "label_before": "Participations",
+        "label_after": "Assignments"
+      }
+    ]
+  },
+  "jurisdiction": {
+    "n": 447,
+    "flip_rate": 0.0022371364653243847,
+    "flip_low": 0.0,
+    "flip_high": 0.006711409395973154,
+    "ctrl_flip_rate": 0.008948545861297539,
+    "ctrl_low": 0.0022371364653243847,
+    "ctrl_high": 0.017897091722595078,
+    "diff": -0.006711409395973154,
+    "diff_low": -0.015659955257270694,
+    "diff_high": 0.0,
+    "acc_orig": 0.8881431767337807,
+    "acc_orig_low": 0.8568232662192393,
+    "acc_orig_high": 0.9172259507829977,
+    "acc_edit": 0.8881431767337807,
+    "acc_edit_low": 0.8568232662192393,
+    "acc_edit_high": 0.9172259507829977,
+    "acc_ctrl": 0.8881431767337807,
+    "acc_ctrl_low": 0.8568232662192393,
+    "acc_ctrl_high": 0.9172259507829977,
+    "decision": "pass",
+    "examples": [
+      {
+        "idx": 419,
+        "original": "Thi s Agreement s hall be go v erned b y the internal la w of the State of New York without regard to the choice of l aw pro v i s ion s of an y juri s diction. Each party hereto irrevocably submits to the exclusive jurisdiction of the courts located within Suffolk County, New York for the purposes ",
+        "edited": "Thi s Agreement s hall be go v erned b y the internal la w of England and Wales without regard to the choice of l aw pro v i s ion s of an y juri s diction. Each party hereto irrevocably submits to the exclusive jurisdiction of the courts located within Suffolk County, England and Wales for the purp",
+        "label_before": "Jurisdictions",
+        "label_after": "Consent To Jurisdiction"
+      }
+    ]
+  },
+  "number_format": {
+    "n": 561,
+    "flip_rate": 0.0106951871657754,
+    "flip_low": 0.0035650623885918,
+    "flip_high": 0.0196078431372549,
+    "ctrl_flip_rate": 0.0017825311942959,
+    "ctrl_low": 0.0,
+    "ctrl_high": 0.0071301247771836,
+    "diff": 0.008912655971479501,
+    "diff_low": 0.0,
+    "diff_high": 0.0196078431372549,
+    "acc_orig": 0.8805704099821747,
+    "acc_orig_low": 0.8538324420677362,
+    "acc_orig_high": 0.9055258467023173,
+    "acc_edit": 0.8859180035650623,
+    "acc_edit_low": 0.8591800356506238,
+    "acc_edit_high": 0.910873440285205,
+    "acc_ctrl": 0.8805704099821747,
+    "acc_ctrl_low": 0.8538324420677362,
+    "acc_ctrl_high": 0.9055258467023173,
+    "decision": "pass",
+    "examples": [
+      {
+        "idx": 1782,
+        "original": "Any such notice of election for early termination (\u201c Early Termination Notice at 6 Period Mark \u201d) can be given if at all only within the thirty (30) day period immediately preceding the 180 th day prior to the last day of Period 6 of the initial Term, time being strictly of the essence subject to th",
+        "edited": "Any such notice of election for early termination (\u201c Early Termination Notice at 6 Period Mark \u201d) can be given if at all only within the 30 day period immediately preceding the 180 th day prior to the last day of Period 6 of the initial Term, time being strictly of the essence subject to the followi",
+        "label_before": "General",
+        "label_after": "Notices"
+      },
+      {
+        "idx": 4234,
+        "original": " does not execute and deliver a copy of the Agreement to TriState Capital, without altering or changing the terms of the Agreement in any way, within thirty (30) days of receipt by Grantee of a copy of the Agreement, TriState Capital may, in its sole discretion, cancel the Restricted Shares and the ",
+        "edited": " does not execute and deliver a copy of the Agreement to TriState Capital, without altering or changing the terms of the Agreement in any way, within 30 days of receipt by Grantee of a copy of the Agreement, TriState Capital may, in its sole discretion, cancel the Restricted Shares and the Agreement",
+        "label_before": "Terminations",
+        "label_after": "Effectiveness"
+      },
+      {
+        "idx": 7319,
+        "original": "Subject to the provisions of Section 4(b) hereof, within thirty (30) days following the vesting of the RSUs, the Participant shall receive the number of shares of Common Stock that correspond to the number of RSUs that have become vested on the applicable vesting date, less any shares withheld by th",
+        "edited": "Subject to the provisions of Section 4(b) hereof, within 30 days following the vesting of the RSUs, the Participant shall receive the number of shares of Common Stock that correspond to the number of RSUs that have become vested on the applicable vesting date, less any shares withheld by the Company",
+        "label_before": "Payments",
+        "label_after": "General"
+      },
+      {
+        "idx": 8116,
+        "original": "Subject to the provisions of Section 4(b) hereof, within thirty (30) days following the vesting of the RSUs, the Participant shall receive the number of Shares that correspond to the number of RSUs that have become vested on the applicable vesting date; provided that the Participant shall be obligat",
+        "edited": "Subject to the provisions of Section 4(b) hereof, within 30 days following the vesting of the RSUs, the Participant shall receive the number of Shares that correspond to the number of RSUs that have become vested on the applicable vesting date; provided that the Participant shall be obligated to pay",
+        "label_before": "Payments",
+        "label_after": "General"
+      },
+      {
+        "idx": 8138,
+        "original": "ticipant\u2019s 65 th birthday unless the Participant has consented in writing to such distribution.\u00a0 Such consent shall be obtained in writing within the 180 day period ending on the first day of the first period for which an amount is paid.\u00a0 The Plan Administrator shall notify the Participant of the ri",
+        "edited": "ticipant\u2019s 65 th birthday unless the Participant has consented in writing to such distribution.\u00a0 Such consent shall be obtained in writing within the one hundred eighty (180) day period ending on the first day of the first period for which an amount is paid.\u00a0 The Plan Administrator shall notify the ",
+        "label_before": "General",
+        "label_after": "Notices"
+      }
+    ]
+  }
+}

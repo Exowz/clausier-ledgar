@@ -1,0 +1,13 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Device: cuda
+Vocabulary: 13252; steps per epoch: 938
+[lstm] epoch 1: train loss 2.723, val loss 1.498, val macro-F1 0.413 (15s)
+[lstm] epoch 2: train loss 1.099, val loss 0.851, val macro-F1 0.642 (14s)
+[lstm] epoch 3: train loss 0.708, val loss 0.717, val macro-F1 0.693 (14s)
+[lstm] epoch 4: train loss 0.544, val loss 0.685, val macro-F1 0.717 (14s)
+[lstm] epoch 5: train loss 0.434, val loss 0.666, val macro-F1 0.735 (14s)
+[lstm] epoch 6: train loss 0.349, val loss 0.672, val macro-F1 0.741 (14s)
+[lstm] epoch 7: train loss 0.284, val loss 0.685, val macro-F1 0.745 (14s)
+[lstm] epoch 8: train loss 0.230, val loss 0.698, val macro-F1 0.752 (14s)
+validation: accuracy=0.8319, macro-F1=0.7521
+test: accuracy=0.8326, macro-F1=0.7490

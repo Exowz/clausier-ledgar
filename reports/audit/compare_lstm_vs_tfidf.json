@@ -1,0 +1,40 @@
+{
+  "a": "lstm",
+  "b": "tfidf",
+  "test": {
+    "n": 10000,
+    "accuracy_a": 0.8326,
+    "accuracy_b": 0.8781,
+    "macro_f1_a": 0.7489885170648914,
+    "macro_f1_b": 0.8255839287768666,
+    "a": 8072,
+    "b": 254,
+    "c": 709,
+    "d": 965,
+    "chi2": 214.03530633437177,
+    "p_value": 1.8093192684642952e-48,
+    "diff_macro_f1": -0.07659541171197515,
+    "diff_low": -0.0872112754035363,
+    "diff_high": -0.06338809199162619,
+    "mcnemar_significant": true,
+    "bootstrap_significant": true
+  },
+  "test_dedup": {
+    "n": 7759,
+    "accuracy_a": 0.7975254543111225,
+    "accuracy_b": 0.8476607810284831,
+    "macro_f1_a": 0.7031619728222267,
+    "macro_f1_b": 0.7876333467663155,
+    "a": 5941,
+    "b": 247,
+    "c": 636,
+    "d": 935,
+    "chi2": 170.49150622876556,
+    "p_value": 5.778531838032385e-39,
+    "diff_macro_f1": -0.08447137394408877,
+    "diff_low": -0.0981109857440061,
+    "diff_high": -0.06929620661278106,
+    "mcnemar_significant": true,
+    "bootstrap_significant": true
+  }
+}
