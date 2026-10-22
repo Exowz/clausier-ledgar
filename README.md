@@ -332,6 +332,34 @@ validation; every figure below is on the test set ([TF-IDF](reports/audit/tfidf/
   analysis. A set can also be empty (1.4% for TF-IDF, 0.3% for Legal-BERT): no type is likely enough, and the
   clause goes to a person.
 
+### Additions: overlapping labels (3)
+
+[taxonomy.py](src/audit/taxonomy.py) (`make taxonomy`, [report](reports/audit/taxonomy.md)). Rule fixed before
+measuring: merge a pair of clause types if it is among the 10 most confused pairs of both TF-IDF and Legal-BERT and
+the examples show both labels on the same kind of clause. Nine pairs qualify (Applicable Laws / Governing Laws, No
+Waivers / Waivers, Defined Terms / Definitions, Tax Withholdings / Withholdings, Amendments / Modifications,
+Authority / Authorizations, Binding Effects / Successors, Entire Agreements / Integration, Representations /
+Warranties), so 100 labels become 91 groups. The saved probabilities of a group are summed; nothing is retrained.
+
+| Test set | Model | Accuracy, 100 labels | Accuracy, 91 groups | Macro-F1, 100 labels | Macro-F1, 91 groups | Errors removed |
+| --- | --- | ---: | ---: | ---: | ---: | ---: |
+| full | TF-IDF | 0.878 | 0.901 | 0.826 | 0.849 | 19% |
+| full | Legal-BERT (up to 10 epochs) | 0.882 | **0.908** | 0.825 | 0.847 | 22% |
+| deduplicated | TF-IDF | 0.848 | 0.876 | 0.788 | 0.817 | 19% |
+| deduplicated | Legal-BERT (up to 10 epochs) | 0.852 | **0.885** | 0.787 | 0.816 | 22% |
+
+![Macro-F1 before and after merging](reports/figures/taxonomy_merge.png)
+
+- **About a fifth of the errors of both models are confusions between two labels for the same clause.** Applicable
+  Laws, the worst class of both models (F1 0.30 and 0.24), reaches 0.96 once merged with Governing Laws.
+- **Exploratory, not part of the plan:** with the 91 groups, Legal-BERT's accuracy is significantly higher than
+  TF-IDF's (0.908 against 0.901, McNemar p = 0.006 on the full test set, 0.004 deduplicated), while macro-F1 stays
+  tied. Outside the overlapping pairs, Legal-BERT makes fewer errors; inside them, it loses more. This analysis was
+  not written before the runs, so it does not change the recommendation, but it says what would: a client with a
+  cleaner label set may get more from Legal-BERT.
+- **Recommendation to the start-up:** review these nine pairs with its lawyers and either merge them or write
+  definitions that separate them, before collecting more training data.
+
 ### Key findings
 
 - **Legal-BERT and the tuned TF-IDF baseline are tied.** The best Legal-BERT run (up to 10 epochs) reaches a test
