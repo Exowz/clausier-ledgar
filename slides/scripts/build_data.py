@@ -1,7 +1,7 @@
 """Build the data files of the slides from the report files, so that no number in the deck is typed by hand.
 
 Run from the repository root: `.venv/bin/python slides/scripts/build_data.py` (or `npm run data` in slides/).
-Writes slides/public/data/deck.json (numbers) and slides/public/data/cloud.json (3D projection of MiniLM
+Writes slides/generated/deck.json (numbers) and slides/generated/cloud.json (3D projection of MiniLM
 embeddings of training clauses, for the retrieval slide).
 """
 
@@ -16,7 +16,7 @@ from src.data import get_label_names, load_split
 from src.retrieval.index import load_model
 
 ROOT = Path(__file__).resolve().parents[2]
-OUT = ROOT / "slides" / "public" / "data"
+OUT = ROOT / "slides" / "generated"
 CLOUD_TYPES = ["Governing Laws", "Notices", "Counterparts", "Entire Agreements", "Severability", "Terminations",
                "Confidentiality", "Indemnifications"]
 CLOUD_QUERY = "termination clauses with a 30-day notice period"

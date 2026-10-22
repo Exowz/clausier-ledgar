@@ -1,5 +1,5 @@
-import deck from './public/data/deck.json'
-import cloud from './public/data/cloud.json'
+import deck from './generated/deck.json'
+import cloud from './generated/cloud.json'
 
 export { deck, cloud }
 
