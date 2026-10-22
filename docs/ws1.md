@@ -18,11 +18,12 @@ Owner: Ewan. Branch: `ws1-classification`, merged into `main`. Last updated: Thu
 - T10: `src/classification/results.py` (`make results`): results table, LoRA trade-off, paired tests, comparison
   figure, written to `reports/results.md`. `make final` also reruns the audit on the best Legal-BERT run.
 - Runs in `outputs/`: `tfidf`, `lstm`, `lstm_glove`, `bert_base`, `legal_bert`, `legal_bert_long` (trained on a
-  Kaggle T4), `legal_bert_lora`. Configs in `configs/`.
+  Kaggle T4), `legal_bert_lora`, `legal_bert_lora_long` (Kaggle T4). Configs in `configs/`.
+- T13: `src/classification/cost.py` (`make cost`): latency, size, int8 quantisation, written to `reports/cost.md`.
 
 ## Left
 
-`legal_bert_lora_long` (training on Kaggle): copy its run directory into `outputs/`, then `make results`.
+Nothing required: all runs are in `outputs/`.
 
 ## Interface for the other workstreams
 

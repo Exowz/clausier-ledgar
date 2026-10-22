@@ -1,0 +1,3080 @@
+{
+  "validation": {
+    "n": 10000,
+    "accuracy": 0.8724,
+    "micro_f1": 0.8724,
+    "macro_f1": 0.7970277327048637,
+    "weighted_f1": 0.8673166388267517,
+    "cross_entropy": 0.5087122917175293,
+    "per_class": [
+      {
+        "label": 0,
+        "name": "Adjustments",
+        "precision": 0.88,
+        "recall": 0.9166666666666666,
+        "f1": 0.8979591836734694,
+        "support": 48
+      },
+      {
+        "label": 1,
+        "name": "Agreements",
+        "precision": 0.5,
+        "recall": 0.5454545454545454,
+        "f1": 0.5217391304347826,
+        "support": 22
+      },
+      {
+        "label": 2,
+        "name": "Amendments",
+        "precision": 0.8736462093862816,
+        "recall": 0.9416342412451362,
+        "f1": 0.9063670411985019,
+        "support": 257
+      },
+      {
+        "label": 3,
+        "name": "Anti-Corruption Laws",
+        "precision": 0.9444444444444444,
+        "recall": 0.6538461538461539,
+        "f1": 0.7727272727272727,
+        "support": 26
+      },
+      {
+        "label": 4,
+        "name": "Applicable Laws",
+        "precision": 0.6666666666666666,
+        "recall": 0.057971014492753624,
+        "f1": 0.10666666666666667,
+        "support": 69
+      },
+      {
+        "label": 5,
+        "name": "Approvals",
+        "precision": 0.6333333333333333,
+        "recall": 0.7307692307692307,
+        "f1": 0.6785714285714286,
+        "support": 26
+      },
+      {
+        "label": 6,
+        "name": "Arbitration",
+        "precision": 0.9428571428571428,
+        "recall": 0.9705882352941176,
+        "f1": 0.9565217391304348,
+        "support": 68
+      },
+      {
+        "label": 7,
+        "name": "Assignments",
+        "precision": 0.8728070175438597,
+        "recall": 0.9567307692307693,
+        "f1": 0.9128440366972477,
+        "support": 208
+      },
+      {
+        "label": 8,
+        "name": "Assigns",
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 3
+      },
+      {
+        "label": 9,
+        "name": "Authority",
+        "precision": 0.6428571428571429,
+        "recall": 0.6521739130434783,
+        "f1": 0.6474820143884892,
+        "support": 69
+      },
+      {
+        "label": 10,
+        "name": "Authorizations",
+        "precision": 0.7207207207207207,
+        "recall": 0.7547169811320755,
+        "f1": 0.7373271889400922,
+        "support": 106
+      },
+      {
+        "label": 11,
+        "name": "Base Salary",
+        "precision": 0.9655172413793104,
+        "recall": 0.9824561403508771,
+        "f1": 0.9739130434782609,
+        "support": 114
+      },
+      {
+        "label": 12,
+        "name": "Benefits",
+        "precision": 0.8607594936708861,
+        "recall": 0.8292682926829268,
+        "f1": 0.84472049689441,
+        "support": 82
+      },
+      {
+        "label": 13,
+        "name": "Binding Effects",
+        "precision": 0.6410256410256411,
+        "recall": 0.8064516129032258,
+        "f1": 0.7142857142857143,
+        "support": 93
+      },
+      {
+        "label": 14,
+        "name": "Books",
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 0
+      },
+      {
+        "label": 15,
+        "name": "Brokers",
+        "precision": 0.9710144927536232,
+        "recall": 0.9852941176470589,
+        "f1": 0.9781021897810219,
+        "support": 68
+      },
+      {
+        "label": 16,
+        "name": "Capitalization",
+        "precision": 0.9848484848484849,
+        "recall": 0.9558823529411765,
+        "f1": 0.9701492537313433,
+        "support": 68
+      },
+      {
+        "label": 17,
+        "name": "Change In Control",
+        "precision": 0.8936170212765957,
+        "recall": 0.9767441860465116,
+        "f1": 0.9333333333333333,
+        "support": 43
+      },
+      {
+        "label": 18,
+        "name": "Closings",
+        "precision": 0.9294117647058824,
+        "recall": 0.9875,
+        "f1": 0.9575757575757575,
+        "support": 80
+      },
+      {
+        "label": 19,
+        "name": "Compliance With Laws",
+        "precision": 0.9289940828402367,
+        "recall": 0.9401197604790419,
+        "f1": 0.9345238095238095,
+        "support": 167
+      },
+      {
+        "label": 20,
+        "name": "Confidentiality",
+        "precision": 0.9473684210526315,
+        "recall": 0.9664429530201343,
+        "f1": 0.9568106312292359,
+        "support": 149
+      },
+      {
+        "label": 21,
+        "name": "Consent To Jurisdiction",
+        "precision": 0.625,
+        "recall": 0.7142857142857143,
+        "f1": 0.6666666666666666,
+        "support": 35
+      },
+      {
+        "label": 22,
+        "name": "Consents",
+        "precision": 0.8275862068965517,
+        "recall": 0.8421052631578947,
+        "f1": 0.8347826086956521,
+        "support": 57
+      },
+      {
+        "label": 23,
+        "name": "Construction",
+        "precision": 0.6515151515151515,
+        "recall": 0.6231884057971014,
+        "f1": 0.6370370370370371,
+        "support": 69
+      },
+      {
+        "label": 24,
+        "name": "Cooperation",
+        "precision": 0.8461538461538461,
+        "recall": 0.8208955223880597,
+        "f1": 0.8333333333333334,
+        "support": 67
+      },
+      {
+        "label": 25,
+        "name": "Costs",
+        "precision": 0.7058823529411765,
+        "recall": 0.5454545454545454,
+        "f1": 0.6153846153846154,
+        "support": 22
+      },
+      {
+        "label": 26,
+        "name": "Counterparts",
+        "precision": 0.9906542056074766,
+        "recall": 0.9883449883449883,
+        "f1": 0.9894982497082847,
+        "support": 429
+      },
+      {
+        "label": 27,
+        "name": "Death",
+        "precision": 0.96,
+        "recall": 0.9411764705882353,
+        "f1": 0.9504950495049505,
+        "support": 51
+      },
+      {
+        "label": 28,
+        "name": "Defined Terms",
+        "precision": 0.6805555555555556,
+        "recall": 0.6805555555555556,
+        "f1": 0.6805555555555556,
+        "support": 72
+      },
+      {
+        "label": 29,
+        "name": "Definitions",
+        "precision": 0.71875,
+        "recall": 0.7419354838709677,
+        "f1": 0.7301587301587301,
+        "support": 93
+      },
+      {
+        "label": 30,
+        "name": "Disability",
+        "precision": 0.975609756097561,
+        "recall": 0.9302325581395349,
+        "f1": 0.9523809523809523,
+        "support": 43
+      },
+      {
+        "label": 31,
+        "name": "Disclosures",
+        "precision": 0.9587628865979382,
+        "recall": 0.8942307692307693,
+        "f1": 0.9253731343283582,
+        "support": 104
+      },
+      {
+        "label": 32,
+        "name": "Duties",
+        "precision": 0.8571428571428571,
+        "recall": 0.8852459016393442,
+        "f1": 0.8709677419354839,
+        "support": 61
+      },
+      {
+        "label": 33,
+        "name": "Effective Dates",
+        "precision": 0.8717948717948718,
+        "recall": 0.8947368421052632,
+        "f1": 0.8831168831168831,
+        "support": 76
+      },
+      {
+        "label": 34,
+        "name": "Effectiveness",
+        "precision": 0.868421052631579,
+        "recall": 0.717391304347826,
+        "f1": 0.7857142857142857,
+        "support": 46
+      },
+      {
+        "label": 35,
+        "name": "Employment",
+        "precision": 0.7333333333333333,
+        "recall": 0.7857142857142857,
+        "f1": 0.7586206896551724,
+        "support": 42
+      },
+      {
+        "label": 36,
+        "name": "Enforceability",
+        "precision": 0.8,
+        "recall": 0.42105263157894735,
+        "f1": 0.5517241379310345,
+        "support": 57
+      },
+      {
+        "label": 37,
+        "name": "Enforcements",
+        "precision": 0.7142857142857143,
+        "recall": 0.43478260869565216,
+        "f1": 0.5405405405405406,
+        "support": 46
+      },
+      {
+        "label": 38,
+        "name": "Entire Agreements",
+        "precision": 0.9134615384615384,
+        "recall": 0.9768637532133676,
+        "f1": 0.9440993788819876,
+        "support": 389
+      },
+      {
+        "label": 39,
+        "name": "Erisa",
+        "precision": 0.9824561403508771,
+        "recall": 0.9824561403508771,
+        "f1": 0.9824561403508771,
+        "support": 57
+      },
+      {
+        "label": 40,
+        "name": "Existence",
+        "precision": 0.9090909090909091,
+        "recall": 0.8108108108108109,
+        "f1": 0.8571428571428571,
+        "support": 37
+      },
+      {
+        "label": 41,
+        "name": "Expenses",
+        "precision": 0.8793103448275862,
+        "recall": 0.9,
+        "f1": 0.8895348837209303,
+        "support": 170
+      },
+      {
+        "label": 42,
+        "name": "Fees",
+        "precision": 0.8780487804878049,
+        "recall": 0.8925619834710744,
+        "f1": 0.8852459016393442,
+        "support": 121
+      },
+      {
+        "label": 43,
+        "name": "Financial Statements",
+        "precision": 0.98989898989899,
+        "recall": 0.98,
+        "f1": 0.9849246231155779,
+        "support": 100
+      },
+      {
+        "label": 44,
+        "name": "Forfeitures",
+        "precision": 0.8666666666666667,
+        "recall": 0.8478260869565217,
+        "f1": 0.8571428571428571,
+        "support": 46
+      },
+      {
+        "label": 45,
+        "name": "Further Assurances",
+        "precision": 0.9166666666666666,
+        "recall": 0.9225806451612903,
+        "f1": 0.9196141479099679,
+        "support": 155
+      },
+      {
+        "label": 46,
+        "name": "General",
+        "precision": 0.6510067114093959,
+        "recall": 0.6466666666666666,
+        "f1": 0.6488294314381271,
+        "support": 150
+      },
+      {
+        "label": 47,
+        "name": "Governing Laws",
+        "precision": 0.8453427065026362,
+        "recall": 0.9736842105263158,
+        "f1": 0.9049858889934148,
+        "support": 494
+      },
+      {
+        "label": 48,
+        "name": "Headings",
+        "precision": 0.8962962962962963,
+        "recall": 0.9603174603174603,
+        "f1": 0.9272030651340997,
+        "support": 126
+      },
+      {
+        "label": 49,
+        "name": "Indemnifications",
+        "precision": 0.8376623376623377,
+        "recall": 0.9214285714285714,
+        "f1": 0.8775510204081632,
+        "support": 140
+      },
+      {
+        "label": 50,
+        "name": "Indemnity",
+        "precision": 0.8518518518518519,
+        "recall": 0.48936170212765956,
+        "f1": 0.6216216216216216,
+        "support": 47
+      },
+      {
+        "label": 51,
+        "name": "Insurances",
+        "precision": 0.9666666666666667,
+        "recall": 0.9950980392156863,
+        "f1": 0.9806763285024155,
+        "support": 204
+      },
+      {
+        "label": 52,
+        "name": "Integration",
+        "precision": 0.8888888888888888,
+        "recall": 0.6037735849056604,
+        "f1": 0.7191011235955056,
+        "support": 53
+      },
+      {
+        "label": 53,
+        "name": "Intellectual Property",
+        "precision": 0.9852941176470589,
+        "recall": 0.9571428571428572,
+        "f1": 0.9710144927536232,
+        "support": 70
+      },
+      {
+        "label": 54,
+        "name": "Interests",
+        "precision": 0.8333333333333334,
+        "recall": 0.8823529411764706,
+        "f1": 0.8571428571428571,
+        "support": 51
+      },
+      {
+        "label": 55,
+        "name": "Interpretations",
+        "precision": 0.7446808510638298,
+        "recall": 0.4430379746835443,
+        "f1": 0.5555555555555556,
+        "support": 79
+      },
+      {
+        "label": 56,
+        "name": "Jurisdictions",
+        "precision": 0.47058823529411764,
+        "recall": 0.24242424242424243,
+        "f1": 0.32,
+        "support": 33
+      },
+      {
+        "label": 57,
+        "name": "Liens",
+        "precision": 0.8103448275862069,
+        "recall": 0.8545454545454545,
+        "f1": 0.831858407079646,
+        "support": 55
+      },
+      {
+        "label": 58,
+        "name": "Litigations",
+        "precision": 0.9817073170731707,
+        "recall": 0.9698795180722891,
+        "f1": 0.9757575757575757,
+        "support": 166
+      },
+      {
+        "label": 59,
+        "name": "Miscellaneous",
+        "precision": 0.7049180327868853,
+        "recall": 0.6417910447761194,
+        "f1": 0.671875,
+        "support": 67
+      },
+      {
+        "label": 60,
+        "name": "Modifications",
+        "precision": 0.6333333333333333,
+        "recall": 0.475,
+        "f1": 0.5428571428571428,
+        "support": 40
+      },
+      {
+        "label": 61,
+        "name": "No Conflicts",
+        "precision": 0.9107142857142857,
+        "recall": 0.9444444444444444,
+        "f1": 0.9272727272727272,
+        "support": 108
+      },
+      {
+        "label": 62,
+        "name": "No Defaults",
+        "precision": 0.96,
+        "recall": 0.8571428571428571,
+        "f1": 0.9056603773584906,
+        "support": 56
+      },
+      {
+        "label": 63,
+        "name": "No Waivers",
+        "precision": 0.7763157894736842,
+        "recall": 0.7866666666666666,
+        "f1": 0.7814569536423841,
+        "support": 75
+      },
+      {
+        "label": 64,
+        "name": "Non-Disparagement",
+        "precision": 0.9821428571428571,
+        "recall": 1.0,
+        "f1": 0.990990990990991,
+        "support": 55
+      },
+      {
+        "label": 65,
+        "name": "Notices",
+        "precision": 0.9821428571428571,
+        "recall": 0.9673366834170855,
+        "f1": 0.9746835443037974,
+        "support": 398
+      },
+      {
+        "label": 66,
+        "name": "Organizations",
+        "precision": 0.7558139534883721,
+        "recall": 0.9558823529411765,
+        "f1": 0.8441558441558441,
+        "support": 68
+      },
+      {
+        "label": 67,
+        "name": "Participations",
+        "precision": 0.9512195121951219,
+        "recall": 0.9629629629629629,
+        "f1": 0.9570552147239264,
+        "support": 81
+      },
+      {
+        "label": 68,
+        "name": "Payments",
+        "precision": 0.845679012345679,
+        "recall": 0.7828571428571428,
+        "f1": 0.8130563798219584,
+        "support": 175
+      },
+      {
+        "label": 69,
+        "name": "Positions",
+        "precision": 0.6904761904761905,
+        "recall": 0.8529411764705882,
+        "f1": 0.7631578947368421,
+        "support": 34
+      },
+      {
+        "label": 70,
+        "name": "Powers",
+        "precision": 0.45454545454545453,
+        "recall": 0.3333333333333333,
+        "f1": 0.38461538461538464,
+        "support": 15
+      },
+      {
+        "label": 71,
+        "name": "Publicity",
+        "precision": 0.9245283018867925,
+        "recall": 0.98,
+        "f1": 0.9514563106796117,
+        "support": 50
+      },
+      {
+        "label": 72,
+        "name": "Qualifications",
+        "precision": 0.625,
+        "recall": 0.625,
+        "f1": 0.625,
+        "support": 8
+      },
+      {
+        "label": 73,
+        "name": "Records",
+        "precision": 0.9056603773584906,
+        "recall": 0.8888888888888888,
+        "f1": 0.897196261682243,
+        "support": 54
+      },
+      {
+        "label": 74,
+        "name": "Releases",
+        "precision": 0.8387096774193549,
+        "recall": 0.8571428571428571,
+        "f1": 0.8478260869565217,
+        "support": 91
+      },
+      {
+        "label": 75,
+        "name": "Remedies",
+        "precision": 0.8,
+        "recall": 0.8403361344537815,
+        "f1": 0.819672131147541,
+        "support": 119
+      },
+      {
+        "label": 76,
+        "name": "Representations",
+        "precision": 0.7037037037037037,
+        "recall": 0.8260869565217391,
+        "f1": 0.76,
+        "support": 92
+      },
+      {
+        "label": 77,
+        "name": "Sales",
+        "precision": 0.8431372549019608,
+        "recall": 0.8775510204081632,
+        "f1": 0.86,
+        "support": 49
+      },
+      {
+        "label": 78,
+        "name": "Sanctions",
+        "precision": 0.6785714285714286,
+        "recall": 0.7916666666666666,
+        "f1": 0.7307692307692307,
+        "support": 24
+      },
+      {
+        "label": 79,
+        "name": "Severability",
+        "precision": 0.9398280802292264,
+        "recall": 0.9879518072289156,
+        "f1": 0.9632892804698973,
+        "support": 332
+      },
+      {
+        "label": 80,
+        "name": "Solvency",
+        "precision": 1.0,
+        "recall": 0.9863013698630136,
+        "f1": 0.993103448275862,
+        "support": 73
+      },
+      {
+        "label": 81,
+        "name": "Specific Performance",
+        "precision": 0.7758620689655172,
+        "recall": 0.9375,
+        "f1": 0.8490566037735849,
+        "support": 48
+      },
+      {
+        "label": 82,
+        "name": "Submission To Jurisdiction",
+        "precision": 0.75,
+        "recall": 0.8571428571428571,
+        "f1": 0.8,
+        "support": 42
+      },
+      {
+        "label": 83,
+        "name": "Subsidiaries",
+        "precision": 0.9473684210526315,
+        "recall": 0.9473684210526315,
+        "f1": 0.9473684210526315,
+        "support": 95
+      },
+      {
+        "label": 84,
+        "name": "Successors",
+        "precision": 0.8421052631578947,
+        "recall": 0.7032967032967034,
+        "f1": 0.7664670658682635,
+        "support": 91
+      },
+      {
+        "label": 85,
+        "name": "Survival",
+        "precision": 0.9516129032258065,
+        "recall": 0.9076923076923077,
+        "f1": 0.9291338582677166,
+        "support": 260
+      },
+      {
+        "label": 86,
+        "name": "Tax Withholdings",
+        "precision": 0.5531914893617021,
+        "recall": 0.45614035087719296,
+        "f1": 0.5,
+        "support": 57
+      },
+      {
+        "label": 87,
+        "name": "Taxes",
+        "precision": 0.9285714285714286,
+        "recall": 0.7897196261682243,
+        "f1": 0.8535353535353535,
+        "support": 214
+      },
+      {
+        "label": 88,
+        "name": "Terminations",
+        "precision": 0.8724489795918368,
+        "recall": 0.8860103626943006,
+        "f1": 0.8791773778920309,
+        "support": 193
+      },
+      {
+        "label": 89,
+        "name": "Terms",
+        "precision": 0.8950617283950617,
+        "recall": 0.8579881656804734,
+        "f1": 0.8761329305135952,
+        "support": 169
+      },
+      {
+        "label": 90,
+        "name": "Titles",
+        "precision": 0.7441860465116279,
+        "recall": 0.7272727272727273,
+        "f1": 0.735632183908046,
+        "support": 44
+      },
+      {
+        "label": 91,
+        "name": "Transactions With Affiliates",
+        "precision": 0.987012987012987,
+        "recall": 1.0,
+        "f1": 0.9934640522875817,
+        "support": 76
+      },
+      {
+        "label": 92,
+        "name": "Use Of Proceeds",
+        "precision": 0.9568345323741008,
+        "recall": 0.9708029197080292,
+        "f1": 0.9637681159420289,
+        "support": 137
+      },
+      {
+        "label": 93,
+        "name": "Vacations",
+        "precision": 1.0,
+        "recall": 0.9811320754716981,
+        "f1": 0.9904761904761905,
+        "support": 53
+      },
+      {
+        "label": 94,
+        "name": "Venues",
+        "precision": 0.47058823529411764,
+        "recall": 0.42105263157894735,
+        "f1": 0.4444444444444444,
+        "support": 19
+      },
+      {
+        "label": 95,
+        "name": "Vesting",
+        "precision": 0.9375,
+        "recall": 0.9036144578313253,
+        "f1": 0.9202453987730062,
+        "support": 83
+      },
+      {
+        "label": 96,
+        "name": "Waiver Of Jury Trials",
+        "precision": 0.935064935064935,
+        "recall": 0.9863013698630136,
+        "f1": 0.96,
+        "support": 146
+      },
+      {
+        "label": 97,
+        "name": "Waivers",
+        "precision": 0.8571428571428571,
+        "recall": 0.8129032258064516,
+        "f1": 0.8344370860927153,
+        "support": 155
+      },
+      {
+        "label": 98,
+        "name": "Warranties",
+        "precision": 0.726027397260274,
+        "recall": 0.6022727272727273,
+        "f1": 0.6583850931677019,
+        "support": 88
+      },
+      {
+        "label": 99,
+        "name": "Withholdings",
+        "precision": 0.5897435897435898,
+        "recall": 0.7931034482758621,
+        "f1": 0.6764705882352942,
+        "support": 87
+      }
+    ],
+    "top_confused": [
+      {
+        "a": 4,
+        "b": 47,
+        "name_a": "Applicable Laws",
+        "name_b": "Governing Laws",
+        "a_as_b": 61,
+        "b_as_a": 1,
+        "total": 62
+      },
+      {
+        "a": 86,
+        "b": 99,
+        "name_a": "Tax Withholdings",
+        "name_b": "Withholdings",
+        "a_as_b": 25,
+        "b_as_a": 14,
+        "total": 39
+      },
+      {
+        "a": 28,
+        "b": 29,
+        "name_a": "Defined Terms",
+        "name_b": "Definitions",
+        "a_as_b": 21,
+        "b_as_a": 17,
+        "total": 38
+      },
+      {
+        "a": 9,
+        "b": 10,
+        "name_a": "Authority",
+        "name_b": "Authorizations",
+        "a_as_b": 16,
+        "b_as_a": 19,
+        "total": 35
+      },
+      {
+        "a": 2,
+        "b": 60,
+        "name_a": "Amendments",
+        "name_b": "Modifications",
+        "a_as_b": 8,
+        "b_as_a": 17,
+        "total": 25
+      },
+      {
+        "a": 13,
+        "b": 84,
+        "name_a": "Binding Effects",
+        "name_b": "Successors",
+        "a_as_b": 7,
+        "b_as_a": 18,
+        "total": 25
+      },
+      {
+        "a": 23,
+        "b": 55,
+        "name_a": "Construction",
+        "name_b": "Interpretations",
+        "a_as_b": 6,
+        "b_as_a": 19,
+        "total": 25
+      },
+      {
+        "a": 63,
+        "b": 97,
+        "name_a": "No Waivers",
+        "name_b": "Waivers",
+        "a_as_b": 13,
+        "b_as_a": 12,
+        "total": 25
+      },
+      {
+        "a": 76,
+        "b": 98,
+        "name_a": "Representations",
+        "name_b": "Warranties",
+        "a_as_b": 9,
+        "b_as_a": 15,
+        "total": 24
+      },
+      {
+        "a": 87,
+        "b": 99,
+        "name_a": "Taxes",
+        "name_b": "Withholdings",
+        "a_as_b": 22,
+        "b_as_a": 2,
+        "total": 24
+      },
+      {
+        "a": 38,
+        "b": 52,
+        "name_a": "Entire Agreements",
+        "name_b": "Integration",
+        "a_as_b": 4,
+        "b_as_a": 19,
+        "total": 23
+      },
+      {
+        "a": 49,
+        "b": 50,
+        "name_a": "Indemnifications",
+        "name_b": "Indemnity",
+        "a_as_b": 4,
+        "b_as_a": 17,
+        "total": 21
+      },
+      {
+        "a": 21,
+        "b": 56,
+        "name_a": "Consent To Jurisdiction",
+        "name_b": "Jurisdictions",
+        "a_as_b": 4,
+        "b_as_a": 11,
+        "total": 15
+      },
+      {
+        "a": 85,
+        "b": 98,
+        "name_a": "Survival",
+        "name_b": "Warranties",
+        "a_as_b": 8,
+        "b_as_a": 7,
+        "total": 15
+      },
+      {
+        "a": 13,
+        "b": 36,
+        "name_a": "Binding Effects",
+        "name_b": "Enforceability",
+        "a_as_b": 3,
+        "b_as_a": 11,
+        "total": 14
+      },
+      {
+        "a": 41,
+        "b": 42,
+        "name_a": "Expenses",
+        "name_b": "Fees",
+        "a_as_b": 7,
+        "b_as_a": 6,
+        "total": 13
+      },
+      {
+        "a": 88,
+        "b": 89,
+        "name_a": "Terminations",
+        "name_b": "Terms",
+        "a_as_b": 6,
+        "b_as_a": 6,
+        "total": 12
+      },
+      {
+        "a": 47,
+        "b": 94,
+        "name_a": "Governing Laws",
+        "name_b": "Venues",
+        "a_as_b": 2,
+        "b_as_a": 9,
+        "total": 11
+      },
+      {
+        "a": 68,
+        "b": 87,
+        "name_a": "Payments",
+        "name_b": "Taxes",
+        "a_as_b": 7,
+        "b_as_a": 4,
+        "total": 11
+      },
+      {
+        "a": 7,
+        "b": 84,
+        "name_a": "Assignments",
+        "name_b": "Successors",
+        "a_as_b": 2,
+        "b_as_a": 8,
+        "total": 10
+      }
+    ]
+  },
+  "test": {
+    "n": 10000,
+    "accuracy": 0.8726,
+    "micro_f1": 0.8726,
+    "macro_f1": 0.8032820477711883,
+    "weighted_f1": 0.8674445171802807,
+    "cross_entropy": 0.5217294692993164,
+    "per_class": [
+      {
+        "label": 0,
+        "name": "Adjustments",
+        "precision": 0.9090909090909091,
+        "recall": 0.9090909090909091,
+        "f1": 0.9090909090909091,
+        "support": 88
+      },
+      {
+        "label": 1,
+        "name": "Agreements",
+        "precision": 0.7575757575757576,
+        "recall": 0.5208333333333334,
+        "f1": 0.6172839506172839,
+        "support": 48
+      },
+      {
+        "label": 2,
+        "name": "Amendments",
+        "precision": 0.8207171314741036,
+        "recall": 0.9196428571428571,
+        "f1": 0.8673684210526316,
+        "support": 224
+      },
+      {
+        "label": 3,
+        "name": "Anti-Corruption Laws",
+        "precision": 0.9565217391304348,
+        "recall": 0.9565217391304348,
+        "f1": 0.9565217391304348,
+        "support": 23
+      },
+      {
+        "label": 4,
+        "name": "Applicable Laws",
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 53
+      },
+      {
+        "label": 5,
+        "name": "Approvals",
+        "precision": 0.4827586206896552,
+        "recall": 0.5384615384615384,
+        "f1": 0.509090909090909,
+        "support": 26
+      },
+      {
+        "label": 6,
+        "name": "Arbitration",
+        "precision": 0.8679245283018868,
+        "recall": 0.9787234042553191,
+        "f1": 0.92,
+        "support": 47
+      },
+      {
+        "label": 7,
+        "name": "Assignments",
+        "precision": 0.8725490196078431,
+        "recall": 0.9128205128205128,
+        "f1": 0.8922305764411027,
+        "support": 195
+      },
+      {
+        "label": 8,
+        "name": "Assigns",
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 4
+      },
+      {
+        "label": 9,
+        "name": "Authority",
+        "precision": 0.6363636363636364,
+        "recall": 0.5645161290322581,
+        "f1": 0.5982905982905983,
+        "support": 62
+      },
+      {
+        "label": 10,
+        "name": "Authorizations",
+        "precision": 0.7419354838709677,
+        "recall": 0.7666666666666667,
+        "f1": 0.7540983606557377,
+        "support": 90
+      },
+      {
+        "label": 11,
+        "name": "Base Salary",
+        "precision": 0.9821428571428571,
+        "recall": 0.9821428571428571,
+        "f1": 0.9821428571428571,
+        "support": 112
+      },
+      {
+        "label": 12,
+        "name": "Benefits",
+        "precision": 0.8309859154929577,
+        "recall": 0.7283950617283951,
+        "f1": 0.7763157894736842,
+        "support": 81
+      },
+      {
+        "label": 13,
+        "name": "Binding Effects",
+        "precision": 0.6891891891891891,
+        "recall": 0.8095238095238095,
+        "f1": 0.7445255474452555,
+        "support": 126
+      },
+      {
+        "label": 14,
+        "name": "Books",
+        "precision": 0.6666666666666666,
+        "recall": 1.0,
+        "f1": 0.8,
+        "support": 2
+      },
+      {
+        "label": 15,
+        "name": "Brokers",
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 70
+      },
+      {
+        "label": 16,
+        "name": "Capitalization",
+        "precision": 0.9538461538461539,
+        "recall": 0.9841269841269841,
+        "f1": 0.96875,
+        "support": 63
+      },
+      {
+        "label": 17,
+        "name": "Change In Control",
+        "precision": 0.9111111111111111,
+        "recall": 0.9425287356321839,
+        "f1": 0.9265536723163842,
+        "support": 87
+      },
+      {
+        "label": 18,
+        "name": "Closings",
+        "precision": 0.9692307692307692,
+        "recall": 0.984375,
+        "f1": 0.9767441860465116,
+        "support": 64
+      },
+      {
+        "label": 19,
+        "name": "Compliance With Laws",
+        "precision": 0.8888888888888888,
+        "recall": 0.9615384615384616,
+        "f1": 0.9237875288683602,
+        "support": 208
+      },
+      {
+        "label": 20,
+        "name": "Confidentiality",
+        "precision": 0.9244186046511628,
+        "recall": 0.9520958083832335,
+        "f1": 0.9380530973451328,
+        "support": 167
+      },
+      {
+        "label": 21,
+        "name": "Consent To Jurisdiction",
+        "precision": 0.6666666666666666,
+        "recall": 0.6060606060606061,
+        "f1": 0.6349206349206349,
+        "support": 33
+      },
+      {
+        "label": 22,
+        "name": "Consents",
+        "precision": 0.8157894736842105,
+        "recall": 0.7654320987654321,
+        "f1": 0.7898089171974523,
+        "support": 81
+      },
+      {
+        "label": 23,
+        "name": "Construction",
+        "precision": 0.6811594202898551,
+        "recall": 0.746031746031746,
+        "f1": 0.7121212121212122,
+        "support": 63
+      },
+      {
+        "label": 24,
+        "name": "Cooperation",
+        "precision": 0.9444444444444444,
+        "recall": 0.8292682926829268,
+        "f1": 0.8831168831168831,
+        "support": 82
+      },
+      {
+        "label": 25,
+        "name": "Costs",
+        "precision": 0.47058823529411764,
+        "recall": 0.5333333333333333,
+        "f1": 0.5,
+        "support": 15
+      },
+      {
+        "label": 26,
+        "name": "Counterparts",
+        "precision": 0.9858870967741935,
+        "recall": 0.9979591836734694,
+        "f1": 0.9918864097363083,
+        "support": 490
+      },
+      {
+        "label": 27,
+        "name": "Death",
+        "precision": 0.8985507246376812,
+        "recall": 0.9393939393939394,
+        "f1": 0.9185185185185185,
+        "support": 66
+      },
+      {
+        "label": 28,
+        "name": "Defined Terms",
+        "precision": 0.5483870967741935,
+        "recall": 0.6071428571428571,
+        "f1": 0.576271186440678,
+        "support": 56
+      },
+      {
+        "label": 29,
+        "name": "Definitions",
+        "precision": 0.7767857142857143,
+        "recall": 0.7310924369747899,
+        "f1": 0.7532467532467533,
+        "support": 119
+      },
+      {
+        "label": 30,
+        "name": "Disability",
+        "precision": 0.9111111111111111,
+        "recall": 0.8541666666666666,
+        "f1": 0.8817204301075269,
+        "support": 48
+      },
+      {
+        "label": 31,
+        "name": "Disclosures",
+        "precision": 0.9340659340659341,
+        "recall": 0.8762886597938144,
+        "f1": 0.9042553191489362,
+        "support": 97
+      },
+      {
+        "label": 32,
+        "name": "Duties",
+        "precision": 0.8363636363636363,
+        "recall": 0.7931034482758621,
+        "f1": 0.8141592920353983,
+        "support": 58
+      },
+      {
+        "label": 33,
+        "name": "Effective Dates",
+        "precision": 0.8857142857142857,
+        "recall": 0.8378378378378378,
+        "f1": 0.8611111111111112,
+        "support": 74
+      },
+      {
+        "label": 34,
+        "name": "Effectiveness",
+        "precision": 0.6388888888888888,
+        "recall": 0.7419354838709677,
+        "f1": 0.6865671641791045,
+        "support": 31
+      },
+      {
+        "label": 35,
+        "name": "Employment",
+        "precision": 0.7346938775510204,
+        "recall": 0.7659574468085106,
+        "f1": 0.75,
+        "support": 47
+      },
+      {
+        "label": 36,
+        "name": "Enforceability",
+        "precision": 0.7666666666666667,
+        "recall": 0.5111111111111111,
+        "f1": 0.6133333333333333,
+        "support": 45
+      },
+      {
+        "label": 37,
+        "name": "Enforcements",
+        "precision": 0.9130434782608695,
+        "recall": 0.5,
+        "f1": 0.6461538461538462,
+        "support": 42
+      },
+      {
+        "label": 38,
+        "name": "Entire Agreements",
+        "precision": 0.8803827751196173,
+        "recall": 0.9787234042553191,
+        "f1": 0.9269521410579346,
+        "support": 376
+      },
+      {
+        "label": 39,
+        "name": "Erisa",
+        "precision": 0.9661016949152542,
+        "recall": 0.9827586206896551,
+        "f1": 0.9743589743589743,
+        "support": 58
+      },
+      {
+        "label": 40,
+        "name": "Existence",
+        "precision": 0.9444444444444444,
+        "recall": 0.8095238095238095,
+        "f1": 0.8717948717948718,
+        "support": 42
+      },
+      {
+        "label": 41,
+        "name": "Expenses",
+        "precision": 0.9010989010989011,
+        "recall": 0.8961748633879781,
+        "f1": 0.8986301369863013,
+        "support": 183
+      },
+      {
+        "label": 42,
+        "name": "Fees",
+        "precision": 0.8522727272727273,
+        "recall": 0.8426966292134831,
+        "f1": 0.847457627118644,
+        "support": 89
+      },
+      {
+        "label": 43,
+        "name": "Financial Statements",
+        "precision": 0.9642857142857143,
+        "recall": 0.9878048780487805,
+        "f1": 0.9759036144578314,
+        "support": 82
+      },
+      {
+        "label": 44,
+        "name": "Forfeitures",
+        "precision": 0.8571428571428571,
+        "recall": 0.9230769230769231,
+        "f1": 0.8888888888888888,
+        "support": 52
+      },
+      {
+        "label": 45,
+        "name": "Further Assurances",
+        "precision": 0.9294871794871795,
+        "recall": 0.9539473684210527,
+        "f1": 0.9415584415584416,
+        "support": 152
+      },
+      {
+        "label": 46,
+        "name": "General",
+        "precision": 0.7125,
+        "recall": 0.5615763546798029,
+        "f1": 0.628099173553719,
+        "support": 203
+      },
+      {
+        "label": 47,
+        "name": "Governing Laws",
+        "precision": 0.8962264150943396,
+        "recall": 0.979381443298969,
+        "f1": 0.9359605911330049,
+        "support": 582
+      },
+      {
+        "label": 48,
+        "name": "Headings",
+        "precision": 0.9732142857142857,
+        "recall": 0.990909090909091,
+        "f1": 0.9819819819819819,
+        "support": 220
+      },
+      {
+        "label": 49,
+        "name": "Indemnifications",
+        "precision": 0.89375,
+        "recall": 0.9407894736842105,
+        "f1": 0.9166666666666666,
+        "support": 152
+      },
+      {
+        "label": 50,
+        "name": "Indemnity",
+        "precision": 0.6842105263157895,
+        "recall": 0.4482758620689655,
+        "f1": 0.5416666666666666,
+        "support": 29
+      },
+      {
+        "label": 51,
+        "name": "Insurances",
+        "precision": 0.9629629629629629,
+        "recall": 0.9774436090225563,
+        "f1": 0.9701492537313433,
+        "support": 133
+      },
+      {
+        "label": 52,
+        "name": "Integration",
+        "precision": 0.90625,
+        "recall": 0.4915254237288136,
+        "f1": 0.6373626373626373,
+        "support": 59
+      },
+      {
+        "label": 53,
+        "name": "Intellectual Property",
+        "precision": 0.9104477611940298,
+        "recall": 0.953125,
+        "f1": 0.9312977099236641,
+        "support": 64
+      },
+      {
+        "label": 54,
+        "name": "Interests",
+        "precision": 0.9210526315789473,
+        "recall": 0.8333333333333334,
+        "f1": 0.875,
+        "support": 42
+      },
+      {
+        "label": 55,
+        "name": "Interpretations",
+        "precision": 0.8088235294117647,
+        "recall": 0.7236842105263158,
+        "f1": 0.7638888888888888,
+        "support": 76
+      },
+      {
+        "label": 56,
+        "name": "Jurisdictions",
+        "precision": 0.7083333333333334,
+        "recall": 0.5862068965517241,
+        "f1": 0.6415094339622641,
+        "support": 29
+      },
+      {
+        "label": 57,
+        "name": "Liens",
+        "precision": 0.975609756097561,
+        "recall": 0.8163265306122449,
+        "f1": 0.8888888888888888,
+        "support": 49
+      },
+      {
+        "label": 58,
+        "name": "Litigations",
+        "precision": 0.9612403100775194,
+        "recall": 0.9612403100775194,
+        "f1": 0.9612403100775194,
+        "support": 129
+      },
+      {
+        "label": 59,
+        "name": "Miscellaneous",
+        "precision": 0.65625,
+        "recall": 0.5316455696202531,
+        "f1": 0.5874125874125874,
+        "support": 79
+      },
+      {
+        "label": 60,
+        "name": "Modifications",
+        "precision": 0.7777777777777778,
+        "recall": 0.509090909090909,
+        "f1": 0.6153846153846154,
+        "support": 55
+      },
+      {
+        "label": 61,
+        "name": "No Conflicts",
+        "precision": 0.8909090909090909,
+        "recall": 0.9423076923076923,
+        "f1": 0.9158878504672897,
+        "support": 104
+      },
+      {
+        "label": 62,
+        "name": "No Defaults",
+        "precision": 0.9375,
+        "recall": 0.9523809523809523,
+        "f1": 0.9448818897637795,
+        "support": 63
+      },
+      {
+        "label": 63,
+        "name": "No Waivers",
+        "precision": 0.7176470588235294,
+        "recall": 0.7261904761904762,
+        "f1": 0.7218934911242604,
+        "support": 84
+      },
+      {
+        "label": 64,
+        "name": "Non-Disparagement",
+        "precision": 0.9787234042553191,
+        "recall": 1.0,
+        "f1": 0.989247311827957,
+        "support": 46
+      },
+      {
+        "label": 65,
+        "name": "Notices",
+        "precision": 0.9714285714285714,
+        "recall": 0.966824644549763,
+        "f1": 0.9691211401425178,
+        "support": 422
+      },
+      {
+        "label": 66,
+        "name": "Organizations",
+        "precision": 0.8481012658227848,
+        "recall": 0.9178082191780822,
+        "f1": 0.881578947368421,
+        "support": 73
+      },
+      {
+        "label": 67,
+        "name": "Participations",
+        "precision": 0.9210526315789473,
+        "recall": 1.0,
+        "f1": 0.958904109589041,
+        "support": 70
+      },
+      {
+        "label": 68,
+        "name": "Payments",
+        "precision": 0.7189542483660131,
+        "recall": 0.873015873015873,
+        "f1": 0.7885304659498208,
+        "support": 126
+      },
+      {
+        "label": 69,
+        "name": "Positions",
+        "precision": 0.6216216216216216,
+        "recall": 0.71875,
+        "f1": 0.6666666666666666,
+        "support": 32
+      },
+      {
+        "label": 70,
+        "name": "Powers",
+        "precision": 0.4117647058823529,
+        "recall": 0.5384615384615384,
+        "f1": 0.4666666666666667,
+        "support": 13
+      },
+      {
+        "label": 71,
+        "name": "Publicity",
+        "precision": 0.9523809523809523,
+        "recall": 0.9523809523809523,
+        "f1": 0.9523809523809523,
+        "support": 42
+      },
+      {
+        "label": 72,
+        "name": "Qualifications",
+        "precision": 0.5,
+        "recall": 0.4,
+        "f1": 0.4444444444444444,
+        "support": 5
+      },
+      {
+        "label": 73,
+        "name": "Records",
+        "precision": 0.8529411764705882,
+        "recall": 0.9354838709677419,
+        "f1": 0.8923076923076924,
+        "support": 31
+      },
+      {
+        "label": 74,
+        "name": "Releases",
+        "precision": 0.9,
+        "recall": 0.9,
+        "f1": 0.9,
+        "support": 60
+      },
+      {
+        "label": 75,
+        "name": "Remedies",
+        "precision": 0.8267716535433071,
+        "recall": 0.8898305084745762,
+        "f1": 0.8571428571428571,
+        "support": 118
+      },
+      {
+        "label": 76,
+        "name": "Representations",
+        "precision": 0.7425742574257426,
+        "recall": 0.7978723404255319,
+        "f1": 0.7692307692307693,
+        "support": 94
+      },
+      {
+        "label": 77,
+        "name": "Sales",
+        "precision": 0.8604651162790697,
+        "recall": 0.8222222222222222,
+        "f1": 0.8409090909090909,
+        "support": 45
+      },
+      {
+        "label": 78,
+        "name": "Sanctions",
+        "precision": 0.8461538461538461,
+        "recall": 0.7857142857142857,
+        "f1": 0.8148148148148148,
+        "support": 14
+      },
+      {
+        "label": 79,
+        "name": "Severability",
+        "precision": 0.9550827423167849,
+        "recall": 0.9805825242718447,
+        "f1": 0.9676646706586827,
+        "support": 412
+      },
+      {
+        "label": 80,
+        "name": "Solvency",
+        "precision": 0.9848484848484849,
+        "recall": 0.9848484848484849,
+        "f1": 0.9848484848484849,
+        "support": 66
+      },
+      {
+        "label": 81,
+        "name": "Specific Performance",
+        "precision": 0.7777777777777778,
+        "recall": 0.813953488372093,
+        "f1": 0.7954545454545454,
+        "support": 43
+      },
+      {
+        "label": 82,
+        "name": "Submission To Jurisdiction",
+        "precision": 0.5483870967741935,
+        "recall": 0.5862068965517241,
+        "f1": 0.5666666666666667,
+        "support": 29
+      },
+      {
+        "label": 83,
+        "name": "Subsidiaries",
+        "precision": 0.953125,
+        "recall": 0.9682539682539683,
+        "f1": 0.9606299212598425,
+        "support": 63
+      },
+      {
+        "label": 84,
+        "name": "Successors",
+        "precision": 0.7901234567901234,
+        "recall": 0.6666666666666666,
+        "f1": 0.7231638418079096,
+        "support": 96
+      },
+      {
+        "label": 85,
+        "name": "Survival",
+        "precision": 0.9276595744680851,
+        "recall": 0.9819819819819819,
+        "f1": 0.9540481400437637,
+        "support": 222
+      },
+      {
+        "label": 86,
+        "name": "Tax Withholdings",
+        "precision": 0.6774193548387096,
+        "recall": 0.56,
+        "f1": 0.6131386861313869,
+        "support": 75
+      },
+      {
+        "label": 87,
+        "name": "Taxes",
+        "precision": 0.8837209302325582,
+        "recall": 0.8216216216216217,
+        "f1": 0.8515406162464986,
+        "support": 185
+      },
+      {
+        "label": 88,
+        "name": "Terminations",
+        "precision": 0.8275862068965517,
+        "recall": 0.8135593220338984,
+        "f1": 0.8205128205128205,
+        "support": 118
+      },
+      {
+        "label": 89,
+        "name": "Terms",
+        "precision": 0.896969696969697,
+        "recall": 0.8409090909090909,
+        "f1": 0.8680351906158358,
+        "support": 176
+      },
+      {
+        "label": 90,
+        "name": "Titles",
+        "precision": 0.8235294117647058,
+        "recall": 0.6222222222222222,
+        "f1": 0.7088607594936709,
+        "support": 45
+      },
+      {
+        "label": 91,
+        "name": "Transactions With Affiliates",
+        "precision": 1.0,
+        "recall": 0.9782608695652174,
+        "f1": 0.989010989010989,
+        "support": 46
+      },
+      {
+        "label": 92,
+        "name": "Use Of Proceeds",
+        "precision": 0.9833333333333333,
+        "recall": 0.9833333333333333,
+        "f1": 0.9833333333333333,
+        "support": 120
+      },
+      {
+        "label": 93,
+        "name": "Vacations",
+        "precision": 0.9622641509433962,
+        "recall": 0.9807692307692307,
+        "f1": 0.9714285714285714,
+        "support": 52
+      },
+      {
+        "label": 94,
+        "name": "Venues",
+        "precision": 0.5714285714285714,
+        "recall": 0.4,
+        "f1": 0.47058823529411764,
+        "support": 20
+      },
+      {
+        "label": 95,
+        "name": "Vesting",
+        "precision": 0.845360824742268,
+        "recall": 0.9425287356321839,
+        "f1": 0.8913043478260869,
+        "support": 87
+      },
+      {
+        "label": 96,
+        "name": "Waiver Of Jury Trials",
+        "precision": 0.9646017699115044,
+        "recall": 0.9819819819819819,
+        "f1": 0.9732142857142857,
+        "support": 111
+      },
+      {
+        "label": 97,
+        "name": "Waivers",
+        "precision": 0.8143712574850299,
+        "recall": 0.8192771084337349,
+        "f1": 0.8168168168168168,
+        "support": 166
+      },
+      {
+        "label": 98,
+        "name": "Warranties",
+        "precision": 0.8378378378378378,
+        "recall": 0.6391752577319587,
+        "f1": 0.7251461988304093,
+        "support": 97
+      },
+      {
+        "label": 99,
+        "name": "Withholdings",
+        "precision": 0.6413793103448275,
+        "recall": 0.8691588785046729,
+        "f1": 0.7380952380952381,
+        "support": 107
+      }
+    ],
+    "top_confused": [
+      {
+        "a": 28,
+        "b": 29,
+        "name_a": "Defined Terms",
+        "name_b": "Definitions",
+        "a_as_b": 20,
+        "b_as_a": 23,
+        "total": 43
+      },
+      {
+        "a": 4,
+        "b": 47,
+        "name_a": "Applicable Laws",
+        "name_b": "Governing Laws",
+        "a_as_b": 40,
+        "b_as_a": 1,
+        "total": 41
+      },
+      {
+        "a": 86,
+        "b": 99,
+        "name_a": "Tax Withholdings",
+        "name_b": "Withholdings",
+        "a_as_b": 30,
+        "b_as_a": 11,
+        "total": 41
+      },
+      {
+        "a": 63,
+        "b": 97,
+        "name_a": "No Waivers",
+        "name_b": "Waivers",
+        "a_as_b": 21,
+        "b_as_a": 17,
+        "total": 38
+      },
+      {
+        "a": 38,
+        "b": 52,
+        "name_a": "Entire Agreements",
+        "name_b": "Integration",
+        "a_as_b": 2,
+        "b_as_a": 28,
+        "total": 30
+      },
+      {
+        "a": 9,
+        "b": 10,
+        "name_a": "Authority",
+        "name_b": "Authorizations",
+        "a_as_b": 13,
+        "b_as_a": 13,
+        "total": 26
+      },
+      {
+        "a": 13,
+        "b": 84,
+        "name_a": "Binding Effects",
+        "name_b": "Successors",
+        "a_as_b": 6,
+        "b_as_a": 18,
+        "total": 24
+      },
+      {
+        "a": 2,
+        "b": 60,
+        "name_a": "Amendments",
+        "name_b": "Modifications",
+        "a_as_b": 3,
+        "b_as_a": 20,
+        "total": 23
+      },
+      {
+        "a": 87,
+        "b": 99,
+        "name_a": "Taxes",
+        "name_b": "Withholdings",
+        "a_as_b": 18,
+        "b_as_a": 3,
+        "total": 21
+      },
+      {
+        "a": 49,
+        "b": 50,
+        "name_a": "Indemnifications",
+        "name_b": "Indemnity",
+        "a_as_b": 5,
+        "b_as_a": 15,
+        "total": 20
+      },
+      {
+        "a": 7,
+        "b": 84,
+        "name_a": "Assignments",
+        "name_b": "Successors",
+        "a_as_b": 6,
+        "b_as_a": 12,
+        "total": 18
+      },
+      {
+        "a": 76,
+        "b": 98,
+        "name_a": "Representations",
+        "name_b": "Warranties",
+        "a_as_b": 4,
+        "b_as_a": 14,
+        "total": 18
+      },
+      {
+        "a": 46,
+        "b": 68,
+        "name_a": "General",
+        "name_b": "Payments",
+        "a_as_b": 15,
+        "b_as_a": 2,
+        "total": 17
+      },
+      {
+        "a": 5,
+        "b": 22,
+        "name_a": "Approvals",
+        "name_b": "Consents",
+        "a_as_b": 6,
+        "b_as_a": 10,
+        "total": 16
+      },
+      {
+        "a": 23,
+        "b": 55,
+        "name_a": "Construction",
+        "name_b": "Interpretations",
+        "a_as_b": 5,
+        "b_as_a": 11,
+        "total": 16
+      },
+      {
+        "a": 85,
+        "b": 98,
+        "name_a": "Survival",
+        "name_b": "Warranties",
+        "a_as_b": 1,
+        "b_as_a": 14,
+        "total": 15
+      },
+      {
+        "a": 21,
+        "b": 82,
+        "name_a": "Consent To Jurisdiction",
+        "name_b": "Submission To Jurisdiction",
+        "a_as_b": 7,
+        "b_as_a": 7,
+        "total": 14
+      },
+      {
+        "a": 41,
+        "b": 42,
+        "name_a": "Expenses",
+        "name_b": "Fees",
+        "a_as_b": 7,
+        "b_as_a": 5,
+        "total": 12
+      },
+      {
+        "a": 75,
+        "b": 81,
+        "name_a": "Remedies",
+        "name_b": "Specific Performance",
+        "a_as_b": 6,
+        "b_as_a": 6,
+        "total": 12
+      },
+      {
+        "a": 35,
+        "b": 69,
+        "name_a": "Employment",
+        "name_b": "Positions",
+        "a_as_b": 5,
+        "b_as_a": 6,
+        "total": 11
+      }
+    ]
+  },
+  "test_dedup": {
+    "n": 7759,
+    "accuracy": 0.8474030158525583,
+    "micro_f1": 0.8474030158525583,
+    "macro_f1": 0.7687593309548063,
+    "weighted_f1": 0.8406449786872707,
+    "cross_entropy": 0.6333320140838623,
+    "per_class": [
+      {
+        "label": 0,
+        "name": "Adjustments",
+        "precision": 0.8840579710144928,
+        "recall": 0.8840579710144928,
+        "f1": 0.8840579710144928,
+        "support": 69
+      },
+      {
+        "label": 1,
+        "name": "Agreements",
+        "precision": 0.7037037037037037,
+        "recall": 0.4523809523809524,
+        "f1": 0.5507246376811594,
+        "support": 42
+      },
+      {
+        "label": 2,
+        "name": "Amendments",
+        "precision": 0.8125,
+        "recall": 0.9086021505376344,
+        "f1": 0.8578680203045685,
+        "support": 186
+      },
+      {
+        "label": 3,
+        "name": "Anti-Corruption Laws",
+        "precision": 0.9230769230769231,
+        "recall": 0.9230769230769231,
+        "f1": 0.9230769230769231,
+        "support": 13
+      },
+      {
+        "label": 4,
+        "name": "Applicable Laws",
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 49
+      },
+      {
+        "label": 5,
+        "name": "Approvals",
+        "precision": 0.46153846153846156,
+        "recall": 0.5454545454545454,
+        "f1": 0.5,
+        "support": 22
+      },
+      {
+        "label": 6,
+        "name": "Arbitration",
+        "precision": 0.8571428571428571,
+        "recall": 0.9767441860465116,
+        "f1": 0.9130434782608695,
+        "support": 43
+      },
+      {
+        "label": 7,
+        "name": "Assignments",
+        "precision": 0.8622754491017964,
+        "recall": 0.9,
+        "f1": 0.8807339449541285,
+        "support": 160
+      },
+      {
+        "label": 8,
+        "name": "Assigns",
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 4
+      },
+      {
+        "label": 9,
+        "name": "Authority",
+        "precision": 0.5365853658536586,
+        "recall": 0.4782608695652174,
+        "f1": 0.5057471264367817,
+        "support": 46
+      },
+      {
+        "label": 10,
+        "name": "Authorizations",
+        "precision": 0.704225352112676,
+        "recall": 0.7142857142857143,
+        "f1": 0.7092198581560284,
+        "support": 70
+      },
+      {
+        "label": 11,
+        "name": "Base Salary",
+        "precision": 0.978494623655914,
+        "recall": 0.978494623655914,
+        "f1": 0.978494623655914,
+        "support": 93
+      },
+      {
+        "label": 12,
+        "name": "Benefits",
+        "precision": 0.8235294117647058,
+        "recall": 0.7466666666666667,
+        "f1": 0.7832167832167832,
+        "support": 75
+      },
+      {
+        "label": 13,
+        "name": "Binding Effects",
+        "precision": 0.6194690265486725,
+        "recall": 0.7446808510638298,
+        "f1": 0.6763285024154589,
+        "support": 94
+      },
+      {
+        "label": 14,
+        "name": "Books",
+        "precision": 0.6666666666666666,
+        "recall": 1.0,
+        "f1": 0.8,
+        "support": 2
+      },
+      {
+        "label": 15,
+        "name": "Brokers",
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 59
+      },
+      {
+        "label": 16,
+        "name": "Capitalization",
+        "precision": 0.918918918918919,
+        "recall": 0.9714285714285714,
+        "f1": 0.9444444444444444,
+        "support": 35
+      },
+      {
+        "label": 17,
+        "name": "Change In Control",
+        "precision": 0.8987341772151899,
+        "recall": 0.9342105263157895,
+        "f1": 0.9161290322580645,
+        "support": 76
+      },
+      {
+        "label": 18,
+        "name": "Closings",
+        "precision": 0.9622641509433962,
+        "recall": 0.9807692307692307,
+        "f1": 0.9714285714285714,
+        "support": 52
+      },
+      {
+        "label": 19,
+        "name": "Compliance With Laws",
+        "precision": 0.8688524590163934,
+        "recall": 0.9520958083832335,
+        "f1": 0.9085714285714286,
+        "support": 167
+      },
+      {
+        "label": 20,
+        "name": "Confidentiality",
+        "precision": 0.9097744360902256,
+        "recall": 0.9453125,
+        "f1": 0.9272030651340997,
+        "support": 128
+      },
+      {
+        "label": 21,
+        "name": "Consent To Jurisdiction",
+        "precision": 0.6086956521739131,
+        "recall": 0.5384615384615384,
+        "f1": 0.5714285714285714,
+        "support": 26
+      },
+      {
+        "label": 22,
+        "name": "Consents",
+        "precision": 0.796875,
+        "recall": 0.75,
+        "f1": 0.7727272727272727,
+        "support": 68
+      },
+      {
+        "label": 23,
+        "name": "Construction",
+        "precision": 0.5961538461538461,
+        "recall": 0.6739130434782609,
+        "f1": 0.6326530612244898,
+        "support": 46
+      },
+      {
+        "label": 24,
+        "name": "Cooperation",
+        "precision": 0.9473684210526315,
+        "recall": 0.8059701492537313,
+        "f1": 0.8709677419354839,
+        "support": 67
+      },
+      {
+        "label": 25,
+        "name": "Costs",
+        "precision": 0.35714285714285715,
+        "recall": 0.4166666666666667,
+        "f1": 0.38461538461538464,
+        "support": 12
+      },
+      {
+        "label": 26,
+        "name": "Counterparts",
+        "precision": 0.981081081081081,
+        "recall": 0.9972527472527473,
+        "f1": 0.989100817438692,
+        "support": 364
+      },
+      {
+        "label": 27,
+        "name": "Death",
+        "precision": 0.8923076923076924,
+        "recall": 0.9354838709677419,
+        "f1": 0.9133858267716536,
+        "support": 62
+      },
+      {
+        "label": 28,
+        "name": "Defined Terms",
+        "precision": 0.46511627906976744,
+        "recall": 0.5263157894736842,
+        "f1": 0.49382716049382713,
+        "support": 38
+      },
+      {
+        "label": 29,
+        "name": "Definitions",
+        "precision": 0.7752808988764045,
+        "recall": 0.696969696969697,
+        "f1": 0.7340425531914894,
+        "support": 99
+      },
+      {
+        "label": 30,
+        "name": "Disability",
+        "precision": 0.9024390243902439,
+        "recall": 0.8409090909090909,
+        "f1": 0.8705882352941177,
+        "support": 44
+      },
+      {
+        "label": 31,
+        "name": "Disclosures",
+        "precision": 0.8928571428571429,
+        "recall": 0.8064516129032258,
+        "f1": 0.847457627118644,
+        "support": 62
+      },
+      {
+        "label": 32,
+        "name": "Duties",
+        "precision": 0.8541666666666666,
+        "recall": 0.7735849056603774,
+        "f1": 0.8118811881188119,
+        "support": 53
+      },
+      {
+        "label": 33,
+        "name": "Effective Dates",
+        "precision": 0.8666666666666667,
+        "recall": 0.8125,
+        "f1": 0.8387096774193549,
+        "support": 64
+      },
+      {
+        "label": 34,
+        "name": "Effectiveness",
+        "precision": 0.6388888888888888,
+        "recall": 0.7419354838709677,
+        "f1": 0.6865671641791045,
+        "support": 31
+      },
+      {
+        "label": 35,
+        "name": "Employment",
+        "precision": 0.7291666666666666,
+        "recall": 0.7608695652173914,
+        "f1": 0.7446808510638298,
+        "support": 46
+      },
+      {
+        "label": 36,
+        "name": "Enforceability",
+        "precision": 0.6818181818181818,
+        "recall": 0.4411764705882353,
+        "f1": 0.5357142857142857,
+        "support": 34
+      },
+      {
+        "label": 37,
+        "name": "Enforcements",
+        "precision": 0.7777777777777778,
+        "recall": 0.2692307692307692,
+        "f1": 0.4,
+        "support": 26
+      },
+      {
+        "label": 38,
+        "name": "Entire Agreements",
+        "precision": 0.8795518207282913,
+        "recall": 0.9781931464174455,
+        "f1": 0.9262536873156342,
+        "support": 321
+      },
+      {
+        "label": 39,
+        "name": "Erisa",
+        "precision": 0.9574468085106383,
+        "recall": 0.9782608695652174,
+        "f1": 0.967741935483871,
+        "support": 46
+      },
+      {
+        "label": 40,
+        "name": "Existence",
+        "precision": 0.9259259259259259,
+        "recall": 0.7575757575757576,
+        "f1": 0.8333333333333334,
+        "support": 33
+      },
+      {
+        "label": 41,
+        "name": "Expenses",
+        "precision": 0.8888888888888888,
+        "recall": 0.8774193548387097,
+        "f1": 0.8831168831168831,
+        "support": 155
+      },
+      {
+        "label": 42,
+        "name": "Fees",
+        "precision": 0.8243243243243243,
+        "recall": 0.8243243243243243,
+        "f1": 0.8243243243243243,
+        "support": 74
+      },
+      {
+        "label": 43,
+        "name": "Financial Statements",
+        "precision": 0.9454545454545454,
+        "recall": 0.9811320754716981,
+        "f1": 0.9629629629629629,
+        "support": 53
+      },
+      {
+        "label": 44,
+        "name": "Forfeitures",
+        "precision": 0.8181818181818182,
+        "recall": 0.9,
+        "f1": 0.8571428571428571,
+        "support": 40
+      },
+      {
+        "label": 45,
+        "name": "Further Assurances",
+        "precision": 0.912,
+        "recall": 0.95,
+        "f1": 0.9306122448979591,
+        "support": 120
+      },
+      {
+        "label": 46,
+        "name": "General",
+        "precision": 0.6451612903225806,
+        "recall": 0.48484848484848486,
+        "f1": 0.5536332179930796,
+        "support": 165
+      },
+      {
+        "label": 47,
+        "name": "Governing Laws",
+        "precision": 0.8793774319066148,
+        "recall": 0.9741379310344828,
+        "f1": 0.9243353783231084,
+        "support": 464
+      },
+      {
+        "label": 48,
+        "name": "Headings",
+        "precision": 0.9720670391061452,
+        "recall": 0.9886363636363636,
+        "f1": 0.9802816901408451,
+        "support": 176
+      },
+      {
+        "label": 49,
+        "name": "Indemnifications",
+        "precision": 0.8706896551724138,
+        "recall": 0.9181818181818182,
+        "f1": 0.8938053097345132,
+        "support": 110
+      },
+      {
+        "label": 50,
+        "name": "Indemnity",
+        "precision": 0.5384615384615384,
+        "recall": 0.3333333333333333,
+        "f1": 0.4117647058823529,
+        "support": 21
+      },
+      {
+        "label": 51,
+        "name": "Insurances",
+        "precision": 0.9532710280373832,
+        "recall": 0.9714285714285714,
+        "f1": 0.9622641509433962,
+        "support": 105
+      },
+      {
+        "label": 52,
+        "name": "Integration",
+        "precision": 0.8888888888888888,
+        "recall": 0.4,
+        "f1": 0.5517241379310345,
+        "support": 40
+      },
+      {
+        "label": 53,
+        "name": "Intellectual Property",
+        "precision": 0.8846153846153846,
+        "recall": 0.9387755102040817,
+        "f1": 0.9108910891089109,
+        "support": 49
+      },
+      {
+        "label": 54,
+        "name": "Interests",
+        "precision": 0.8928571428571429,
+        "recall": 0.78125,
+        "f1": 0.8333333333333334,
+        "support": 32
+      },
+      {
+        "label": 55,
+        "name": "Interpretations",
+        "precision": 0.7551020408163265,
+        "recall": 0.6727272727272727,
+        "f1": 0.7115384615384616,
+        "support": 55
+      },
+      {
+        "label": 56,
+        "name": "Jurisdictions",
+        "precision": 0.5882352941176471,
+        "recall": 0.5555555555555556,
+        "f1": 0.5714285714285714,
+        "support": 18
+      },
+      {
+        "label": 57,
+        "name": "Liens",
+        "precision": 0.9722222222222222,
+        "recall": 0.7954545454545454,
+        "f1": 0.875,
+        "support": 44
+      },
+      {
+        "label": 58,
+        "name": "Litigations",
+        "precision": 0.945054945054945,
+        "recall": 0.945054945054945,
+        "f1": 0.945054945054945,
+        "support": 91
+      },
+      {
+        "label": 59,
+        "name": "Miscellaneous",
+        "precision": 0.625,
+        "recall": 0.5,
+        "f1": 0.5555555555555556,
+        "support": 70
+      },
+      {
+        "label": 60,
+        "name": "Modifications",
+        "precision": 0.6923076923076923,
+        "recall": 0.45,
+        "f1": 0.5454545454545454,
+        "support": 40
+      },
+      {
+        "label": 61,
+        "name": "No Conflicts",
+        "precision": 0.8260869565217391,
+        "recall": 0.9047619047619048,
+        "f1": 0.8636363636363636,
+        "support": 63
+      },
+      {
+        "label": 62,
+        "name": "No Defaults",
+        "precision": 0.9230769230769231,
+        "recall": 0.9411764705882353,
+        "f1": 0.9320388349514563,
+        "support": 51
+      },
+      {
+        "label": 63,
+        "name": "No Waivers",
+        "precision": 0.625,
+        "recall": 0.6,
+        "f1": 0.6122448979591837,
+        "support": 50
+      },
+      {
+        "label": 64,
+        "name": "Non-Disparagement",
+        "precision": 0.975,
+        "recall": 1.0,
+        "f1": 0.9873417721518988,
+        "support": 39
+      },
+      {
+        "label": 65,
+        "name": "Notices",
+        "precision": 0.9603960396039604,
+        "recall": 0.9572368421052632,
+        "f1": 0.9588138385502472,
+        "support": 304
+      },
+      {
+        "label": 66,
+        "name": "Organizations",
+        "precision": 0.8428571428571429,
+        "recall": 0.9076923076923077,
+        "f1": 0.8740740740740741,
+        "support": 65
+      },
+      {
+        "label": 67,
+        "name": "Participations",
+        "precision": 0.8695652173913043,
+        "recall": 1.0,
+        "f1": 0.9302325581395349,
+        "support": 40
+      },
+      {
+        "label": 68,
+        "name": "Payments",
+        "precision": 0.6532258064516129,
+        "recall": 0.8350515463917526,
+        "f1": 0.7330316742081447,
+        "support": 97
+      },
+      {
+        "label": 69,
+        "name": "Positions",
+        "precision": 0.5882352941176471,
+        "recall": 0.6896551724137931,
+        "f1": 0.6349206349206349,
+        "support": 29
+      },
+      {
+        "label": 70,
+        "name": "Powers",
+        "precision": 0.3076923076923077,
+        "recall": 0.4,
+        "f1": 0.34782608695652173,
+        "support": 10
+      },
+      {
+        "label": 71,
+        "name": "Publicity",
+        "precision": 0.9047619047619048,
+        "recall": 0.9047619047619048,
+        "f1": 0.9047619047619048,
+        "support": 21
+      },
+      {
+        "label": 72,
+        "name": "Qualifications",
+        "precision": 0.5,
+        "recall": 0.5,
+        "f1": 0.5,
+        "support": 4
+      },
+      {
+        "label": 73,
+        "name": "Records",
+        "precision": 0.8214285714285714,
+        "recall": 0.92,
+        "f1": 0.8679245283018868,
+        "support": 25
+      },
+      {
+        "label": 74,
+        "name": "Releases",
+        "precision": 0.8604651162790697,
+        "recall": 0.8604651162790697,
+        "f1": 0.8604651162790697,
+        "support": 43
+      },
+      {
+        "label": 75,
+        "name": "Remedies",
+        "precision": 0.7640449438202247,
+        "recall": 0.85,
+        "f1": 0.8047337278106509,
+        "support": 80
+      },
+      {
+        "label": 76,
+        "name": "Representations",
+        "precision": 0.7126436781609196,
+        "recall": 0.7654320987654321,
+        "f1": 0.7380952380952381,
+        "support": 81
+      },
+      {
+        "label": 77,
+        "name": "Sales",
+        "precision": 0.8378378378378378,
+        "recall": 0.7948717948717948,
+        "f1": 0.8157894736842105,
+        "support": 39
+      },
+      {
+        "label": 78,
+        "name": "Sanctions",
+        "precision": 0.75,
+        "recall": 0.6666666666666666,
+        "f1": 0.7058823529411765,
+        "support": 9
+      },
+      {
+        "label": 79,
+        "name": "Severability",
+        "precision": 0.9416342412451362,
+        "recall": 0.968,
+        "f1": 0.9546351084812623,
+        "support": 250
+      },
+      {
+        "label": 80,
+        "name": "Solvency",
+        "precision": 0.9807692307692307,
+        "recall": 0.9807692307692307,
+        "f1": 0.9807692307692307,
+        "support": 52
+      },
+      {
+        "label": 81,
+        "name": "Specific Performance",
+        "precision": 0.7714285714285715,
+        "recall": 0.7714285714285715,
+        "f1": 0.7714285714285715,
+        "support": 35
+      },
+      {
+        "label": 82,
+        "name": "Submission To Jurisdiction",
+        "precision": 0.375,
+        "recall": 0.3333333333333333,
+        "f1": 0.35294117647058826,
+        "support": 18
+      },
+      {
+        "label": 83,
+        "name": "Subsidiaries",
+        "precision": 0.9411764705882353,
+        "recall": 0.96,
+        "f1": 0.9504950495049505,
+        "support": 50
+      },
+      {
+        "label": 84,
+        "name": "Successors",
+        "precision": 0.6739130434782609,
+        "recall": 0.5254237288135594,
+        "f1": 0.5904761904761905,
+        "support": 59
+      },
+      {
+        "label": 85,
+        "name": "Survival",
+        "precision": 0.9157303370786517,
+        "recall": 0.9760479041916168,
+        "f1": 0.9449275362318841,
+        "support": 167
+      },
+      {
+        "label": 86,
+        "name": "Tax Withholdings",
+        "precision": 0.660377358490566,
+        "recall": 0.5223880597014925,
+        "f1": 0.5833333333333334,
+        "support": 67
+      },
+      {
+        "label": 87,
+        "name": "Taxes",
+        "precision": 0.8611111111111112,
+        "recall": 0.8051948051948052,
+        "f1": 0.8322147651006712,
+        "support": 154
+      },
+      {
+        "label": 88,
+        "name": "Terminations",
+        "precision": 0.7938144329896907,
+        "recall": 0.7857142857142857,
+        "f1": 0.7897435897435897,
+        "support": 98
+      },
+      {
+        "label": 89,
+        "name": "Terms",
+        "precision": 0.8835616438356164,
+        "recall": 0.821656050955414,
+        "f1": 0.8514851485148515,
+        "support": 157
+      },
+      {
+        "label": 90,
+        "name": "Titles",
+        "precision": 0.7777777777777778,
+        "recall": 0.5675675675675675,
+        "f1": 0.65625,
+        "support": 37
+      },
+      {
+        "label": 91,
+        "name": "Transactions With Affiliates",
+        "precision": 1.0,
+        "recall": 0.9642857142857143,
+        "f1": 0.9818181818181818,
+        "support": 28
+      },
+      {
+        "label": 92,
+        "name": "Use Of Proceeds",
+        "precision": 0.9807692307692307,
+        "recall": 0.9807692307692307,
+        "f1": 0.9807692307692307,
+        "support": 104
+      },
+      {
+        "label": 93,
+        "name": "Vacations",
+        "precision": 0.9583333333333334,
+        "recall": 0.9787234042553191,
+        "f1": 0.968421052631579,
+        "support": 47
+      },
+      {
+        "label": 94,
+        "name": "Venues",
+        "precision": 0.5384615384615384,
+        "recall": 0.4117647058823529,
+        "f1": 0.4666666666666667,
+        "support": 17
+      },
+      {
+        "label": 95,
+        "name": "Vesting",
+        "precision": 0.8555555555555555,
+        "recall": 0.9390243902439024,
+        "f1": 0.8953488372093024,
+        "support": 82
+      },
+      {
+        "label": 96,
+        "name": "Waiver Of Jury Trials",
+        "precision": 0.9259259259259259,
+        "recall": 0.9615384615384616,
+        "f1": 0.9433962264150944,
+        "support": 52
+      },
+      {
+        "label": 97,
+        "name": "Waivers",
+        "precision": 0.7829457364341085,
+        "recall": 0.8145161290322581,
+        "f1": 0.7984189723320159,
+        "support": 124
+      },
+      {
+        "label": 98,
+        "name": "Warranties",
+        "precision": 0.7857142857142857,
+        "recall": 0.5714285714285714,
+        "f1": 0.6616541353383458,
+        "support": 77
+      },
+      {
+        "label": 99,
+        "name": "Withholdings",
+        "precision": 0.6033057851239669,
+        "recall": 0.8588235294117647,
+        "f1": 0.7087378640776699,
+        "support": 85
+      }
+    ],
+    "top_confused": [
+      {
+        "a": 4,
+        "b": 47,
+        "name_a": "Applicable Laws",
+        "name_b": "Governing Laws",
+        "a_as_b": 38,
+        "b_as_a": 1,
+        "total": 39
+      },
+      {
+        "a": 86,
+        "b": 99,
+        "name_a": "Tax Withholdings",
+        "name_b": "Withholdings",
+        "a_as_b": 29,
+        "b_as_a": 9,
+        "total": 38
+      },
+      {
+        "a": 28,
+        "b": 29,
+        "name_a": "Defined Terms",
+        "name_b": "Definitions",
+        "a_as_b": 16,
+        "b_as_a": 21,
+        "total": 37
+      },
+      {
+        "a": 63,
+        "b": 97,
+        "name_a": "No Waivers",
+        "name_b": "Waivers",
+        "a_as_b": 18,
+        "b_as_a": 11,
+        "total": 29
+      },
+      {
+        "a": 9,
+        "b": 10,
+        "name_a": "Authority",
+        "name_b": "Authorizations",
+        "a_as_b": 11,
+        "b_as_a": 12,
+        "total": 23
+      },
+      {
+        "a": 38,
+        "b": 52,
+        "name_a": "Entire Agreements",
+        "name_b": "Integration",
+        "a_as_b": 1,
+        "b_as_a": 22,
+        "total": 23
+      },
+      {
+        "a": 13,
+        "b": 84,
+        "name_a": "Binding Effects",
+        "name_b": "Successors",
+        "a_as_b": 6,
+        "b_as_a": 16,
+        "total": 22
+      },
+      {
+        "a": 2,
+        "b": 60,
+        "name_a": "Amendments",
+        "name_b": "Modifications",
+        "a_as_b": 3,
+        "b_as_a": 16,
+        "total": 19
+      },
+      {
+        "a": 87,
+        "b": 99,
+        "name_a": "Taxes",
+        "name_b": "Withholdings",
+        "a_as_b": 16,
+        "b_as_a": 3,
+        "total": 19
+      },
+      {
+        "a": 49,
+        "b": 50,
+        "name_a": "Indemnifications",
+        "name_b": "Indemnity",
+        "a_as_b": 5,
+        "b_as_a": 13,
+        "total": 18
+      },
+      {
+        "a": 76,
+        "b": 98,
+        "name_a": "Representations",
+        "name_b": "Warranties",
+        "a_as_b": 4,
+        "b_as_a": 14,
+        "total": 18
+      },
+      {
+        "a": 46,
+        "b": 68,
+        "name_a": "General",
+        "name_b": "Payments",
+        "a_as_b": 15,
+        "b_as_a": 2,
+        "total": 17
+      },
+      {
+        "a": 7,
+        "b": 84,
+        "name_a": "Assignments",
+        "name_b": "Successors",
+        "a_as_b": 5,
+        "b_as_a": 10,
+        "total": 15
+      },
+      {
+        "a": 5,
+        "b": 22,
+        "name_a": "Approvals",
+        "name_b": "Consents",
+        "a_as_b": 5,
+        "b_as_a": 9,
+        "total": 14
+      },
+      {
+        "a": 23,
+        "b": 55,
+        "name_a": "Construction",
+        "name_b": "Interpretations",
+        "a_as_b": 4,
+        "b_as_a": 10,
+        "total": 14
+      },
+      {
+        "a": 21,
+        "b": 82,
+        "name_a": "Consent To Jurisdiction",
+        "name_b": "Submission To Jurisdiction",
+        "a_as_b": 6,
+        "b_as_a": 7,
+        "total": 13
+      },
+      {
+        "a": 85,
+        "b": 98,
+        "name_a": "Survival",
+        "name_b": "Warranties",
+        "a_as_b": 1,
+        "b_as_a": 12,
+        "total": 13
+      },
+      {
+        "a": 35,
+        "b": 69,
+        "name_a": "Employment",
+        "name_b": "Positions",
+        "a_as_b": 5,
+        "b_as_a": 6,
+        "total": 11
+      },
+      {
+        "a": 41,
+        "b": 42,
+        "name_a": "Expenses",
+        "name_b": "Fees",
+        "a_as_b": 7,
+        "b_as_a": 4,
+        "total": 11
+      },
+      {
+        "a": 61,
+        "b": 76,
+        "name_a": "No Conflicts",
+        "name_b": "Representations",
+        "a_as_b": 2,
+        "b_as_a": 9,
+        "total": 11
+      }
+    ]
+  },
+  "label_names": [
+    "Adjustments",
+    "Agreements",
+    "Amendments",
+    "Anti-Corruption Laws",
+    "Applicable Laws",
+    "Approvals",
+    "Arbitration",
+    "Assignments",
+    "Assigns",
+    "Authority",
+    "Authorizations",
+    "Base Salary",
+    "Benefits",
+    "Binding Effects",
+    "Books",
+    "Brokers",
+    "Capitalization",
+    "Change In Control",
+    "Closings",
+    "Compliance With Laws",
+    "Confidentiality",
+    "Consent To Jurisdiction",
+    "Consents",
+    "Construction",
+    "Cooperation",
+    "Costs",
+    "Counterparts",
+    "Death",
+    "Defined Terms",
+    "Definitions",
+    "Disability",
+    "Disclosures",
+    "Duties",
+    "Effective Dates",
+    "Effectiveness",
+    "Employment",
+    "Enforceability",
+    "Enforcements",
+    "Entire Agreements",
+    "Erisa",
+    "Existence",
+    "Expenses",
+    "Fees",
+    "Financial Statements",
+    "Forfeitures",
+    "Further Assurances",
+    "General",
+    "Governing Laws",
+    "Headings",
+    "Indemnifications",
+    "Indemnity",
+    "Insurances",
+    "Integration",
+    "Intellectual Property",
+    "Interests",
+    "Interpretations",
+    "Jurisdictions",
+    "Liens",
+    "Litigations",
+    "Miscellaneous",
+    "Modifications",
+    "No Conflicts",
+    "No Defaults",
+    "No Waivers",
+    "Non-Disparagement",
+    "Notices",
+    "Organizations",
+    "Participations",
+    "Payments",
+    "Positions",
+    "Powers",
+    "Publicity",
+    "Qualifications",
+    "Records",
+    "Releases",
+    "Remedies",
+    "Representations",
+    "Sales",
+    "Sanctions",
+    "Severability",
+    "Solvency",
+    "Specific Performance",
+    "Submission To Jurisdiction",
+    "Subsidiaries",
+    "Successors",
+    "Survival",
+    "Tax Withholdings",
+    "Taxes",
+    "Terminations",
+    "Terms",
+    "Titles",
+    "Transactions With Affiliates",
+    "Use Of Proceeds",
+    "Vacations",
+    "Venues",
+    "Vesting",
+    "Waiver Of Jury Trials",
+    "Waivers",
+    "Warranties",
+    "Withholdings"
+  ]
+}

@@ -1,0 +1,37 @@
+SERVICES AGREEMENT
+
+This Services Agreement is entered into by Northwind Analytics, Inc. (Client) and Harbor Legal LLP (Provider) as of October 1, 2026. The parties agree to the services and terms stated below.
+
+Services. Provider will prepare monthly research summaries, maintain a secure document review workspace, and provide reasonable consultation about the summaries when Client requests it. Specific assignments will be described in written work orders signed by both parties.
+
+Term. This Agreement begins on the effective date and continues for twelve months unless ended earlier under its terms. The parties may extend the term by a written amendment signed before the term expires.
+
+Fees and Payment. Client will pay the fees listed in each work order within thirty days after receiving an accurate invoice. Provider will identify approved expenses separately and will not charge unapproved expenses.
+
+Client Cooperation. Client will provide timely access to the records and personnel reasonably needed for the services. Provider may rely on information supplied by Client but will promptly report any material gap it discovers.
+
+Confidentiality. Each party will protect the other party's nonpublic business information with reasonable care and use it only to perform this Agreement. This duty does not cover information already public or lawfully received from another source.
+
+Data Security. Provider will limit access to Client materials to personnel working on the services and will use reasonable technical safeguards. Provider will notify Client promptly after discovering unauthorized access to Client materials.
+
+Work Product. After Client pays the applicable fees, Client owns the final written summaries prepared specifically for it. Provider retains its preexisting methods, templates, and general knowledge, and grants Client a license to use any of those items included in the delivered work.
+
+Independent Contractor. Provider acts as an independent contractor and controls how it performs the services. Neither party may bind the other, and this Agreement creates no employment, partnership, or agency relationship.
+
+Termination. Either party may end this Agreement for a material breach that remains uncured for thirty days after written notice. Client will pay for services properly performed through the effective termination date.
+
+Limitation of Liability. Neither party is liable for lost profits or indirect damages arising from this Agreement. Each party's total liability is limited to fees paid or payable during the twelve months before the claim, except for fraud or intentional misconduct.
+
+Expenses. Each party bears its own costs of negotiating and signing this Agreement. Client will reimburse only the travel and copying expenses that it approves in writing before Provider incurs them.
+
+Insurance. During the term, Provider will maintain professional liability insurance of at least two million dollars per claim with a reputable insurer and will provide a certificate of coverage on request.
+
+Assignment. Neither party may assign this Agreement or any of its rights under it without the prior written consent of the other party, except to a successor to substantially all of its business. Any other attempted assignment is void.
+
+Survival. The sections on confidentiality, work product, fees owed, and limitation of liability survive the expiration or termination of this Agreement.
+
+Notices. Formal notices under this Agreement must be sent by email and by nationally recognized overnight courier to the contact details in the applicable work order. A party may update its contact details by written notice to the other party.
+
+Entire Agreement and Changes. This Agreement and its signed work orders state the entire agreement about the services. Any change must be in writing and signed by authorized representatives of both parties.
+
+Counterparts. This Agreement may be signed in counterparts, each of which is an original and all of which together form one agreement. Signatures delivered by electronic means are binding.

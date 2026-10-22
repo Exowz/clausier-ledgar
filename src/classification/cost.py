@@ -124,11 +124,16 @@ def _quality(classifier: TransformerClassifier, run_dir: Path) -> dict:
     }
 
 
+DISPLAY_NAMES = {"tfidf": "TF-IDF", "legal_bert_long fp32": "Legal-BERT", "legal_bert_long int8": "Legal-BERT int8"}
+DEVICE_NAMES = {"cpu": "CPU", "mps": "laptop GPU"}
+
+
 def _plot_latency(rows: list[dict], path: Path) -> None:
     """Write a log scale bar chart of prediction time per clause."""
     plt.rcParams.update({"font.size": 12})
     fig, ax = plt.subplots(figsize=(10, 6))
-    labels = [f"{row['configuration']} ({row['device']})" for row in rows]
+    labels = [f"{DISPLAY_NAMES.get(row['configuration'], row['configuration'])}, "
+              f"{DEVICE_NAMES.get(row['device'], row['device'])}" for row in rows]
     values = [row["ms_per_clause"] for row in rows]
     bars = ax.barh(labels, values)
     ax.set_xscale("log")
@@ -136,7 +141,7 @@ def _plot_latency(rows: list[dict], path: Path) -> None:
     ax.invert_yaxis()
     for bar, value in zip(bars, values, strict=True):
         ax.text(value * 1.04, bar.get_y() + bar.get_height() / 2,
-                f"{value:.1f}", va="center")
+                f"{value:.2g} ms", va="center")
     ax.set_title("Prediction time per clause (laptop)")
     ax.set_xlabel("Milliseconds per clause (log scale)")
     fig.tight_layout()

@@ -1,0 +1,53 @@
+{
+  "checklist": [
+    "Governing Laws",
+    "Notices",
+    "Counterparts",
+    "Entire Agreements",
+    "Severability",
+    "Survival",
+    "Amendments",
+    "Assignments",
+    "Expenses",
+    "Terms",
+    "Terminations",
+    "Insurances"
+  ],
+  "settings": {
+    "n_contracts": 500,
+    "keep_prob": 0.7,
+    "n_other": 10,
+    "seed": 42
+  },
+  "runs": [
+    {
+      "run": "tfidf",
+      "threshold": 0.7595791126519348,
+      "temperature": 0.9346595735734281,
+      "missing_precision": 0.8587064676616916,
+      "missing_recall": 0.9504405286343612,
+      "check_share": 0.04783333333333333,
+      "truly_present": {
+        "present": 0.8747609942638623,
+        "check": 0.05736137667304015,
+        "missing": 0.06787762906309751
+      },
+      "n_pairs": 6000
+    },
+    {
+      "run": "legal_bert_long",
+      "threshold": 0.8828415793946921,
+      "temperature": 1.423161412779362,
+      "missing_precision": 0.8677274987568374,
+      "missing_recall": 0.9609030837004405,
+      "check_share": 0.0505,
+      "truly_present": {
+        "present": 0.869263862332696,
+        "check": 0.06716061185468451,
+        "missing": 0.06357552581261951
+      },
+      "n_pairs": 6000
+    }
+  ],
+  "limit": "Simulated contracts are sets of real test clauses; splitting a real contract into clauses is not evaluated."
+}
