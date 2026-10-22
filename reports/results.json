@@ -1,5 +1,5 @@
 {
-  "best_legal_bert": "legal_bert",
+  "best_legal_bert": "legal_bert_long",
   "results_table": [
     {
       "model": "TF-IDF + logistic regression",
@@ -46,6 +46,17 @@
       "train_time_min": 50.501182038866666
     },
     {
+      "model": "Legal-BERT (up to 10 epochs)",
+      "best_epoch": 9,
+      "val_macro_f1": 0.8249626369259151,
+      "test_accuracy": 0.8816,
+      "test_micro_f1": 0.8816,
+      "test_macro_f1": 0.8250097298566245,
+      "test_dedup_accuracy": 0.8524294367830906,
+      "test_dedup_macro_f1": 0.7872078883272312,
+      "train_time_min": 130.07626195353333
+    },
+    {
       "model": "Legal-BERT LoRA (4 epochs)",
       "best_epoch": 4,
       "val_macro_f1": 0.7766941198814317,
@@ -70,6 +81,17 @@
       "test_dedup_macro_f1": 0.7614463380674615
     },
     {
+      "model": "Legal-BERT (up to 10 epochs)",
+      "trainable_params": 109559140,
+      "total_params": 109559140,
+      "trainable_share": 100.0,
+      "train_memory_gb_estimate": 1.75294624,
+      "train_time_min": 130.07626195353333,
+      "time_per_epoch_min": 13.007626195353334,
+      "test_macro_f1": 0.8250097298566245,
+      "test_dedup_macro_f1": 0.7872078883272312
+    },
+    {
       "model": "Legal-BERT LoRA (4 epochs)",
       "trainable_params": 371812,
       "total_params": 109854052,
@@ -84,6 +106,47 @@
   "pairs": [
     {
       "question": "main comparison",
+      "a": "legal_bert_long",
+      "b": "tfidf",
+      "test": {
+        "n": 10000,
+        "accuracy_a": 0.8816,
+        "accuracy_b": 0.8781,
+        "macro_f1_a": 0.8250097298566245,
+        "macro_f1_b": 0.8255839287768666,
+        "a": 8450,
+        "b": 366,
+        "c": 331,
+        "d": 853,
+        "chi2": 1.6585365853658536,
+        "p_value": 0.19780102703780078,
+        "diff_macro_f1": -0.0005741989202421305,
+        "diff_low": -0.009570595737898572,
+        "diff_high": 0.010888339443860156,
+        "mcnemar_significant": false,
+        "bootstrap_significant": false
+      },
+      "test_dedup": {
+        "n": 7759,
+        "accuracy_a": 0.8524294367830906,
+        "accuracy_b": 0.8476607810284831,
+        "macro_f1_a": 0.7872078883272312,
+        "macro_f1_b": 0.7876333467663155,
+        "a": 6262,
+        "b": 352,
+        "c": 315,
+        "d": 830,
+        "chi2": 1.9430284857571214,
+        "p_value": 0.1633400828170672,
+        "diff_macro_f1": -0.0004254584390842586,
+        "diff_low": -0.011321411278412616,
+        "diff_high": 0.013779599215209336,
+        "mcnemar_significant": false,
+        "bootstrap_significant": false
+      }
+    },
+    {
+      "question": "Legal-BERT (4 epochs) versus TF-IDF",
       "a": "legal_bert",
       "b": "tfidf",
       "test": {
@@ -119,6 +182,47 @@
         "diff_macro_f1": -0.02618700869885393,
         "diff_low": -0.0387380685258504,
         "diff_high": -0.006833174491753821,
+        "mcnemar_significant": false,
+        "bootstrap_significant": true
+      }
+    },
+    {
+      "question": "longer training, same model",
+      "a": "legal_bert_long",
+      "b": "legal_bert",
+      "test": {
+        "n": 10000,
+        "accuracy_a": 0.8816,
+        "accuracy_b": 0.8737,
+        "macro_f1_a": 0.8250097298566245,
+        "macro_f1_b": 0.7929307672715449,
+        "a": 8501,
+        "b": 315,
+        "c": 236,
+        "d": 948,
+        "chi2": 11.041742286751361,
+        "p_value": 0.0008908310242832464,
+        "diff_macro_f1": 0.032078962585079585,
+        "diff_low": 0.019069746574400116,
+        "diff_high": 0.04298698151034646,
+        "mcnemar_significant": true,
+        "bootstrap_significant": true
+      },
+      "test_dedup": {
+        "n": 7759,
+        "accuracy_a": 0.8524294367830906,
+        "accuracy_b": 0.8495940198479185,
+        "macro_f1_a": 0.7872078883272312,
+        "macro_f1_b": 0.7614463380674615,
+        "a": 6365,
+        "b": 249,
+        "c": 227,
+        "d": 918,
+        "chi2": 0.9264705882352942,
+        "p_value": 0.3357817229855862,
+        "diff_macro_f1": 0.025761550259769672,
+        "diff_low": 0.01140224800122187,
+        "diff_high": 0.03698645799728343,
         "mcnemar_significant": false,
         "bootstrap_significant": true
       }

@@ -1,0 +1,137 @@
+{
+  "party_roles": {
+    "n": 1000,
+    "flip_rate": 0.021,
+    "flip_low": 0.013,
+    "flip_high": 0.03,
+    "ctrl_flip_rate": 0.02,
+    "ctrl_low": 0.012,
+    "ctrl_high": 0.029,
+    "diff": 0.001,
+    "diff_low": -0.008,
+    "diff_high": 0.01,
+    "acc_orig": 0.896,
+    "acc_orig_low": 0.878,
+    "acc_orig_high": 0.915,
+    "acc_edit": 0.898,
+    "acc_edit_low": 0.878,
+    "acc_edit_high": 0.917,
+    "acc_ctrl": 0.897,
+    "acc_ctrl_low": 0.877,
+    "acc_ctrl_high": 0.915,
+    "decision": "pass",
+    "examples": [
+      {
+        "idx": 672,
+        "original": "Employee represents and warrants to the Company that, to the best of his knowledge, Employee is under no duty (whether contractual, fiduciary, or otherwise) that would prevent, restrict, or limit Employee from fully performing all duties and services for the Company, and the performance of such duti",
+        "edited": "Employer represents and warrants to the Company that, to the best of his knowledge, Employer is under no duty (whether contractual, fiduciary, or otherwise) that would prevent, restrict, or limit Employer from fully performing all duties and services for the Company, and the performance of such duti",
+        "label_before": "Representations",
+        "label_after": "Warranties"
+      },
+      {
+        "idx": 4190,
+        "original": "This Agreement shall be binding upon, and shall inure to the benefit of, Employee the Estate, but Employee may not assign or pledge this Agreement or any rights arising under it, except to the extent permitted under the terms of the Company plans in which Employee participates. Without Employee\u2019s co",
+        "edited": "This Agreement shall be binding upon, and shall inure to the benefit of, Employer the Estate, but Employer may not assign or pledge this Agreement or any rights arising under it, except to the extent permitted under the terms of the Company plans in which Employer participates. Without Employer\u2019s co",
+        "label_before": "Assignments",
+        "label_after": "Successors"
+      },
+      {
+        "idx": 4259,
+        "original": "Each Borrower hereby consents and agrees that, without notice to or by Borrower and without affecting or impairing in any way the obligations or liability of Borrower hereunder, Collateral Agent and the Lenders may, from time to time before or after revocation of this Agreement, do any one or more o",
+        "edited": "Each Lender hereby consents and agrees that, without notice to or by Lender and without affecting or impairing in any way the obligations or liability of Lender hereunder, Collateral Agent and the Borrowers may, from time to time before or after revocation of this Agreement, do any one or more of th",
+        "label_before": "Consents",
+        "label_after": "Modifications"
+      },
+      {
+        "idx": 5424,
+        "original": "Other than with respect to actions by the Borrowers to enforce this Note or the Securities Purchase Agreement regarding which a court of competent jurisdiction has issued a final, non-appealable order determining that Borrowers were not entitled to such enforcement, the Borrowers agree, jointly and ",
+        "edited": "Other than with respect to actions by the Lenders to enforce this Note or the Securities Purchase Agreement regarding which a court of competent jurisdiction has issued a final, non-appealable order determining that Lenders were not entitled to such enforcement, the Lenders agree, jointly and severa",
+        "label_before": "Indemnity",
+        "label_after": "Indemnifications"
+      },
+      {
+        "idx": 5589,
+        "original": "This Non-Employee Director Cash Compensation Policy (\u201c Policy \u201d) was adopted by the Board of Directors (\u201c Board \u201d) of Calix, Inc. (\u201c Company \u201d) on and is effective as of June 7, 2018.",
+        "edited": "This Non-Employer Director Cash Compensation Policy (\u201c Policy \u201d) was adopted by the Board of Directors (\u201c Board \u201d) of Calix, Inc. (\u201c Company \u201d) on and is effective as of June 7, 2018.",
+        "label_before": "General",
+        "label_after": "Effective Dates"
+      }
+    ]
+  },
+  "jurisdiction": {
+    "n": 447,
+    "flip_rate": 0.006711409395973154,
+    "flip_low": 0.0,
+    "flip_high": 0.015659955257270694,
+    "ctrl_flip_rate": 0.029082774049217,
+    "ctrl_low": 0.013422818791946308,
+    "ctrl_high": 0.04697986577181208,
+    "diff": -0.02237136465324385,
+    "diff_low": -0.040268456375838924,
+    "diff_high": -0.006711409395973154,
+    "acc_orig": 0.9105145413870246,
+    "acc_orig_low": 0.8814317673378076,
+    "acc_orig_high": 0.9351230425055929,
+    "acc_edit": 0.9060402684563759,
+    "acc_edit_low": 0.8769574944071589,
+    "acc_edit_high": 0.9328859060402684,
+    "acc_ctrl": 0.8970917225950783,
+    "acc_ctrl_low": 0.8657718120805369,
+    "acc_ctrl_high": 0.9239373601789709,
+    "decision": "pass",
+    "examples": [
+      {
+        "idx": 969,
+        "original": "This Purchase Agreement shall be binding upon the parties hereto, their heirs, executors, successors, and legal representatives. The laws of the State of Delaware shall govern the rights of the parties as to this Agreement.",
+        "edited": "This Purchase Agreement shall be binding upon the parties hereto, their heirs, executors, successors, and legal representatives. The laws of England and Wales shall govern the rights of the parties as to this Agreement.",
+        "label_before": "Miscellaneous",
+        "label_after": "Binding Effects"
+      },
+      {
+        "idx": 2082,
+        "original": "Each party submits to the nonexclusive jurisdiction of the United States District Court for the Southern District of New York and of any New York State Court sitting in New York, New York for legal proceedings relating to this Agreement. Each party irrevocably waives, to the fullest extent permitted",
+        "edited": "Each party submits to the nonexclusive jurisdiction of the United States District Court for the Southern District of England and Wales and of any England and Wales State Court sitting in England and Wales, England and Wales for legal proceedings relating to this Agreement. Each party irrevocably wai",
+        "label_before": "Submission To Jurisdiction",
+        "label_after": "Consent To Jurisdiction"
+      },
+      {
+        "idx": 8485,
+        "original": "Each party submits to the nonexclusive jurisdiction of the United States District Court for the Southern District of New York and of any New York State Court sitting in New York, New York for legal proceedings relating to this Agreement.\u00a0 Each party irrevocably waives, to the fullest extent permitte",
+        "edited": "Each party submits to the nonexclusive jurisdiction of the United States District Court for the Southern District of England and Wales and of any England and Wales State Court sitting in England and Wales, England and Wales for legal proceedings relating to this Agreement.\u00a0 Each party irrevocably wa",
+        "label_before": "Submission To Jurisdiction",
+        "label_after": "Consent To Jurisdiction"
+      }
+    ]
+  },
+  "number_format": {
+    "n": 561,
+    "flip_rate": 0.0017825311942959,
+    "flip_low": 0.0,
+    "flip_high": 0.0053475935828877,
+    "ctrl_flip_rate": 0.0035650623885918,
+    "ctrl_low": 0.0,
+    "ctrl_high": 0.008912655971479501,
+    "diff": -0.0017825311942959,
+    "diff_low": -0.008912655971479501,
+    "diff_high": 0.0035650623885918,
+    "acc_orig": 0.8841354723707665,
+    "acc_orig_low": 0.8573529411764707,
+    "acc_orig_high": 0.9090909090909091,
+    "acc_edit": 0.8859180035650623,
+    "acc_edit_low": 0.857397504456328,
+    "acc_edit_high": 0.910873440285205,
+    "acc_ctrl": 0.8841354723707665,
+    "acc_ctrl_low": 0.8573529411764707,
+    "acc_ctrl_high": 0.9090909090909091,
+    "decision": "pass",
+    "examples": [
+      {
+        "idx": 2266,
+        "original": " without Cause pursuant to Section \u00a03(a)(iv) , or pursuant to Section \u00a03(a)(v) due to Executive\u2019s resignation for Good Reason, in either case, within 60 days prior to or 12 months following the date of a Change in Control, subject to Executive signing on or before the 21st day following Executive\u2019s ",
+        "edited": " without Cause pursuant to Section \u00a03(a)(iv) , or pursuant to Section \u00a03(a)(v) due to Executive\u2019s resignation for Good Reason, in either case, within sixty (60) days prior to or twelve (12) months following the date of a Change in Control, subject to Executive signing on or before the 21st day follo",
+        "label_before": "General",
+        "label_after": "Change In Control"
+      }
+    ]
+  }
+}

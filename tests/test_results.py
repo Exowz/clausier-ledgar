@@ -71,7 +71,11 @@ def test_results_and_lora_tables_read_run_artifacts(runs):
 
 def test_pairs_use_present_models_and_best_legal_bert(runs):
     outputs, _ = runs
-    assert results.pairs(outputs) == [("legal_bert_long", "tfidf", "main comparison")]
+    assert results.pairs(outputs) == [
+        ("legal_bert_long", "tfidf", "main comparison"),
+        ("legal_bert", "tfidf", "Legal-BERT (4 epochs) versus TF-IDF"),
+        ("legal_bert_long", "legal_bert", "longer training, same model"),
+    ]
 
 
 def test_print_best_outputs_only_run_name(runs, capsys):
@@ -92,7 +96,7 @@ def test_main_writes_tables_pair_results_and_figure(runs, tmp_path, capsys):
     assert "Best Legal-BERT run, chosen on validation macro-F1: Legal-BERT (up to 10 epochs)." in markdown
     assert "main comparison" in markdown
     assert len(data["results_table"]) == 3
-    assert len(data["pairs"]) == 1
+    assert len(data["pairs"]) == 3
     assert data["reference_lexglue"][2] == {"model": "Legal-BERT", "micro_f1": 88.2, "macro_f1": 83.0}
     assert (out / "figures" / "model_comparison.png").is_file()
     assert (out / "audit" / "compare_legal_bert_long_vs_tfidf.json").is_file()

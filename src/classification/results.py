@@ -104,8 +104,11 @@ def pairs(outputs_dir: Path) -> list[tuple[str, str, str]]:
     """Return the prespecified comparisons for pairs of available runs."""
     available = set(present_runs(outputs_dir))
     best = best_legal_bert(outputs_dir)
-    requested = [
-        (best, "tfidf", "main comparison"),
+    requested = [(best, "tfidf", "main comparison")]
+    if best != "legal_bert":
+        requested.append(("legal_bert", "tfidf", "Legal-BERT (4 epochs) versus TF-IDF"))
+    requested += [
+        ("legal_bert_long", "legal_bert", "longer training, same model"),
         ("legal_bert", "bert_base", "legal pretraining, same 4-epoch budget"),
         ("legal_bert_lora", "legal_bert", "LoRA versus full fine-tuning, same budget"),
         ("legal_bert_lora_long", "legal_bert_long", "LoRA versus full fine-tuning, up to 10 epochs"),
