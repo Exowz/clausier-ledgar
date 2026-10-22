@@ -3,6 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "data": "cd .. && HF_HUB_OFFLINE=1 PYTHONPATH=. .venv/bin/python slides/scripts/build_data.py",
     "figures": "rm -rf public/figures && mkdir -p public && cp -R ../reports/figures public/figures",
     "predev": "npm run figures",
     "prebuild": "npm run figures",
@@ -15,6 +16,13 @@
   },
   "dependencies": {
     "@slidev/cli": "53.0.0",
-    "@slidev/theme-default": "0.25.0"
+    "@slidev/theme-default": "0.25.0",
+    "d3": "7.9.0",
+    "echarts": "5.5.1",
+    "gsap": "3.12.5",
+    "three": "0.170.0"
+  },
+  "devDependencies": {
+    "playwright-chromium": "1.48.2"
   }
 }
