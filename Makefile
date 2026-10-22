@@ -3,7 +3,11 @@ PYTHON ?= .venv/bin/python
 .PHONY: setup test lint eda baseline train-smoke retrieval audit counterfactual results final
 
 setup:
-	python3.11 -m venv .venv && .venv/bin/pip install -r requirements.txt
+	if command -v uv >/dev/null 2>&1; then \
+		uv venv --python 3.11 .venv && uv pip install --python .venv/bin/python -r requirements.txt; \
+	else \
+		python3.11 -m venv .venv && .venv/bin/pip install -r requirements.txt; \
+	fi
 
 test:
 	$(PYTHON) -m pytest

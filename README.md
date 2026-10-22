@@ -533,12 +533,13 @@ reports/: results.md, audit tables, figures  →  MODEL_CARD.md, slides/
 
 ## Installation and setup
 
-Prerequisites: Python 3.11. A GPU (Colab or Kaggle) for the transformer runs.
+Prerequisites: Python 3.11, or [uv](https://docs.astral.sh/uv/), which downloads Python 3.11 itself. A GPU (Colab or
+Kaggle) for the transformer runs.
 
 1. Create the environment and run the tests:
 
    ```bash
-   make setup          # python3.11 -m venv .venv and pip install -r requirements.txt
+   make setup          # .venv with Python 3.11 (uv if installed, else python3.11 -m venv), then requirements.txt
    make test && make lint
    ```
 
