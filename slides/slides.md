@@ -19,7 +19,7 @@ import { deck } from '@deck'
   <ClauseField />
   <div class="title-copy">
     <Headline text="Clausier" eyebrow="CONTRACT REVIEW, WITH THE EVIDENCE" />
-    <p data-r="1" class="presenters">Ewan · Wiyao TAKOUGNADI</p>
+    <p data-r="1" class="presenters">Mathew Kristoffer Ewan KAPOOR · Wiyao TAKOUGNADI</p>
     <p data-r="2" class="course">Deep Learning for Sequential Data and NLP · Albert School · 23 October 2026</p>
   </div>
   <TypeClause clause="This Agreement shall be governed by the laws of the State of New York." label="Governing Laws" />
