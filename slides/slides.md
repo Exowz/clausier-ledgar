@@ -513,6 +513,78 @@ To conclude, what we recommend to the start-up.
 [click] And the limits: everything was trained on US contracts filed with the SEC. It is not for European or non-English contracts without a new evaluation, and never without human review. It is not legal advice.
 
 Everything is reproducible from the repository, with the model card. Thank you, we are happy to take your questions.
+
+---
+
+**QUESTIONS AND ANSWERS · keep this slide on the projector, scroll here**
+
+**DATA AND EVALUATION**
+
+**Why macro-F1, not weighted F1 or accuracy?** The 100 types are very unequal (3,167 against 23 training clauses). Accuracy and weighted F1 are dominated by frequent types; macro-F1 gives each type the same weight, so rare types cannot be ignored.
+
+**How did you detect near copies? Why 0.9?** TF-IDF cosine between each test clause and its closest training clause: 451 exact copies, 1,790 at 0.9 or more. The threshold is a choice, so we report both test sets, and the conclusion (a tie) is the same on both.
+
+**TRAP · Did you use the test set to choose anything?** No for the models: C for TF-IDF and the best Legal-BERT run were chosen on validation only. The calibration threshold and the conformal quantile are fitted on validation too. Exception: the label merge, see below.
+
+**How did you handle class imbalance?** TF-IDF with balanced class weights was tried: 0.812 on validation against 0.822 without, so it was not kept. Transformers: plain cross-entropy, early stopping on validation macro-F1.
+
+**TRANSFORMERS**
+
+**Describe your training loop.** Hand-written PyTorch, as in S06: AdamW, learning rate 3e-5, weight decay 0.01; linear warmup over 10% of the steps then linear decay; gradient clipping at 1.0; fp16; batch 32; validation each epoch; early stopping on macro-F1, patience 2 for the long runs; the best epoch's weights are restored before testing.
+
+**How is the clause classified from BERT?** The [CLS] representation goes through a linear layer to 100 outputs, then softmax; trained with cross-entropy.
+
+**Why 256 tokens and not 512?** 12% of training clauses are truncated at 256, 1.5% at 512, and 512 costs two to three times more. Truncated clauses are not worse (accuracy 0.896 against 0.882), because the type is usually stated at the start of the clause.
+
+**Why is Legal-BERT not better than TF-IDF?** Many types are recognised by a few key words, which TF-IDF captures well; 22% of errors come from overlapping labels, a ceiling for every model; we read 256 tokens; and even in LexGLUE the gap is only 1.6 points.
+
+**Why does validation loss rise while macro-F1 improves?** Cross-entropy keeps pushing confident predictions and punishes confident mistakes heavily: the model gets more clauses right but becomes overconfident on its errors. Calibration measures it: error 0.085, corrected to 0.031.
+
+**Why not CamemBERT or a bigger model?** The contracts are English; CamemBERT is French (S03 tokeniser exercise). RoBERTa-large reaches 83.6 in LexGLUE, only 0.6 above Legal-BERT, with three times the parameters.
+
+**LORA**
+
+**Explain LoRA.** The pretrained weight W is frozen; we add a low-rank update W + (alpha / r) B A, rank 8, alpha 16, on the query and value projections of every layer, and train the classification head. B starts at zero, so training starts from the pretrained model. After training B A is merged into W: no extra cost at prediction time.
+
+**0.34% of the weights, but only 21% less time per epoch?** The forward and backward passes still go through the whole network: the gradient must flow back through every frozen layer to reach the first LoRA layers. LoRA saves memory for gradients and Adam states (0.44 GB against 1.75 GB), not computation.
+
+**Why learning rate 1e-3 for LoRA?** The adapters start at zero and are small, so they need a larger learning rate than full fine-tuning, as in TP06.
+
+**LSTM**
+
+**Describe the LSTM and why it is worse.** TP04 pipeline: regex tokeniser, vocabulary on train (minimum frequency 2), embeddings of size 50, one LSTM layer of 128, packed sequences, Adam. 7.7 points below TF-IDF: it learns everything from scratch, rare types have too few examples, long clauses are hard for a recurrent model. GloVe adds 0.3, not significant.
+
+**STATISTICS**
+
+**TRAP · Many tests: did you correct for multiple comparisons?** No. The main comparison was written in advance; the others are secondary. With Bonferroni over about 8 tests (threshold about 0.006), LoRA against full fine-tuning (p below 0.0001) still holds; Legal-BERT against BERT-base (p = 0.015) would not on accuracy, although its bootstrap interval excludes 0.
+
+**TRAP · A single seed?** Yes, seed 42: variation between seeds is not measured, a stated limit. A gap of -0.001 is well inside typical seed variation, which supports the tie.
+
+**Why a paired bootstrap, not a t-test?** Macro-F1 is not a mean over clauses. The bootstrap resamples the same clauses for both models and gives an interval for the difference without assuming its distribution.
+
+**How does McNemar work?** Only disagreements count: 366 clauses only Legal-BERT gets right, 331 only TF-IDF. If the models were equal, each would be a coin flip. Chi-squared = (|366 - 331| - 1)^2 / 697 = 1.66, p = 0.20: not significant.
+
+**RETRIEVAL**
+
+**How does dense search work?** all-MiniLM-L6-v2 maps each clause to 384 numbers, normalised to length 1, so cosine is a dot product D @ q (TP03). Exact search over 60,000 clauses: 4 seconds for 1,000 queries, no FAISS needed.
+
+**TRAP · Is "same label = relevant" a weak proxy?** Yes: it rewards a clause of the right type that does not answer the question, and penalises right answers filed under an overlapping label. That is why 18 lawyer questions were also read by hand.
+
+**Why TF-IDF from a clause, MiniLM from a question?** A clause shares its exact wording with clauses of its type, ideal for TF-IDF; a question shares meaning but few words, ideal for embeddings.
+
+**ADDITIONS**
+
+**TRAP · The 9 label pairs were chosen from test confusions and measured on the same test set: circular?** Yes, so the 22% is optimistic, an upper bound. That is why it is labelled exploratory and does not change the recommendation. The clean design selects the pairs on validation.
+
+**What does conformal prediction guarantee?** 90% coverage on average over clauses, if new contracts resemble the validation data. Not per class: a rare class can be under-covered.
+
+**Why word erasure, not SHAP or attention?** Simple, works for any model including TF-IDF, and checked as faithful with ERASER. Attention weights are not a reliable explanation of the decision.
+
+**TRAP · Is the missing-clause evaluation realistic?** Optimistic: simulated contracts are perfectly split clauses. Splitting a real contract is not evaluated; next step is real contracts with the start-up.
+
+**Why is int8 slower?** On this ARM laptop PyTorch's int8 kernels are less optimised than full precision; reported speed-ups are on server CPUs.
+
+**If stuck:** say what was measured, its limit, and what you would do next.
 -->
 
 ---
