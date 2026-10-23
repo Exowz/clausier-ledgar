@@ -84,6 +84,8 @@ The data is LEDGAR, from the LexGLUE benchmark: 80,000 clauses from contracts fi
 The chart shows the main difficulty: the 100 types are very unequal. Governing Laws has 3,167 training clauses, Books only 23. A model can look good on accuracy while failing every rare type, so our headline metric is macro-F1, which gives every type the same weight.
 
 We also found that 2,241 test clauses are copies or near copies of training clauses. So every result is reported twice: on the full test set, and on the 7,759 clauses left once those copies are removed.
+
+**If asked: why remove near copies?** Contracts reuse boilerplate, so 451 test clauses are exact copies of training clauses and 1,790 are near copies (TF-IDF cosine of at least 0.9). They make every model look better than it will be on a client's new contracts: both our best models lose 3.8 macro-F1 points without them. So the realistic figure for the client is about 0.79, not 0.83.
 -->
 
 ---
@@ -220,6 +222,10 @@ How does this compare with the state of the art? The LexGLUE benchmark publishes
 Then the question every client asks: why not just use ChatGPT? A 2023 study tested it on the same task: 56.7 macro-F1 without examples, and even lower with examples. Our classifier is 26 points ahead.
 
 To be fair, newer models may do better. But ours answers in milliseconds, offline, always with one of the 100 types, and no contract ever leaves the client's machine.
+
+**If asked: the sources.** LexGLUE: Chalkidis and colleagues, ACL 2022, the benchmark that includes LEDGAR. ChatGPT: Chalkidis 2023, "ChatGPT may pass the bar exam soon, but has a long way to go for the LexGLUE benchmark", gpt-3.5-turbo on 1,000 LEDGAR test clauses, 70.1 micro-F1 and 56.7 macro-F1 without examples, 62.1 and 51.1 with examples.
+
+**If asked: why not rerun a recent model?** It needs paid calls and sending contract text to a third party, which is exactly what a law firm cannot do with real contracts. We cite the published study and say clearly that newer models may do better.
 -->
 
 ---
@@ -326,6 +332,10 @@ Training tells the same story: 44 seconds on a laptop CPU for TF-IDF, more than 
 We also tried compressing Legal-BERT to 8-bit integers. It becomes 2.4 times smaller, but on this laptop it is slower and 1.2 points less accurate, so it does not pay off here.
 
 For a start-up, this difference is servers, cost and latency.
+
+**If asked: how was it measured?** On our laptop, an Apple M2 Pro: the median of three timed runs on 1,000 test clauses, Legal-BERT in batches of 64. TF-IDF: 0.09 ms per clause; Legal-BERT: 31.8 ms on the CPU and 13.3 ms on the laptop GPU.
+
+**If asked: what is int8?** Dynamic quantisation stores the weights of the linear layers as 8-bit integers instead of 32-bit floats (Zafrir and colleagues, Q8BERT, 2019). The model becomes 2.4 times smaller, but on this ARM laptop it is 2.5 times slower and loses 1.2 macro-F1 points, with 94.7% of predictions unchanged. Speed-ups are reported on server CPUs, which we did not measure.
 -->
 
 ---
@@ -366,6 +376,12 @@ Now the audit. A clause type should not change when you change who the parties a
 The rule was fixed in advance: a test fails if more than 2% of predictions change and the change is clearly above its control. All three tests pass. Party roles sits just above 2%, but no higher than its control: the model reacts to any change of party words, not to which side holds the role.
 
 The analysis by kind of contract still finds a real weakness: on lease contracts, accuracy drops to 0.684, against 0.882 overall. We flag it as a known limit.
+
+**If asked: where does the method come from?** The audit was not covered in class, so it is built from published methods, each justified in the README. Slices measured with intervals: Dixon and colleagues, 2018. Invariance tests: Ribeiro and colleagues, CheckList, ACL 2020. Counterfactual edits: Garg and colleagues, 2019. The model card follows Mitchell and colleagues, 2019.
+
+**If asked: why a control edit?** Any edit can change a prediction, just because the text changed. The control is an edit of the same size that should not matter, for example Buyer to Purchaser instead of Buyer to Seller. The test only fails if the real edit changes clearly more predictions than its control: the difference interval must be entirely above zero.
+
+**If asked: why lease contracts?** They are only 187 test clauses, with their own vocabulary (landlord, tenant, premises), and the model sees few of them in training. We report it as a known weakness rather than hide it.
 -->
 
 ---
@@ -420,6 +436,12 @@ A legal tool must know when it is unsure. On the left, the confidence of Legal-B
 Then we chose a confidence threshold on validation data. On the test set, 83% of clauses are handled automatically, and 94.7% of those are right. The other 17% go to a person.
 
 We also give prediction sets: instead of one answer, a small set of types that contains the right one 90% of the time, with about one type per clause on average. When the set has two types, it is most often one of our overlapping pairs.
+
+**If asked: how does temperature scaling work?** The model's scores are divided by one number, the temperature, chosen on the validation set to make the probabilities honest (Guo and colleagues, ICML 2017). The order of the scores does not change, so no prediction changes: only the confidence becomes reliable.
+
+**If asked: how is the threshold chosen?** On the validation set, as the lowest confidence for which the clauses above it are 95% correct. It is then applied unchanged to the test set: 83% of clauses pass it, and 94.7% of those are right.
+
+**If asked: what is a prediction set?** Split conformal prediction (Angelopoulos and Bates, 2021): a threshold computed on validation so that the set contains the true type 90% of the time, whatever the model, as long as new contracts resemble the validation ones. We measured 89.7 to 89.8% on test. An empty set means no type is plausible enough, and the clause goes to a person.
 -->
 
 ---
@@ -516,4 +538,112 @@ Everything is reproducible from the repository, with the model card. Thank you, 
 **Is the tie robust?** Yes: no significant difference on the full test set (p = 0.20) or on the deduplicated one (p = 0.16).
 
 **Why LoRA?** It trains 0.34% of the weights with a quarter of the memory, for 1 to 2 points of macro-F1.
+-->
+
+---
+
+<script setup>
+import { deck } from '@deck'
+const occ = deck.occlusion
+const pct = (v) => `${Math.round(v * 1000) / 10}%`
+const occOption = {
+  animationDuration: 900,
+  animationDelay: (index) => index * 160,
+  grid: { left: 70, right: 30, top: 60, bottom: 60 },
+  legend: { top: 0, textStyle: { fontSize: 18 } },
+  xAxis: { type: 'category', data: ['TF-IDF', 'Legal-BERT'], axisLabel: { fontSize: 19, color: '#f4efe6' } },
+  yAxis: { type: 'value', name: 'Drop in probability of the predicted type', nameTextStyle: { fontSize: 16, align: 'left' }, axisLabel: { fontSize: 17 } },
+  series: [
+    { name: 'Remove the 3 highlighted words', type: 'bar', barWidth: 70, itemStyle: { color: '#d4a853' }, label: { show: true, position: 'top', fontSize: 19, color: '#f4efe6', formatter: ({ value }) => value.toFixed(3) },
+      data: [occ.tfidf.comprehensiveness.mean_top_k_drop, occ.legal_bert_long.comprehensiveness.mean_top_k_drop] },
+    { name: 'Remove 3 random words', type: 'bar', barWidth: 70, itemStyle: { color: '#475569' }, label: { show: true, position: 'top', fontSize: 19, color: '#f4efe6', formatter: ({ value }) => value.toFixed(3) },
+      data: [occ.tfidf.comprehensiveness.mean_random_drop, occ.legal_bert_long.comprehensiveness.mean_random_drop] },
+  ],
+}
+</script>
+
+<div class="deck-slide">
+  <Stage />
+  <Headline text="Backup: the highlighted words really decide" eyebrow="BACKUP · EXPLANATIONS" emphasis="decide" />
+  <div class="two-col backup-split">
+    <EChart :option="occOption" height="440px" />
+    <div class="backup-aside">
+      <p data-r="1"><strong>Method.</strong> Remove each word in turn; its importance is how much the probability of the predicted type drops (word erasure).</p>
+      <p data-r="2"><strong>Check.</strong> On 200 test clauses, removing the 3 most important words changes the prediction {{ pct(occ.tfidf.comprehensiveness.top_k_changed_share) }} (TF-IDF) and {{ pct(occ.legal_bert_long.comprehensiveness.top_k_changed_share) }} (Legal-BERT) of the time, against {{ pct(occ.tfidf.comprehensiveness.random_changed_share) }} and {{ pct(occ.legal_bert_long.comprehensiveness.random_changed_share) }} for 3 random words.</p>
+      <p data-r="3" class="backup-source">Li, Monroe and Jurafsky 2016 (erasure) · DeYoung et al. 2020, ERASER (ACL)</p>
+    </div>
+  </div>
+  <DeckFooter n="Backup" speaker="Questions" />
+</div>
+
+<!--
+**QUESTIONS · word-level explanations**
+
+What the app highlights: for each word, we remove it and measure how much the probability of the predicted clause type drops. That is word erasure, from Li, Monroe and Jurafsky, 2016.
+
+Why you can trust it: an explanation is only useful if the highlighted words really drive the decision. So we ran the ERASER check from DeYoung and colleagues, 2020: on 200 test clauses, removing the 3 most important words lowers the probability about ten times more than removing 3 random words, and changes the prediction about a quarter of the time, against about 5% for random words.
+
+The limit: in long clauses that repeat their key words, removing a single word changes little, so the importance can look low everywhere; and we explain the first 200 words only.
+-->
+
+---
+
+<script setup>
+import { deck } from '@deck'
+const runs = deck.missing_clauses.runs
+const settings = deck.missing_clauses.settings
+const pct = (v) => `${Math.round(v * 1000) / 10}%`
+</script>
+
+<div class="deck-slide">
+  <Stage />
+  <Headline text="Backup: finding the clauses a contract lacks" eyebrow="BACKUP · MISSING CLAUSES" emphasis="lacks" />
+  <div class="missing-grid">
+    <div v-for="(run, index) in runs" :key="run.run" :data-r="index + 1" class="missing-card">
+      <span class="missing-model">{{ run.run === 'tfidf' ? 'TF-IDF' : 'Legal-BERT' }}</span>
+      <div><strong><CountUp :value="run.missing_recall * 100" :decimals="1" suffix="%" /></strong><span>of missing clauses found</span></div>
+      <div><strong><CountUp :value="run.missing_precision * 100" :decimals="1" suffix="%" /></strong><span>of "missing" flags right</span></div>
+    </div>
+  </div>
+  <p data-r="3" class="backup-method"><strong>How it is measured.</strong> LEDGAR has single clauses, not contracts, so we simulate {{ settings.n_contracts }} contracts: each of the {{ deck.missing_clauses.checklist.length }} standard clause types is included with probability {{ settings.keep_prob }}, plus {{ settings.n_other }} other clauses. A type is "present" when a clause of that type passes the confidence threshold, "check" when only uncertain clauses have it, "missing" otherwise.</p>
+  <p data-r="4" class="backup-source">Limit: splitting a real contract into clauses is not evaluated.</p>
+  <DeckFooter n="Backup" speaker="Questions" />
+</div>
+
+<!--
+**QUESTIONS · missing clauses**
+
+What it does: the app splits a contract into clauses, classifies each one, and checks the 12 most frequent clause types of the training data: governing law, notices, counterparts, entire agreement, severability, and so on. Each type is marked present, to check, or missing, using the same calibrated confidence threshold as the rest of the product.
+
+How we measured it: LEDGAR contains single clauses, not whole contracts, so we built 500 simulated contracts from real test clauses, leaving out some standard types on purpose. About 95 to 96% of the truly missing clauses are found, and 86 to 87% of the "missing" flags are right.
+
+The limit: splitting a real contract into clauses, at blank lines, is not evaluated. That would need real contracts, which is the natural next step with the start-up.
+-->
+
+---
+
+<div class="deck-slide">
+  <Stage />
+  <Headline text="Backup: every addition, its method and its source" eyebrow="BACKUP · METHODS" emphasis="source" />
+  <table data-r="1" class="sources-table">
+    <thead><tr><th>Addition</th><th>Question it answers</th><th>Method</th><th>Source</th></tr></thead>
+    <tbody>
+      <tr><td>Bias audit</td><td>Does it depend on parties or law?</td><td>Slices with intervals, edits with controls, rule fixed in advance</td><td>Dixon 2018 · Ribeiro 2020 · Garg 2019</td></tr>
+      <tr><td>Near copies removed</td><td>Will it hold on new contracts?</td><td>TF-IDF cosine of at least 0.9 to a training clause</td><td>Project analysis</td></tr>
+      <tr><td>Positioning</td><td>Is it the state of the art?</td><td>Published LexGLUE and ChatGPT results</td><td>Chalkidis 2022 · Chalkidis 2023</td></tr>
+      <tr><td>Calibration</td><td>Can the confidence be trusted?</td><td>Temperature scaling on validation, threshold for 95% accuracy</td><td>Guo et al. 2017</td></tr>
+      <tr><td>Prediction sets</td><td>"One of these two types"</td><td>Split conformal prediction, 90% coverage</td><td>Angelopoulos and Bates 2021</td></tr>
+      <tr><td>Cost and int8</td><td>What does it cost to run?</td><td>Timed on a laptop; dynamic quantisation</td><td>Zafrir et al. 2019</td></tr>
+      <tr><td>Overlapping labels</td><td>Model or label set?</td><td>Nine pairs merged by a rule fixed before measuring</td><td>Confusion analysis · Tuggener 2020</td></tr>
+      <tr><td>Explanations</td><td>Why this type?</td><td>Word erasure, checked with ERASER</td><td>Li 2016 · DeYoung 2020</td></tr>
+      <tr><td>Missing clauses</td><td>What does a contract lack?</td><td>12-type checklist, 500 simulated contracts</td><td>Project analysis</td></tr>
+    </tbody>
+  </table>
+  <DeckFooter n="Backup" speaker="Questions" />
+</div>
+
+<!--
+**QUESTIONS · the additions in one sentence**
+
+The core of the project, checkpoints m1 to m5, follows the course and its labs. Everything beyond it answers a question the start-up would ask before buying: can I trust the confidence, what does it cost, what does it get wrong and why, and what is missing in my contract. Each addition uses a published method, cited in the README, and every number is produced by a script in the repository.
 -->

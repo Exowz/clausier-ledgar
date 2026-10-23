@@ -21,7 +21,7 @@
 .card,.query-compare>div,.example-card,.audit-aside,.reliability-wrap,.demo-frame,.typed-clause { background:var(--card); border:1px solid var(--line); border-radius:14px; box-shadow:inset 0 1px 0 rgba(255,255,255,.04); }
 .big-stat { font:140px/.9 'Instrument Serif',Georgia,serif; letter-spacing:-.035em; color:var(--gold); white-space:nowrap; }
 .big-stat .stat-unit { font:20px/1.2 'Inter Variable',sans-serif; letter-spacing:0; color:var(--muted); }
-.count-up { font:inherit; color:inherit; letter-spacing:inherit; }
+.count-up, .deck-slide .count-up { font:inherit !important; color:inherit !important; letter-spacing:inherit !important; }
 .label-pill,.chip { display:inline-flex; align-items:center; background:rgba(212,168,83,.11); color:var(--gold); border:1px solid rgba(212,168,83,.28); border-radius:100px; padding:7px 15px; font-size:18px; font-weight:500; }
 .echart { width:100%; min-width:0; }
 .title-slide { padding:58px 70px; overflow:hidden; }
@@ -304,3 +304,18 @@
 
 /* Ink behind the slides, so a receding slide never uncovers a light background. */
 #slideshow, .slidev-slide-container, .slidev-slides-container { background:var(--ink) !important; }
+.backup-split { grid-template-columns:640px 1fr; gap:40px; align-items:center; }
+.backup-aside p { font-size:20px !important; line-height:1.45; margin-bottom:18px !important; color:var(--ivory); }
+.backup-aside strong, .backup-method strong { color:var(--gold); font-weight:500; }
+.backup-source { color:var(--muted) !important; font-size:17px !important; }
+.missing-grid { display:grid; grid-template-columns:1fr 1fr; gap:28px; margin-top:26px; }
+.missing-card { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:22px 28px; display:grid; grid-template-columns:1fr 1fr; gap:10px 24px; }
+.missing-model { grid-column:1 / -1; font-size:15px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); }
+.missing-card strong { display:block; font:64px/1 'Instrument Serif',Georgia,serif; color:var(--gold); }
+.missing-card div > span { font-size:18px; color:var(--ivory); }
+.backup-method { margin-top:26px !important; font-size:19px !important; line-height:1.45; }
+.sources-table { width:100%; margin-top:14px; border-collapse:collapse; font-size:16px; }
+.sources-table th { text-align:left; font-weight:500; font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); padding:8px 10px; border-bottom:1px solid var(--line); }
+.sources-table td { padding:8px 10px; border-bottom:1px solid var(--line); color:var(--ivory); vertical-align:top; }
+.sources-table td:first-child { color:var(--gold); white-space:nowrap; }
+.sources-table td:last-child { color:var(--muted); }
